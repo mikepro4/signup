@@ -1,47 +1,55 @@
 define([
 
     // libraries
-    'backbone.marionette',
-    // routers
-    'jsx!assets/javascripts/routers/signup',
-    // controllers
-    'jsx!assets/javascripts/controllers/signup'
+    'react', 'react-router',
+
+    // components
+    'jsx!assets/javascripts/components/page1',
+    'jsx!assets/javascripts/components/page2',
 
 ], function (
 
     // libraries
-    Marionette,
-    // routers
-    SignupRouter,
-    // controllers
-    SignupController
+    React, Router,
+
+    // components
+    Page1, Page2
 
 ) {
-    'use strict';
 
-    var SignupApp = new (Marionette.Application.extend({
+    var TransitionGroup = React.addons.CSSTransitionGroup;
+    var Route = Router.Route;
+    var RouteHandler = Router.RouteHandler;
+    var Link = Router.Link;
 
-        // check if browser supports HTML5 pushState
-        browserSupportsPushState: function () {
-            return (true && window.history && window.history.pushState);
+    var App = React.createClass({
+        mixins: [ Router.State ],
+
+        render: function () {
+            var name = this.getRoutes().reverse()[0].name;
+
+            return (
+              <div>
+                <ul>
+                    <li><Link to="page1">Page 1</Link></li>
+                    <li><Link to="page2">Page 2</Link></li>
+                </ul>
+                <TransitionGroup component="div" transitionName="example">
+                    <RouteHandler key={name}/>
+                </TransitionGroup>
+              </div>
+            );
         }
-
-    }))();
-
-    // before application initialization hook
-    SignupApp.on('initialize:before', function (options) {
-        window.app = SignupApp; // the only global variable set by the application (besides libraries)
     });
 
-    SignupApp.addInitializer(function (options) {
-        var controller = new SignupController();
-        this.router = new SignupRouter({ controller: controller });
+    var routes = (
+        <Route handler={App}>
+            <Route name="page1" handler={Page1} addHandlerKey={true} />
+            <Route name="page2" handler={Page2} addHandlerKey={true} />
+        </Route>
+    );
+
+    Router.run(routes, function (Handler) {
+        React.render(<Handler/>, document.body);
     });
-
-    SignupApp.on('start', function (options) {
-        Backbone.history.start({ pushState: true });
-    });
-
-    return SignupApp;
-
 });

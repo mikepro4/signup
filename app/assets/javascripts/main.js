@@ -1,30 +1,14 @@
 define([
     // application
-    'assets/javascripts/app', 
-
-    // libraries
-    'domready'
-
-    // 'jsx!router'
+    'jsx!assets/javascripts/app', 
 
 ], function(
 
-    // application
-    Application, 
-
-    // libraries
-    domReady
+    // application – starts the app
+    App
 
 ) {
-
-    domReady(function () {
-
-        // initialize the application
-        Application.start({
-            root : window.location.pathname,
-            path_root : '/'
-        });
-
-    });
-    
+    // TODO – provide api to start the app
+    // Example – https://github.com/podio/requirejs-react-jsx
+    // app automaticallys start here from router which needs to be included via jsx!
 });
