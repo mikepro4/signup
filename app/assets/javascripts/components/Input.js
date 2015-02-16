@@ -33,6 +33,7 @@ define([
       });
 
       this.validateInput(event.target.value);
+      this.props.onChange(event);
     },
 
     validateInput: function (value) {

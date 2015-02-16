@@ -631,7 +631,7 @@ define([
           mouseLeave = this.unfocusOption.bind(this, op),
           mouseDown = this.selectValue.bind(this, op);
 
-        return <div ref={ref} key={'option-' + op.value} className={optionClass} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseDown={mouseDown} onClick={mouseDown}>{op.label}</div>;
+        return <div ref={ref} key={'option-' + op.value} className={optionClass} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onClick={mouseDown}>{op.label}</div>;
 
       }, this);
 

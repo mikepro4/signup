@@ -19,19 +19,19 @@ define([
 
     getInitialState: function(){
       return {
-        visibility: true
+        visibility: false
       }
     },
 
     componentWillReceiveProps: function (newProps) {
-      this.toggleFooter();
+      this.toggle();
     },
 
     componentDidUpdate: function () {
-      this.toggleFooter();
+      this.toggle();
     },
 
-    toggleFooter: function () {
+    toggle: function () {
       if(this.props.visibility) {
         return {display: 'block'}
       } else {
@@ -41,7 +41,7 @@ define([
 
     render: function () {
       return (
-          <footer className="application_footer" style={this.toggleFooter()}>
+          <footer className="application_footer" style={this.toggle()}>
             footer text
           </footer>
       );

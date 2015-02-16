@@ -8,6 +8,8 @@ define([
 
 ) { 
 
+  var API = '';
+
   var Markets = [
     {"id":11,"areaLat":33.7563,"areaLon":-84.3765,"areaZoom":11,"displayName":"Atlanta","urlName":"atlanta","name":"Atlanta","publiclyAvailable":true},
     {"id":27,"areaLat":null,"areaLon":null,"areaZoom":null,"displayName":"Austin","urlName":"austin","name":"Austin","publiclyAvailable":false},
@@ -34,8 +36,6 @@ define([
     init: function () {
       console.log('make a request to get all markets');
       // getJSON(API, function (err, res) {
-      //   res.forEach(function (market) {
-      //   });
       // });
     },
 

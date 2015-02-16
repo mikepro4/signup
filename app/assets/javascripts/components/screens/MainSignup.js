@@ -8,9 +8,9 @@ define([
 
   // components
   'jsx!assets/javascripts/components/Input',
-  'jsx!assets/javascripts/components/Dropdown',
   'jsx!assets/javascripts/components/Select',
-  'jsx!assets/javascripts/components/AppFooter'
+  'jsx!assets/javascripts/components/AppFooter',
+  'jsx!assets/javascripts/components/MarketInfo'
 
 ], function (
 
@@ -21,13 +21,13 @@ define([
   MarketStore,
 
   // compomnents
-  Input, Dropdown, Select, AppFooter
+  Input, Select, AppFooter, MarketInfo
 
 ) { 
 
   var MainSignupScreen = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation ],
+    mixins: [ Router.State, Router.Navigation, React.addons.LinkedStateMixin ],
 
     getInitialState: function(){
       return _.extend(
@@ -35,9 +35,8 @@ define([
         {
           buttonTitle: 'JOIN COMPSTAK',
           allMarkets: MarketStore.getMarkets(),
-          marketLaunched: false,
-          marketName: null,
-          footerVisibility: false
+          footerVisibility: false,
+          launchingSoon: false
         }
       )
     },
@@ -51,9 +50,9 @@ define([
 
     componentWillMount: function () {
       MarketStore.init();
+      this.selectMarketFromParams();
       this.selectContinueButtonTitle(this.state.market);
       this.toggleFooter(this.state.market)
-      this.selectMarketFromParams();
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -68,7 +67,7 @@ define([
     onSelect: function (selectedMarket) {
       this.transitionTo('/signup/' + selectedMarket);
       this.selectContinueButtonTitle(selectedMarket);
-      this.toggleFooter(selectedMarket)
+      this.toggleFooter(selectedMarket);
     },
 
     selectMarketFromParams: function () {
@@ -122,44 +121,47 @@ define([
       });
     },
 
-    getMarketDisplayName: function () {
-      var matchedMarked = MarketStore.getMarket(this.getParams().market);
-      if(!_.isUndefined(matchedMarked)){
-        return matchedMarked.displayName;
-      } else {
-        return 'Join CompStak';
-      }
-    },
 
     toggleFooter: function (value) {
       this.setState({
-        footerVisibility: this.getMarketState(value)
+        footerVisibility: this.getMarketState(value),
+        launchingSoon: !this.getMarketState(value)
       });
+    },
+
+    saveAndContinue: function() {
+        console.log("EMail: " + this.state.email);
+        console.log("Password: " + this.state.market);
     },
 
     render: function () {
       return (
         <div className="main_signup">
-          <h1 className="signup_main_title">{this.getMarketDisplayName()}</h1>
+          
+          <MarketInfo visibility={this.state.launchingSoon} market={this.state.market} />
+
           <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
           <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
 
-          <Input 
-            text="Email Address" 
-            defaultValue={this.state.email} 
-            validate={this.validateEmail}
-            value={this.state.email}
-          /> 
+          <form>
+            <Input 
+              text="Email Address" 
+              defaultValue={this.state.email} 
+              validate={this.validateEmail}
+              value={this.state.email}
+              onChange={this.handleEmailInput} 
+            /> 
 
-          <Select 
-            options={this.state.allMarkets} 
-            value={this.state.market} 
-            defaultValue={this.state.market} 
-            onChange={this.onSelect} 
-            searchable={this.props.searchable} 
-          />
+            <Select 
+              options={this.state.allMarkets} 
+              value={this.state.market} 
+              defaultValue={this.state.market} 
+              onChange={this.onSelect} 
+              searchable={this.props.searchable} 
+            />
 
-          <button onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 
+            <button type="button" onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 
+          </form>
 
           <AppFooter visibility={this.state.footerVisibility} />   
         </div>
