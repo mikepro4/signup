@@ -40,7 +40,6 @@ define([
     },
 
     render: function () {
-
       return (
           <footer className="application_footer" style={this.toggleFooter()}>
             footer text
