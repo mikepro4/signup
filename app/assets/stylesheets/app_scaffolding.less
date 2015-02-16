@@ -1,0 +1,51 @@
+//
+// Application Scaffolding
+// --------------------------------------------------
+
+// Path to bower components
+@component_path: "../../bower_components";
+@ui_path: "@{component_path}/ui/stylesheets";
+
+
+html {
+  .size(100%, 100%);
+  overflow: hidden;
+}
+
+body {
+  .display(absolute);
+  .size(100%, 100%);
+  -webkit-font-smoothing: subpixel-antialiased;
+  background: @body-bg;
+  overflow: hidden;
+  font: normal normal normal @font-size-base/@line-height-base @font-opensans-light;
+  min-width: 990px; // TODO - remove this when mobile version is developed
+  -webkit-overflow-scrolling: touch;
+  display: block;
+}
+
+.application_wrapper {
+  .display(absolute);
+  .size(100%, 100%);
+  .topLeft(0, 0);
+  overflow: hidden;
+  z-index: @layer1;
+
+  // Header
+  @import "ui_components/header.less";
+
+  // Footer
+  @import "ui_components/footer.less";
+
+  // Select
+  @import "ui_components/select.less";
+
+  section.application_content {
+    .display(absolute);
+    .topLeft(@header-height, 0);
+    .bottomRight(0, 0);
+    z-index: @layer1;
+  }
+}
+
+

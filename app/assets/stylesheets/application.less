@@ -1,23 +1,22 @@
-.page {
-  position: absolute;
-  height: 400;
-  width: 400;
-}
+// UI Setup - Vars, Resets, Fonts, Mixins
+// ======================================================
 
-.example-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
 
-  &.example-enter-active {
-    opacity: 1;
-  }
-}
+@import "ui_setup.less";
 
-.example-leave {
-  opacity: 1;
-  transition: opacity .5s ease-in;
 
-  &.example-leave-active {
-    opacity: 0.01;
-  }
-}
+// UI Components - Reusable elements
+//========================================================
+
+
+@import "ui_components.less";
+
+
+// App - main styles file
+//=======================================================
+
+
+@import "app_scaffolding.less";
+
+
+// =======================================================

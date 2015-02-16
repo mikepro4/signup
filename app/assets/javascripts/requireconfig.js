@@ -2,13 +2,11 @@ require.config({
     paths: {
         'jquery': 'bower_components/jquery/dist/jquery',
         'underscore': 'bower_components/underscore/underscore',
-        'simplestorage': 'bower_components/simpleStorage/simpleStorage',
         'text': 'bower_components/requirejs-text/text',
 
         // react
         'react': 'bower_components/react/react-with-addons',
         'react-router': 'bower_components/react-router/dist/react-router',
-        'formsy-react': 'bower_components/formsy-react/release/formsy-react',
         'jsx': 'bower_components/jsx-requirejs-plugin/js/jsx',
         'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer',
 

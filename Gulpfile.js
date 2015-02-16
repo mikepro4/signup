@@ -104,7 +104,7 @@ gulp.task('less', ['express', 'livereload'], function brewLess () {
                 .pipe(less({
                   paths: [ path.join(APP_ROOT, 'less', 'includes') ]
                 }).on('error', gutil.log))
-                .pipe(gulp.dest(APP_ROOT + '/assets/stylesheets/'))
+                .pipe(gulp.dest(APP_ROOT + '/assets/'))
                 .pipe(livereload(liveReloadServer));
     });
 });

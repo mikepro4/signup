@@ -1,55 +1,65 @@
 define([
 
-    // libraries
-    'react', 'react-router',
+  // libraries
+  'react', 'react-router',
 
-    // components
-    'jsx!assets/javascripts/components/page1',
-    'jsx!assets/javascripts/components/page2',
+  // components
+  'jsx!assets/javascripts/components/AppHeader',
+
+  // Screens
+  'jsx!assets/javascripts/components/screens/MainSignup',
 
 ], function (
 
-    // libraries
-    React, Router,
+  // libraries
+  React, Router,
 
-    // components
-    Page1, Page2
+  // components
+  AppHeader,
+
+  // Screens
+  MainSignup
 
 ) {
 
-    var TransitionGroup = React.addons.CSSTransitionGroup;
-    var Route = Router.Route;
-    var RouteHandler = Router.RouteHandler;
-    var Link = Router.Link;
+  var TransitionGroup = React.addons.CSSTransitionGroup;
+  var Route = Router.Route;
+  var Redirect = Router.Redirect;
+  var RouteHandler = Router.RouteHandler;
+  var Link = Router.Link;
 
-    var App = React.createClass({
-        mixins: [ Router.State ],
+  var App = React.createClass({
+    mixins: [ Router.State ],
 
-        render: function () {
-            var name = this.getRoutes().reverse()[0].name;
+    render: function () {
+        
+      return (
+         <div className="application_wrapper">
+            <AppHeader/>
 
-            return (
-              <div>
-                <ul>
-                    <li><Link to="page1">Page 1</Link></li>
-                    <li><Link to="page2">Page 2</Link></li>
-                </ul>
-                <TransitionGroup component="div" transitionName="example">
-                    <RouteHandler key={name}/>
-                </TransitionGroup>
-              </div>
-            );
-        }
-    });
+            <section className="application_content">
+              <RouteHandler {...this.props}/>
+            </section>
 
-    var routes = (
-        <Route handler={App}>
-            <Route name="page1" handler={Page1} addHandlerKey={true} />
-            <Route name="page2" handler={Page2} addHandlerKey={true} />
-        </Route>
-    );
+        </div>
+      );
+    }
+  });
 
-    Router.run(routes, function (Handler) {
-        React.render(<Handler/>, document.body);
-    });
+  var routes = (
+    <Route name="app" handler={App} path="/" >
+
+      <Route name="signup" path="/signup/" handler={MainSignup} />
+      <Route name="signup_market" path="/signup/:market" handler={MainSignup} />
+      <Route name="signup_email_market" path="/signup/:email/:market" handler={MainSignup} />
+      <Redirect from="/" to="signup"/>
+      <Redirect from="/:market" to="signup_market"/>
+      <Redirect from="/signup/:email/:market" to="signup_email_market"/>
+
+    </Route>
+  );
+
+  Router.run(routes, function (Handler) {
+    React.render(<Handler/>, document.body);
+  });
 });

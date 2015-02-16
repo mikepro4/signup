@@ -1,11 +1,11 @@
 define([
     // application
-    'jsx!assets/javascripts/app', 
+    'jsx!assets/javascripts/app'  
 
 ], function(
 
     // application – starts the app
-    App
+    App 
 
 ) {
     // TODO – provide api to start the app
