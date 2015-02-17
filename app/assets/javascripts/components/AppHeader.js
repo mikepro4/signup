@@ -17,33 +17,22 @@ define([
 
     getInitialState: function(){
       return {
-        mode: 'light'
+        mode: 'dark'
       }
     },
 
-    componentDidMount: function(){
-    },
-
-    componentWillUnmount: function(){
-    },
-
-    toggle: function () {
-      this.setState({ mode: 'dark' });
-    },
-
     buildToggleClassName: function () {
-      var headerClassName = 'application_header mode-' + this.state.mode;
+      var headerClassName = 'application_header mode-' + this.state.dark;
       return headerClassName;
     },
 
-
     render: function () {
 
-        return (
-            <header className={this.buildToggleClassName()}>
-                <Icon type="cs_logo"/>
-            </header>
-        );
+      return (
+          <header className={this.buildToggleClassName()}>
+              <Icon type="cs_logo"/>
+          </header>
+      );
     }
   });
 

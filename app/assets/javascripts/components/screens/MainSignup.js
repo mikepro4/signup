@@ -51,28 +51,50 @@ define([
     componentWillMount: function () {
       MarketStore.init();
       this.selectMarketFromParams();
-      this.selectContinueButtonTitle(this.state.market);
-      this.toggleFooter(this.state.market)
     },
 
-    componentWillReceiveProps: function (newProps) {
+    componentDidMount: function () {
+      MarketStore.addChangeListener(this.updateMarkets);
+
       this.setState({
-        email: this.getParams().email
+        allMarkets: MarketStore.getMarkets()
       })
+    },
+
+    componentWillUnmount: function () {
+      MarketStore.removeChangeListener(this.updateMarkets);
+    },
+
+    updateMarkets: function () {
+      this.setState({
+        allMarkets: MarketStore.getMarkets()
+      });
       this.selectMarketFromParams();
-      this.selectContinueButtonTitle(this.getParams().market);
-      this.toggleFooter(this.getParams().market);
+      this.toggleUI(this.state.market);
+    }, 
+
+    componentWillReceiveProps: function (newProps, newState) {
+
+      // update email from url if not undefined
+      if(this.getParams().email) {
+        this.setState({
+          email: this.getParams().email
+        })
+      }
+      
+      this.selectMarketFromParams();
+      this.toggleUI(this.getParams().market);
     },
 
     onSelect: function (selectedMarket) {
       this.transitionTo('/signup/' + selectedMarket);
-      this.selectContinueButtonTitle(selectedMarket);
-      this.toggleFooter(selectedMarket);
+      this.toggleUI(selectedMarket);
     },
 
     selectMarketFromParams: function () {
       var matchedMarket = MarketStore.getMarket(this.getParams().market);
 
+      // check if market from url params matched any of the markets
       if(!_.isEmpty(matchedMarket)){
         var marketValue = this.getParams().market
       } else {
@@ -82,31 +104,32 @@ define([
       this.setState({
         market: marketValue
       })
-
     },
 
     selectContinueButtonTitle: function (value) {
-      var continueButtonTitle;
+      var marketLaunched = this.getMarketState(value);
 
-      if(this.getMarketState(value)) {
-        continueButtonTitle = 'JOIN COMPSTAK';
+      if(marketLaunched) {
+         var continueButtonTitle = 'JOIN COMPSTAK';
       } else {
-        continueButtonTitle = 'JOIN EARLY';
+         var continueButtonTitle = 'JOIN EARLY';
       }
 
       this.setState({
         buttonTitle: continueButtonTitle
       })
-
     },
 
-    validateEmail: function (event) {
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(event);
+    toggleUI: function (value) {
+      this.setState({
+        footerVisibility: this.getMarketState(value),
+        launchingSoon: !this.getMarketState(value)
+      });
+      this.selectContinueButtonTitle(value);
     },
 
     getMarketState: function (marketValue) {
-      var currentMarket = _.findWhere(this.state.allMarkets, {value: marketValue});
+      var currentMarket = MarketStore.getMarket(marketValue);
 
       if(_.isEmpty(currentMarket)) {
         return true;
@@ -121,24 +144,21 @@ define([
       });
     },
 
-
-    toggleFooter: function (value) {
-      this.setState({
-        footerVisibility: this.getMarketState(value),
-        launchingSoon: !this.getMarketState(value)
-      });
+    validateEmail: function (event) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(event);
     },
-
+    
     saveAndContinue: function() {
-        console.log("EMail: " + this.state.email);
-        console.log("Password: " + this.state.market);
+      console.log("EMail: " + this.state.email);
+      console.log("Password: " + this.state.market);
     },
 
     render: function () {
       return (
         <div className="main_signup">
           
-          <MarketInfo visibility={this.state.launchingSoon} market={this.state.market} />
+          <MarketInfo markets={this.state.AllMarkets} visibility={this.state.launchingSoon} market={this.state.market} />
 
           <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
           <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
@@ -146,6 +166,7 @@ define([
           <form>
             <Input 
               text="Email Address" 
+              ref="email"
               defaultValue={this.state.email} 
               validate={this.validateEmail}
               value={this.state.email}

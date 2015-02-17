@@ -7,7 +7,7 @@ define([
   'jsx!assets/javascripts/components/AppHeader',
 
   // Screens
-  'jsx!assets/javascripts/components/screens/MainSignup',
+  'jsx!assets/javascripts/components/screens/MainSignup'
 
 ], function (
 

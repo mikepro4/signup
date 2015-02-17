@@ -41,9 +41,9 @@ define([
 
     render: function () {
       return (
-          <footer className="application_footer" style={this.toggle()}>
-            footer text
-          </footer>
+        <footer className="application_footer" style={this.toggle()}>
+          footer text
+        </footer>
       );
     }
   });

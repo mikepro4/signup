@@ -1,15 +1,10 @@
 define([
 
-  'react', 'underscore', 'jquery',
-
-  // mixins
-  'jsx!assets/javascripts/mixins/LocalStorageMixin',
+  'react', 'underscore', 'jquery'
 
 ], function (
 
-  React, _, $,
-
-  LocalStorageMixin
+  React, _, $
 
 ) { 
 
@@ -17,15 +12,12 @@ define([
 
     getInitialState: function(){
       var valid = (this.props.isValid && this.props.isValid()) || true;
-      this.displayName = this.props.text;
 
       return {
         valid: valid,
         value: null
       };
     },
-
-    mixins: [LocalStorageMixin],
 
     handleChange: function(event){
       this.setState({
@@ -60,18 +52,6 @@ define([
         })
       }   
     },
-
-    getInput: function() {
-      return this.refs.input;
-    },
-    
-    focus: function() {
-      this.refs.input.getDOMNode().focus();
-    },
-    
-    select: function() {
-      this.refs.input.getDOMNode().select();
-    },
     
     render: function(){
       var className = this.state.valid?'':'input-error';
@@ -85,8 +65,7 @@ define([
               {...this.props}
               placeholder={this.props.placeholder} 
               className="input input_text" 
-              type="text" 
-              ref="input"
+              type="text"
               onChange={this.handleChange} 
               defaultValue={this.props.defaultValue} 
               value={this.state.value} 
@@ -97,7 +76,6 @@ define([
       );
     }
   });
-
 
   return textInput;
 });
