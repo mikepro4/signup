@@ -1,0 +1,136 @@
+.input_group {
+  .display(relative);
+
+  label.input_label {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    z-index: @layer2;
+    cursor: text;
+    .user-select(none);
+
+    .label_text {
+      .display(absolute);
+      .topLeft(15px, 20px);
+      font-size: 24px;
+      font-family: @font-gotham-light;
+      letter-spacing: 1px;
+      opacity: .3;
+    }
+  }
+
+  &.input_empty.input_unfocused {
+    &:hover {
+      label.input_label {
+        .label_text {
+          opacity: .5;
+        }
+      }
+    }
+  }
+
+  &.input_focused {
+    label.input_label {
+      .bottomRight(40px, 0);
+    }
+  }
+
+  &.input_focused, &.input_hasValue {
+    label.input_label {
+      .label_text {
+        opacity: 1;
+        letter-spacing: .3px;
+        font-size: 11px;
+        .topLeft(14px, 20px);
+        font-family: @font-gotham-light;
+      }
+    }
+  }
+
+  &.input_unfocused.input_hasValue.input_valid {
+    label.input_label {
+      opacity: .3;
+      color: @dark-blue
+    }
+  }
+
+  input.input {
+    .display(relative);
+    .box-shadow(none);
+    .size(410px, 52px);
+    .border-radius(3px);
+    .transition(all 0.7s ease-in-out);
+    z-index: @layer1;
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    padding: 18px 15px 0 20px;
+    margin: 0 auto 13px auto;
+    color: @dark-blue;
+    font-family: @font-opensans-light;
+    letter-spacing: .5px;
+    font-family: @font-gotham-book;
+    font-size: 18px;
+
+
+    &.error {
+      background: #ffcfcf;
+
+      &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #ffcfcf inset;
+      }
+    }
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+      color: #cacaca;
+    }
+  }
+
+  i.input_error_icon {
+    position: absolute;
+    display: none;
+    .topRight(24px, 20px);
+    .size(24px, 24px);
+    z-index: @layer3;
+
+    path {
+      fill: @red;
+    }
+  }
+
+  &.input_error {
+    i.input_error_icon {
+      display: block;
+    }
+
+    label.input_label {
+      opacity: 1;
+
+      .label_text {
+        opacity: 1;
+        color: @red;
+      }
+    }
+  }
+
+  i.input_valid_icon {
+    position: absolute;
+    display: none;
+    .topRight(24px, 20px);
+    .size(24px, 24px);
+    z-index: @layer3;
+
+    path {
+      fill: @green;
+    }
+  }
+
+  &.input_valid.input_hasValue {
+    i.input_valid_icon {
+      display: block;
+    }
+  }
+
+  
+}

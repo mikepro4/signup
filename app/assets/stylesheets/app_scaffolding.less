@@ -6,6 +6,10 @@
 @component_path: "../../bower_components";
 @ui_path: "@{component_path}/ui/stylesheets";
 
+// vars
+@vertical_breakpoint: 687px;
+@textColor: #545a6a;
+
 
 html {
   .size(100%, 100%);
@@ -28,8 +32,18 @@ body {
   .display(absolute);
   .size(100%, 100%);
   .topLeft(0, 0);
-  overflow: hidden;
   z-index: @layer1;
+
+  // Screens
+  section.application_content {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    z-index: @layer1;    
+
+    // Main Signup
+    @import "screens/main_signup.less";
+  }
 
   // Header
   @import "ui_components/header.less";
@@ -40,12 +54,9 @@ body {
   // Select
   @import "ui_components/select.less";
 
-  section.application_content {
-    .display(absolute);
-    .topLeft(@header-height, 0);
-    .bottomRight(0, 0);
-    z-index: @layer1;
-  }
+  // Input
+  @import "ui_components/input.less";
+
 }
 
 .input-error {

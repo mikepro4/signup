@@ -3,6 +3,41 @@ footer.application_footer {
   .bottomLeft(0, 0);
   right: 0;
   z-index: @layer2;
-  height: 200px;
-  background: #fff
+  height: @footer-height;
+  background: #fff;
+  width: 100%;
+
+  ul.compstak_description {
+    width: 60%;
+    margin: auto;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+      .display(relative);
+      text-align: center;
+      padding: 35px 0 0 0;
+
+      i {
+        svg {
+          .size(35px, 35px);
+          margin: auto;
+        }
+      }
+
+      h2 {
+        font-size: 20px;
+        font-family: @font-gotham-light;
+        margin: 7px 0 7px 0;
+      }
+
+      p {
+        max-width: 200px;
+        margin: auto;
+        opacity: .8;
+      }
+    }
+  }
 }

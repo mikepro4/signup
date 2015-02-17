@@ -4,10 +4,11 @@ define([
 
   // icons
   'jsx!assets/javascripts/components/Icon',
+  'jsx!assets/javascripts/components/Button',
 
 ], function (
 
-  React, Router, Icon
+  React, Router, Icon, Button
 
 ) { 
   
@@ -22,7 +23,7 @@ define([
     },
 
     buildToggleClassName: function () {
-      var headerClassName = 'application_header mode-' + this.state.dark;
+      var headerClassName = 'application_header mode-' + this.state.mode;
       return headerClassName;
     },
 
@@ -30,7 +31,15 @@ define([
 
       return (
           <header className={this.buildToggleClassName()}>
-              <Icon type="cs_logo"/>
+              <aside className="cs_logo"><Icon type="cs_logo" /></aside>
+              
+              <Button 
+                href="https://exchange.compstak.com/login"
+                className="button button_white have_account_button"
+                text="normal"
+                target="_blank">
+                Have an Account?
+              </Button>
           </header>
       );
     }

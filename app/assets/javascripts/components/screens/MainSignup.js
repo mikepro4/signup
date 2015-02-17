@@ -148,41 +148,50 @@ define([
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(event);
     },
-    
+
     saveAndContinue: function() {
       console.log("EMail: " + this.state.email);
       console.log("Password: " + this.state.market);
     },
 
     render: function () {
+      var footerVisibilityClass = this.state.footerVisibility ? 'footer_visible' : 'footer_invisible';
+      var minSignupClass = "main_signup_screen " + footerVisibilityClass;
+
       return (
-        <div className="main_signup">
+        <div className={minSignupClass}>
+
+          <div className="main_singup_form">
           
-          <MarketInfo markets={this.state.AllMarkets} visibility={this.state.launchingSoon} market={this.state.market} />
+            <MarketInfo markets={this.state.AllMarkets} visibility={this.state.launchingSoon} market={this.state.market} />
 
-          <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
-          <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
+            <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
+            <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
 
-          <form>
-            <Input 
-              text="Email Address" 
-              ref="email"
-              defaultValue={this.state.email} 
-              validate={this.validateEmail}
-              value={this.state.email}
-              onChange={this.handleEmailInput} 
-            /> 
+            <form>
+              <Input 
+                text="Email Address" 
+                ref="email"
+                defaultValue={this.state.email} 
+                validate={this.validateEmail}
+                value={this.state.email}
+                onChange={this.handleEmailInput} 
+              /> 
 
-            <Select 
-              options={this.state.allMarkets} 
-              value={this.state.market} 
-              defaultValue={this.state.market} 
-              onChange={this.onSelect} 
-              searchable={this.props.searchable} 
-            />
+              <Select 
+                options={this.state.allMarkets} 
+                value={this.state.market} 
+                defaultValue={this.state.market} 
+                onChange={this.onSelect} 
+                searchable={this.props.searchable} 
+                placeholder="Choose Your Market"
+              />
 
-            <button type="button" onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 
-          </form>
+              <button type="button" className="button button_wide signup_start" onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 
+
+            </form>
+
+          </div>
 
           <AppFooter visibility={this.state.footerVisibility} />   
         </div>

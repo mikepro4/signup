@@ -22,7 +22,7 @@ var TESTS_ROOT = 'test';
 
 // constants for http and livereload ports
 var HTTP_PORT       = 7000;
-var LIVERELOAD_PORT = 35730;
+var LIVERELOAD_PORT = 35800;
 
 var GENERATED_ASSETS = [
   APP_ROOT + '/js/templates/**/*.js',

@@ -1,7 +1,43 @@
+@logoColor: #545a6a;
+
 header.application_header {
-  .display(absolute);
+  display: flex;
+  position: absolute;
   .topLeft(0, 0);
   right: 0;
   z-index: @layer2;
-  height: @header-height;
+  height: 100px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+
+  .cs_logo {
+    .display(relative);
+    width: 135px;
+
+    path {
+      fill: @logoColor;
+    }
+  }
+
+  .have_account_button {
+    .display(relative);
+    background: #fff;
+    color: @dark-blue;
+    text-transform: none;
+    letter-spacing: .5px;
+    width: 160px;
+    text-align: center;
+
+    &:hover {
+      background: @light-blue;
+      color: #fff
+    }
+
+    &:active {
+      background: lighten(@light-blue, 10%);
+      color: #fff;
+    }
+  }
 }

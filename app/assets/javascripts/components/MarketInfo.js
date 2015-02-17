@@ -55,7 +55,7 @@ define([
       return (
         <div className="signup_market_info"> 
           <h1 className="signup_main_title">{this.getMarketDisplayName()}</h1>
-          <aside style={this.toggleFooter()}>
+          <aside className="launching_soon_label" style={this.toggleFooter()}>
             Market Launching Soon
           </aside>
         </div>
