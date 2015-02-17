@@ -8,7 +8,8 @@ footer.application_footer {
   width: 100%;
 
   ul.compstak_description {
-    width: 60%;
+    .size(60%, 100%);
+    max-width: 900px;
     margin: auto;
     display:flex;
     flex-direction: row;
@@ -17,8 +18,10 @@ footer.application_footer {
 
     li {
       .display(relative);
+      display:flex;
       text-align: center;
-      padding: 35px 0 0 0;
+      align-items: center;
+      flex-direction: column;
 
       i {
         svg {
@@ -39,5 +42,26 @@ footer.application_footer {
         opacity: .8;
       }
     }
+
+    @media @screen1024 {
+      .size(80%, 100%);
+    }
+
+    @media @screen1280 {
+      .size(70%, 100%);
+    }
+    
+  }
+
+  @media @screen1680 {
+    height: 250px;
+  }
+
+  @media @screen1920 {
+    height: 260px;
+  }
+
+  @media @screen2560 {
+    height: 270px;
   }
 }
