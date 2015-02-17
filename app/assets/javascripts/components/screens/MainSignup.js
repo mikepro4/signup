@@ -87,7 +87,7 @@ define([
     },
 
     onSelect: function (selectedMarket) {
-      this.transitionTo('/signup/' + selectedMarket);
+      this.transitionTo('/' + selectedMarket);
       this.toggleUI(selectedMarket);
     },
 
