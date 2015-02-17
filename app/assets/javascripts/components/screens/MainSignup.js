@@ -152,6 +152,7 @@ define([
     saveAndContinue: function() {
       console.log("EMail: " + this.state.email);
       console.log("Password: " + this.state.market);
+      alert(this.state.email + ' ' + this.state.market);
     },
 
     render: function () {
@@ -169,6 +170,7 @@ define([
             <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
 
             <form>
+
               <Input 
                 text="Email Address" 
                 ref="email"

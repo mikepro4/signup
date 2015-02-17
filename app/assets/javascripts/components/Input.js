@@ -27,12 +27,16 @@ define([
         empty: _.isEmpty(event.target.value)
       });
 
-      this.validateInput(event.target.value);
-      this.props.onChange(event);
+      if(this.props.validate) {
+        this.validateInput(event.target.value);
+      }
+      if(this.props.onChange) {
+        this.props.onChange(event);
+      }
     },
 
     validateInput: function (value) {
-      if(this.props.validate(value)){
+      if(this.props.validate && this.props.validate(value)){
          this.setState({valid:true});
       } else {
          this.setState({valid:false});
@@ -40,7 +44,8 @@ define([
     },
 
     componentWillUpdate: function(nextProps, nextState) {
-      if (this.props.validate(nextState.value)) {
+
+      if (this.props.validate &&this.props.validate(nextState.value)) {
         console.log('cool')
       } else {
         console.log('not cool')
