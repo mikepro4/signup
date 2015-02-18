@@ -84,259 +84,282 @@
 
 .Select {
   position: relative;
-}
 
-// 
-// Control
-// ------------------------------
-
-
-// base
-
-.Select-control {
-  .display(relative);
-  .box-shadow(none);
-  .size(445px, 70px);
-  .border-radius(3px);
-  .transition(all 0.7s ease-in-out);
-  background: white;
-  z-index: @layer1;
-  -webkit-appearance: none;
-  border: none;
-  outline: none;
-  margin: 0 auto 13px auto;
-  color: @dark-blue;
-  letter-spacing: .5px;
-  font-family: @font-gotham-book;
-  font-size: 18px;
-}
-
-.is-searchable {
-  &.is-open > .Select-control {
-    cursor: text;
-  }
-}
-
-.is-open > .Select-control {
-  .border-bottom-radius( 0 );
-  background: white;
-  border-color: darken(@select-input-border-color, 10%) @select-input-border-color lighten(@select-input-border-color, 5%);
-
-  // flip the arrow so its pointing up when the menu is open
-  > .Select-arrow {
-    border-color: transparent transparent @select-arrow-color;
-    border-width: 0 @select-arrow-width @select-arrow-width;
-  }
-}
-
-.is-searchable {
-  &.is-focused:not(.is-open) > .Select-control {
-    cursor: text;
-  }
-}
+  // 
+  // Control
+  // ------------------------------
 
 
-// placeholder
+  // base
 
-.Select-placeholder {
-  .display(absolute);
-  .topLeft(15px, 20px);
-  font-size: 24px;
-  font-family: @font-gotham-light;
-  letter-spacing: 1px;
-  opacity: .3;
-
-  &:hover {
-    opacity: .5;
-  }
-
-  // crop text
-  z-index: @layer2;
-}
-
-.has-value > .Select-control > .Select-placeholder {
-  color: @select-text-color;
-  opacity: 1;
-  top: 30px;
-  color: @dark-blue;
-  letter-spacing: .5px;
-  font-family: @font-gotham-book;
-  font-size: 18px;
-
-  &:before{
-    .display(absolute);
-    content: "Your Market";
-    letter-spacing: .3px;
-    font-size: 11px;
-    .topLeft(-15px, 00px);
-    font-family: @font-gotham-light;
-    white-space: nowrap;
-  }
-}
-
-
-// the <input> element users type in
-
-.Select-input {
-  
-  > input {
+  .Select-control {
     .display(relative);
     .box-shadow(none);
-    .size(410px, 52px);
+    .size(100%, 70px);
     .border-radius(3px);
+    .box-sizing(border-box);
     .transition(all 0.7s ease-in-out);
+    background: white;
     z-index: @layer1;
     -webkit-appearance: none;
     border: none;
     outline: none;
-    padding: 18px 15px 0 20px;
     margin: 0 auto 13px auto;
     color: @dark-blue;
-    font-family: @font-opensans-light;
     letter-spacing: .5px;
     font-family: @font-gotham-book;
     font-size: 18px;
+  }
 
-    
-    
-    .is-focused & {
+  .is-searchable {
+    &.is-open > .Select-control {
+      cursor: text;
+    }
+  }
+
+  .is-open > .Select-control {
+    .border-bottom-radius( 0 );
+    background: white;
+    border-color: darken(@select-input-border-color, 10%) @select-input-border-color lighten(@select-input-border-color, 5%);
+
+    // flip the arrow so its pointing up when the menu is open
+    > .Select-arrow {
+      border-color: transparent transparent @select-arrow-color;
+      border-width: 0 @select-arrow-width @select-arrow-width;
+    }
+  }
+
+  .is-searchable {
+    &.is-focused:not(.is-open) > .Select-control {
       cursor: text;
     }
   }
 
 
+  // placeholder
 
-}
+  .Select-placeholder {
+    .display(absolute);
+    .topLeft(21px, 15px);
+    font-size: 18px;
+    font-family: @font-gotham-light;
+    letter-spacing: .7px;
+    color: #b1b0b1;
 
-// fake input
-.Select-control:not(.is-searchable) > .Select-input {
-  outline: none;
-}
+    &:hover {
+      opacity: .5;
+    }
 
-
-// loading indicator
-
-.Select-loading {
-  .Select-spinner(16px, @select-input-border-color, @select-text-color);
-  margin-top: -8px;
-  position: absolute;
-  right: (@select-padding-horizontal * 3);
-  top: 50%;
-}
-
-.has-value > .Select-control > .Select-loading {
-  right: (@select-padding-horizontal * 3) + 16px;
-}
-
-
-// the little cross that clears the field
-
-.Select-clear {
-  opacity: 0;
-  // todo: animate transition in
-  color: @select-clear-color;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  padding: @select-padding-vertical - 2 @select-padding-horizontal;
-  position: absolute;
-  right: @select-padding-horizontal + @select-arrow-width + 2;
-  top: 0;
-
-  &:hover {
-    color: @select-clear-hover-color;
+    // crop text
+    z-index: @layer2;
   }
-  
-  > span {
-    font-size: 1.1em;
+
+
+  .Select-actual-placeholder {
+    position: absolute;
+    display: none;
+    color: #b8bdc4;
+    letter-spacing: .3px;
+    font-size: 11px;
+    .topLeft(14px, 15px);
+    z-index: @layer2;
+    font-family: @font-gotham-light;
   }
-}
 
-
-// arrow indicator
-
-.Select-arrow {
-  border-color: @select-arrow-color transparent transparent;
-  border-style: solid;
-  border-width: @select-arrow-width @select-arrow-width 0;
-  content: " ";
-  display: block;
-  height: 0;
-  margin-top: -ceil(@select-arrow-width / 2);
-  position: absolute;
-  right: 20px;
-  top: 32px;
-  width: 0;
-}
-
-// 
-// Select Menu
-// ------------------------------
-
-
-// wrapper
-
-.Select-menu {
-  .border-bottom-radius( @select-input-border-radius );
-  background-color: white;
-  margin-top: 0px;
-  margin-left: -3px;
-  border: 4px solid @gray;
-  max-height: 200px;
-  overflow-y: auto;
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  z-index: @select-menu-zindex;
-  -webkit-overflow-scrolling: touch;
-}
-
-
-// options
-
-.Select-option {
-  box-sizing: border-box;
-  color: @select-option-color;
-  cursor: pointer;
-  display: block;
-  padding: @select-padding-vertical @select-padding-horizontal;
-
-  &:last-child {
-    .border-bottom-radius( @select-input-border-radius );
-  }
-  
   &.is-focused {
-    background-color: @select-option-focused-bg;
-    color: @select-option-focused-color;
+    .Select-placeholder {
+      opacity: 0;
+    }
+  }
+  
+  &.has-value, &.is-focused.has-value  {
+    .Select-actual-placeholder {
+      display: block;
+    }
+
+    .Select-placeholder {
+      color: @select-text-color;
+      opacity: 1;
+      top: 30px;
+      color: @dark-blue;
+      letter-spacing: .5px;
+      font-family: @font-gotham-light;
+      font-size: 16px;
+    }
   }
 
-}
+  &.is-focused {
+    .Select-placeholder {
+      opacity: 0;
+    }
+    .Select-actual-placeholder {
+      display: block;
+    }
+  }
+
+  &.is-open,  {
+    .Select-actual-placeholder {
+      display: block;
+    }
+    .Select-placeholder {
+      display: none
+    }
+  }
+
+  &.is-open.has-value, &.is-open.has-value.is-focused {
+    .Select-placeholder {
+      display: block
+    }
+  }
 
 
-// no results
-
-.Select-noresults {
-  box-sizing: border-box;
-  color: @select-noresults-color;
-  cursor: default;
-  display: block;
-  padding: @select-padding-vertical @select-padding-horizontal;
-}
-
-// 
-// Spinner
-// ------------------------------
-
-.Select-spinner(@size, @orbit, @satellite) {
-  .animation( spin 400ms infinite linear );
-  .square(@size);
-  box-sizing: border-box;
-  border-radius: 50%;
-  border: floor(@size / 8) solid @orbit;
-  border-right-color: @satellite;
-  display: inline-block;
-  position: relative;
   
+
+  
+  
+  // the <input> element users type in
+
+  .Select-input {
+    
+    > input {
+      .display(relative);
+      .box-shadow(none);
+      .size(410px, 70px);
+      .border-radius(3px);
+      .transition(all 0.7s ease-in-out);
+      .box-sizing(border-box);
+      z-index: @layer1;
+      -webkit-appearance: none;
+      border: none;
+      outline: none;
+      padding: 18px 15px 0 15px;
+      margin: 0 auto 13px auto;
+      color: @dark-blue;
+      letter-spacing: .5px;
+      font-family: @font-gotham-light;
+      font-size: 16px;
+
+      .is-focused & {
+        cursor: text;
+      }
+    }
+  }
+
+
+
+
+
+  // fake input
+  .Select-control:not(.is-searchable) > .Select-input {
+    outline: none;
+  }
+
+
+  // loading indicator
+
+  .Select-loading {
+    .Select-spinner(16px, @select-input-border-color, @select-text-color);
+    margin-top: -8px;
+    position: absolute;
+    right: (@select-padding-horizontal * 3);
+    top: 50%;
+  }
+
+  .has-value > .Select-control > .Select-loading {
+    right: (@select-padding-horizontal * 3) + 16px;
+  }
+
+
+  // the little cross that clears the field
+
+  .Select-clear {
+    opacity: 0;
+  }
+
+  // arrow indicator
+
+  .Select-arrow {
+    border-color: @select-arrow-color transparent transparent;
+    border-style: solid;
+    border-width: @select-arrow-width @select-arrow-width 0;
+    content: " ";
+    display: block;
+    height: 0;
+    margin-top: -ceil(@select-arrow-width / 2);
+    position: absolute;
+    right: 20px;
+    top: 32px;
+    width: 0;
+  }
+
+  // 
+  // Select Menu
+  // ------------------------------
+
+
+  // wrapper
+
+  .Select-menu {
+    .border-bottom-radius( @select-input-border-radius );
+    background-color: white;
+    margin-top: 0px;
+    margin-left: -3px;
+    border: 4px solid @gray;
+    max-height: 200px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: @select-menu-zindex;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  // options
+
+  .Select-option {
+    box-sizing: border-box;
+    color: @select-option-color;
+    cursor: pointer;
+    display: block;
+    padding: @select-padding-vertical @select-padding-horizontal;
+
+    &:last-child {
+      .border-bottom-radius( @select-input-border-radius );
+    }
+    
+    &.is-focused {
+      background-color: @select-option-focused-bg;
+      color: @select-option-focused-color;
+    }
+
+  }
+
+
+  // no results
+
+  .Select-noresults {
+    box-sizing: border-box;
+    color: @select-noresults-color;
+    cursor: default;
+    display: block;
+    padding: @select-padding-vertical @select-padding-horizontal;
+  }
+
+  // 
+  // Spinner
+  // ------------------------------
+
+  .Select-spinner(@size, @orbit, @satellite) {
+    .animation( spin 400ms infinite linear );
+    .square(@size);
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: floor(@size / 8) solid @orbit;
+    border-right-color: @satellite;
+    display: inline-block;
+    position: relative;
+  }
 }
 
 @keyframes spin {

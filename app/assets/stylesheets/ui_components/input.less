@@ -1,5 +1,7 @@
 .input_group {
   .display(relative);
+  .size(100%, 70px);
+  margin-bottom: 10px;
 
   label.input_label {
     .display(absolute);
@@ -11,19 +13,19 @@
 
     .label_text {
       .display(absolute);
-      .topLeft(15px, 20px);
-      font-size: 24px;
+      .topLeft(21px, 15px);
+      font-size: 18px;
       font-family: @font-gotham-light;
-      letter-spacing: 1px;
-      opacity: .3;
+      letter-spacing: .7px;
     }
   }
 
   &.input_empty.input_unfocused {
+    color: #c1c5cc;
+
     &:hover {
       label.input_label {
         .label_text {
-          opacity: .5;
         }
       }
     }
@@ -38,39 +40,36 @@
   &.input_focused, &.input_hasValue {
     label.input_label {
       .label_text {
-        opacity: 1;
+        color: #b8bdc4;
         letter-spacing: .3px;
         font-size: 11px;
-        .topLeft(14px, 20px);
-        font-family: @font-gotham-light;
+        top: 14px;
       }
     }
   }
 
   &.input_unfocused.input_hasValue.input_valid {
     label.input_label {
-      opacity: .3;
-      color: @dark-blue
+      color: #b1b0b1;
     }
   }
 
   input.input {
     .display(relative);
     .box-shadow(none);
-    .size(410px, 52px);
-    .border-radius(3px);
+    .size(100%, 100%);
+    .box-sizing(border-box);
     .transition(all 0.7s ease-in-out);
     z-index: @layer1;
     -webkit-appearance: none;
     border: none;
     outline: none;
-    padding: 18px 15px 0 20px;
+    padding: 18px 15px 0 15px;
     margin: 0 auto 13px auto;
     color: @dark-blue;
-    font-family: @font-opensans-light;
     letter-spacing: .5px;
-    font-family: @font-gotham-book;
-    font-size: 18px;
+    font-family: @font-gotham-light;
+    font-size: 16px;
 
 
     &.error {
@@ -90,8 +89,8 @@
   i.input_error_icon {
     position: absolute;
     display: none;
-    .topRight(24px, 20px);
-    .size(24px, 24px);
+    .topRight(27px, 15px);
+    .size(20px, 20px);
     z-index: @layer3;
 
     path {
@@ -105,11 +104,8 @@
     }
 
     label.input_label {
-      opacity: 1;
-
       .label_text {
-        opacity: 1;
-        color: @red;
+        // color: @red;
       }
     }
   }
@@ -117,8 +113,8 @@
   i.input_valid_icon {
     position: absolute;
     display: none;
-    .topRight(24px, 20px);
-    .size(24px, 24px);
+    .topRight(27px, 15px);
+    .size(20px, 20px);
     z-index: @layer3;
 
     path {
@@ -132,5 +128,33 @@
     }
   }
 
-  
+  .error_container {
+    position: absolute;
+    opacity: 0;
+    .topLeft(0, 100%);
+    white-space: nowrap;
+    line-height: 70px;
+    .size(auto, 70px);
+    background: @red;
+    .box-sizing(border-box);
+    padding: 0 20px 0 20px;
+    color: white;
+    font-size: 14px;
+    font-family: @font-gotham-thin;
+    letter-spacing: .6px;
+    .user-select(none);
+    .transition(all 0.2s ease-in-out);
+
+    &.visible {
+      .transform(translateX(00px));
+      opacity: 1
+    }
+
+    &.invisible {
+      .transform(translateX(-30px));
+      opacity: 0;
+      -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
+      animation-delay: 2s;
+    }
+  } 
 }

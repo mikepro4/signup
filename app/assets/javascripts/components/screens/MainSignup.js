@@ -174,10 +174,13 @@ define([
               <Input 
                 text="Email Address" 
                 ref="email"
+                type="text"
                 defaultValue={this.state.email} 
                 validate={this.validateEmail}
                 value={this.state.email}
                 onChange={this.handleEmailInput} 
+                errorMessage="Email is invalid"
+                emptyMessage="Email can't be empty"
               /> 
 
               <Select 
@@ -187,6 +190,7 @@ define([
                 onChange={this.onSelect} 
                 searchable={this.props.searchable} 
                 placeholder="Choose Your Market"
+                placeholderTitle="Your Market"
               />
 
               <button type="button" className="button button_wide signup_start" onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 

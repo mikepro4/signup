@@ -164,6 +164,7 @@ define([
       asyncOptions: React.PropTypes.func,        // function to call to get options
       autoload: React.PropTypes.bool,            // whether to auto-load the default async options set
       placeholder: React.PropTypes.string,       // field placeholder, displayed when there's no value
+      placeholderTitle: React.PropTypes.string,       // field placeholder, displayed when there's no value
       noResultsText: React.PropTypes.string,     // placeholder displayed when there are no matching search results
       clearable: React.PropTypes.bool,           // should it be possible to reset value
       clearValueText: React.PropTypes.string,    // title for the "clear" control
@@ -187,6 +188,7 @@ define([
         asyncOptions: undefined,
         autoload: true,
         placeholder: 'Select...',
+        placeholderTitle: 'Select',
         noResultsText: 'No results found',
         clearable: true,
         clearValueText: 'Clear value',
@@ -290,7 +292,8 @@ define([
         inputValue: '',
         filteredOptions: filteredOptions,
         placeholder: !this.props.multi && values.length ? values[0].label : this.props.placeholder,
-        focusedOption: !this.props.multi && values.length ? values[0] : filteredOptions[0]
+        focusedOption: !this.props.multi && values.length ? values[0] : filteredOptions[0],
+        placeholderTitle: this.props.placeholderTitle,
       };
 
     },
@@ -610,13 +613,6 @@ define([
 
       var focusedValue = this.state.focusedOption ? this.state.focusedOption.value : null;
 
-      var lastOption
-      if (this.props.nomarket) {
-        lastOption = 'No Option'
-      } else {
-        lastOption = 'No Option'
-      }
-
       var ops = _.map(this.state.filteredOptions, function(op) {
         var isFocused = focusedValue === op.value;
 
@@ -638,7 +634,6 @@ define([
       return ops.length ? ops : (
         <div className="Select-noresults">
           {this.props.asyncOptions && !this.state.inputValue ? this.props.searchPromptText : this.props.noResultsText}
-          {lastOption}
         </div>
       );
 
@@ -668,7 +663,10 @@ define([
       }
 
       if (!this.state.inputValue && (!this.props.multi || !value.length)) {
+        value.push(<div className="Select-actual-placeholder" key="placeholderTitle">{this.state.placeholderTitle}</div>);
         value.push(<div className="Select-placeholder" key="placeholder">{this.state.placeholder}</div>);
+      } else if (this.state.inputValue) {
+        value.push(<div className="Select-actual-placeholder" key="placeholderTitle">{this.state.placeholderTitle}</div>);
       }
 
       var loading = this.state.isLoading ? <span className="Select-loading" aria-hidden="true" /> : null;
@@ -698,7 +696,6 @@ define([
             {input}
             <span className="Select-arrow" />
             {loading}
-            {clear}
           </div>
           {menu}
         </div>
