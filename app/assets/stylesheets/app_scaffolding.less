@@ -7,7 +7,7 @@
 @ui_path: "@{component_path}/ui/stylesheets";
 
 // vars
-@vertical_breakpoint: 687px;
+@vertical_breakpoint: 820px;
 @textColor: #545a6a;
 
 
@@ -39,7 +39,21 @@ body {
     .display(absolute);
     .topLeft(0, 0);
     .bottomRight(0, 0);
-    z-index: @layer1;    
+    z-index: @layer1;  
+    overflow-x: hidden;  
+
+    @media only screen and (max-height: @vertical_breakpoint) {
+      overflow-y: scroll;
+      .webkit-scrollbar-light(); 
+    }
+
+    .application_routeHandler {
+      @media only screen and (min-height: 0) and (max-height : @vertical_breakpoint)  {
+        .display(relative);
+        height: 520px;
+        overflow: hidden;
+      }
+    }
 
     // Main Signup
     @import "screens/main_signup.less";
@@ -51,22 +65,26 @@ body {
     @import "screens/reviewing_request.less";
   }
 
-  // Header
-  @import "ui_components/header.less";
-
-  // Footer
-  @import "ui_components/footer.less";
-
-  // Select
-  @import "ui_components/select.less";
-
-  // Input
-  @import "ui_components/input.less";
-
-  // Input Error
-  @import "ui_components/input_error.less";
-  
 }
+
+// Header
+@import "ui_components/header.less";
+
+// Footer
+@import "ui_components/footer.less";
+
+// Select
+@import "ui_components/select.less";
+
+// Input
+@import "ui_components/input.less";
+
+// Input Error
+@import "ui_components/input_error.less";
+
+// Scrollbar
+@import "ui_components/scrollbar.less";
+
 
 .verticalSlide-enter {
   opacity: 0;

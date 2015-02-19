@@ -1,11 +1,17 @@
 .user_info_screen {
-  .display(absolute);
-  .topLeft(0, 0);
-  .bottomRight(0, 0);
+  .display(relative);
+  min-height: 520px;
   color: @textColor;
+
+  @media only screen and (min-height: @vertical_breakpoint) {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);   
+  }
 
   .user_info_form {
     position: absolute;
+    min-height: 400px;
     .topLeft(0, 0);
     .bottomRight(@footer-height + 20, 0); 
     .flex-display();

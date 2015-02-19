@@ -76,20 +76,22 @@ define([
       return (
          <div className="application_wrapper">
 
-          <AppHeader mode={this.state.headerMode} />
-
           <section className="application_content">
 
-            <TransitionGroup component="div" transitionName="verticalSlide">
-              <RouteHandler 
-                {...this.props} 
-                nextScreen={this.nextScreen}
-                saveValues={this.saveValues}
-                signUpValues={signUpValues}
-                key={name}
-              />
-            </TransitionGroup>
+           <AppHeader mode={this.state.headerMode} />
 
+            <div className="application_routeHandler">
+              <TransitionGroup component="div" transitionName="verticalSlide">
+                <RouteHandler 
+                  {...this.props} 
+                  nextScreen={this.nextScreen}
+                  saveValues={this.saveValues}
+                  signUpValues={signUpValues}
+                  key={name}
+                />
+              </TransitionGroup>
+            </div>
+            
             <AppFooter visible={this.state.footerVisible} />   
 
           </section>

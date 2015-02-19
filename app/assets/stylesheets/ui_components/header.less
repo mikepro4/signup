@@ -1,16 +1,21 @@
 @logoColor: #545a6a;
 
 header.application_header {
+  .box-sizing(border-box);
+  height: 100px;
+  padding: 0 35px;
   .flex-display();
+  position: relative;
+  .topLeft(0, 0);
+  right: 0; 
   .flex-direction(row);
   .justify-content(space-between);
   .align-items(center);
-  .topLeft(0, 0);
-  position: absolute;
-  right: 0;
   z-index: @layer2;
-  height: 100px;
-  padding: 0 35px;
+
+  @media only screen and (min-height: @vertical_breakpoint) {
+    position: absolute;
+  }
 
   .cs_logo {
     .display(relative);

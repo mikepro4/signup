@@ -1,23 +1,23 @@
 .main_signup_screen {
-  .display(absolute);
-  .topLeft(0, 0);
-  .bottomRight(0, 0);
+  .display(relative);
+  min-height: 470px;
   color: @textColor;
+
+  @media only screen and (min-height: @vertical_breakpoint) {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);   
+  }
 
   .main_singup_form {
     position: absolute;
+    min-height: 380px;
     .topLeft(0, 0);
     .bottomRight(@footer-height + 20, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
-
-    @media only screen and (min-height: @vertical_breakpoint) {
-    }
-
-    @media only screen and (max-height: @vertical_breakpoint + 1) {
-    }
 
     .signup_market_info {
       .display(relative);

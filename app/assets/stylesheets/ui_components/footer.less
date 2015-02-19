@@ -1,11 +1,15 @@
 footer.application_footer {
-  .display(absolute);
-  .bottomLeft(0, 0);
-  right: 0;
+  .display(relative);
   z-index: @layer2;
   height: @footer-height;
   background: #fff;
   width: 100%;
+
+  @media only screen and (min-height: @vertical_breakpoint) {
+    .display(absolute);
+    .bottomLeft(0, 0);
+    right: 0; 
+  }
 
   ul.compstak_description {
     .size(55%, 100%);

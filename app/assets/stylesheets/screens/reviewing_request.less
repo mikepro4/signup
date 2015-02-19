@@ -1,8 +1,13 @@
 .reviewing_request_screen {
-  .display(absolute);
-  .topLeft(0, 0);
-  .bottomRight(0, 0);
+  .display(relative);
   color: @textColor;
+  min-height: 460px;
+
+  @media only screen and (min-height: @vertical_breakpoint) {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);   
+  }
 
   .reviewing_request_content {
     .display(absolute);
@@ -13,6 +18,7 @@
     .justify-content(center);
     .align-items(center);
     text-align: center;
+    min-height: 400px;
 
     .success_icon {
       svg {
