@@ -23,17 +23,16 @@ define([
 
     getInitialState: function () {
       return {
-        userType: 'user',
-        market: null,
-        mainHeadline: 'COMPLETE REGISTRATION',
+        userType: this.props.signUpValues.userType,
+        market: this.props.signUpValues.market,
+        mainHeadline: 'Complete Registration',
         subHeadline: null,
-        footerVisible: false,
         promoCodeOpen: false,
         continueButtonTitle: 'CONTINUE',
-        firstName: null,
-        lastName: null,
-        companyName: null,
-        promoCode: null
+        firstName: this.props.signUpValues.firstName,
+        lastName: this.props.signUpValues.lastName,
+        companyName: this.props.signUpValues.companyName,
+        promoCode: this.props.signUpValues.promoCode
       }
     },
 
@@ -45,18 +44,27 @@ define([
       this.setState({
         firstName: event.target.value
       });
+      this.props.saveValues({
+        firstName: event.target.value
+      })
     },
 
     handleLastNameInput: function (event) {
       this.setState({
         lastName: event.target.value
       });
+      this.props.saveValues({
+        lastName: event.target.value
+      })
     },
 
     handleCompanyNameInput: function (event) {
       this.setState({
         companyName: event.target.value
       });
+      this.props.saveValues({
+        companyName: event.target.value
+      })
     },
 
     handlePromoCodeInput: function (event) {
@@ -65,70 +73,96 @@ define([
       });
     },
 
-    saveAndContinue: function() {
-      console.log("First Name: " + this.state.firstName);
-      console.log("Last Name: " + this.state.lastName);
-      console.log("Company Name: " + this.state.companyName);
-      console.log("Promo Code: " + this.state.promoCode);
+    saveAndContinue: function(e) {
+      e.preventDefault();
+      var canProceed = !_.isEmpty(this.state.firstName) && !_.isEmpty(this.state.lastName) && !_.isEmpty(this.state.companyName);
+
+      if(canProceed) {
+        var data = {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          companyName: this.state.companyName,
+          promoCode: this.state.promoCode
+        }
+
+        this.props.saveValues(data)
+        this.props.nextScreen()
+
+      } else {
+        this.refs.firstName.isValid();
+        this.refs.lastName.isValid();
+        this.refs.companyName.isValid();
+      }
+    },
+
+    togglePromoCode: function () {
+      this.setState({
+        promoCodeOpen: true
+      })
     },
 
     render: function() {
-      var footerVisibilityClass = this.state.footerVisible ? 'footer_visible' : 'footer_invisible';
-      var userInfoClass = "user_info_screen " + footerVisibilityClass;
+      var promoClass = this.state.promoCodeOpen ? "promocode_container promo_visible" : "promocode_container";
 
       return (
-        <div className={userInfoClass}>
-          <h1>{this.state.mainHeadline}</h1>
-          <p>{this.state.subHeadline}</p>
+        <div className="user_info_screen">
 
-          <form>
+          <div className="user_info_form">
+            <h1>{this.state.mainHeadline}</h1>
+            <p>{this.state.subHeadline}</p>
 
-            <Input 
-              text="First Name" 
-              ref="firstName"
-              defaultValue={this.state.firstName} 
-              validate={this.isEmpty}
-              value={this.state.firstName}
-              onChange={this.handleFirstNameInput} 
-            /> 
+            <form onSubmit={this.saveAndContinue}>
 
-            <Input 
-              text="Last Name" 
-              ref="lastName"
-              defaultValue={this.state.lastName} 
-              validate={this.isEmpty}
-              value={this.state.lastName}
-              onChange={this.handleLastNameInput} 
-            /> 
-
-            <Input 
-              text="Company Name" 
-              ref="companyName"
-              defaultValue={this.state.companyName} 
-              validate={this.isEmpty}
-              value={this.state.companyName}
-              onChange={this.handleCompanyNameInput} 
-            /> 
-
-            <div className="promocode_container">
-              <a className="promocode_show">Have promotional code?</a>
               <Input 
-                text="Promotional Code" 
-                ref="promoCode"
-                defaultValue={this.state.promoCode} 
+                text="First Name" 
+                ref="firstName"
+                defaultValue={this.state.firstName} 
                 validate={this.isEmpty}
-                value={this.state.promoCode}
-                onChange={this.handlePromoCodeInput} 
+                value={this.state.firstName}
+                onChange={this.handleFirstNameInput} 
+                emptyMessage="First Name can't be empty"
               /> 
-            </div>
 
-            <button type="button" className="button button_wide user_info_continue" onClick={this.saveAndContinue}>
-             {this.state.continueButtonTitle}
-            </button> 
+              <Input 
+                text="Last Name" 
+                ref="lastName"
+                defaultValue={this.state.lastName} 
+                validate={this.isEmpty}
+                value={this.state.lastName}
+                onChange={this.handleLastNameInput} 
+                emptyMessage="Last Name can't be empty"
+              /> 
 
-          </form>
+              <Input 
+                text="Company Name" 
+                ref="companyName"
+                defaultValue={this.state.companyName} 
+                validate={this.isEmpty}
+                value={this.state.companyName}
+                onChange={this.handleCompanyNameInput} 
+                emptyMessage="Company name can't be empty"
+              /> 
 
-          <AppFooter visibility={this.state.footerVisible} /> 
+              <div className={promoClass}>
+                <a className="promocode_show" onClick={this.togglePromoCode}>Have promotional code?</a>
+                <Input 
+                  text="Promotional Code" 
+                  ref="promoCode"
+                  defaultValue={this.state.promoCode} 
+                  value={this.state.promoCode}
+                  onChange={this.handlePromoCodeInput} 
+                /> 
+              </div>
+
+              <button 
+                type="submit" 
+                className="button button_wide user_info_continue">
+                {this.state.continueButtonTitle}
+              </button> 
+
+            </form>
+          </div>
+
         </div>
       )    
     }

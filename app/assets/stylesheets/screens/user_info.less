@@ -1,0 +1,52 @@
+.user_info_screen {
+  .display(absolute);
+  .topLeft(0, 0);
+  .bottomRight(0, 0);
+  color: @textColor;
+
+  .user_info_form {
+    position: absolute;
+    .topLeft(0, 0);
+    .bottomRight(@footer-height + 20, 0); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      font-size: 30px;
+      letter-spacing: .7px;
+      .display(relative);
+      margin: 0 0 10px 0;
+    }
+
+    .promocode_container {
+      a.promocode_show {
+        text-align: center;
+        .display(relative);
+        padding: 12px 0 0 0;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .input_group {
+        display: none
+      }
+
+      &.promo_visible {
+        a {display: none}
+        
+        .input_group {
+          display: block
+        }
+      }
+    }
+  }
+
+  form {
+    width: 430px;
+  }
+}

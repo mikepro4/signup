@@ -34,7 +34,8 @@ define([
     question1: null,
     question2: null,
     question3: null,
-    userType: null
+    userType: null,
+    promoCode: null
   }
 
   var App = React.createClass({
@@ -56,6 +57,15 @@ define([
 
     nextScreen: function () {
       console.log(signUpValues)
+      if(signUpValues.userType === "user") {
+        if(_.isEmpty(signUpValues.email) || _.isEmpty(signUpValues.firstName) || _.isEmpty(signUpValues.lastName)) {
+          this.transitionTo('/user/info/');
+        } else {
+          this.transitionTo('/user/reviewing_request/');
+        }
+      } else {
+        alert('Pioneer!')
+      }
     },
 
     render: function () {

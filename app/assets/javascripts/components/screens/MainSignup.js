@@ -30,8 +30,8 @@ define([
 
     getInitialState: function(){
       return {
-        email: this.getParams().email,
-        market: this.getParams().market,
+        email: this.props.signUpValues.email,
+        market: this.props.signUpValues.market,
         buttonTitle: 'JOIN COMPSTAK',
         allMarkets: MarketStore.getMarkets(),
         launchingSoon: false

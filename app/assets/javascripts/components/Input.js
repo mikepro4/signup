@@ -23,7 +23,7 @@ define([
 
       return {
         valid: valid,
-        empty: true,
+        empty: _.isEmpty(this.props.value),
         focus: false,
         value: null,
         errorVisible: false,
@@ -74,7 +74,9 @@ define([
     componentWillReceiveProps: function (newProps) {      
       if(newProps.value) {
         if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
-          this.validateInput(newProps.value);
+          if(this.props.validate) {
+            this.validateInput(newProps.value);
+          }
           this.setState({
             value: newProps.value,
             empty: _.isEmpty(newProps.value)
