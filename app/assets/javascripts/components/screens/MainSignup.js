@@ -34,9 +34,7 @@ define([
         market: this.getParams().market,
         buttonTitle: 'JOIN COMPSTAK',
         allMarkets: MarketStore.getMarkets(),
-        launchingSoon: false,
-        showEmailError: false,
-        showMarketError: false,
+        launchingSoon: false
       }
     },
 
@@ -82,13 +80,13 @@ define([
       this.setState({
         market: !_.isEmpty(matchedMarket) ? this.getParams().market : null
       })
-      this.toggleUI(this.state.market);
+      this.toggleUI(this.getParams().market);
     },
 
     toggleUI: function (value) {
       var marketLaunched = MarketStore.getMarketState(value);
       this.setState({
-        launchingSoon: !MarketStore.getMarketState(value),
+        launchingSoon: !marketLaunched,
         buttonTitle: marketLaunched ? 'JOIN COMPSTAK' : 'JOIN EARLY'
       });
     },
