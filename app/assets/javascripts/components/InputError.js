@@ -1,18 +1,12 @@
 define([
 
   // libraries
-  'react', 'underscore', 'jquery',
-
-  // components
-  'jsx!assets/javascripts/components/InputError'
-
+  'react', 'underscore', 'jquery'
+  
 ], function (
 
   // libraries
-  React, _, $,
-
-  // components
-  InputError
+  React, _, $
 
 ) { 
 

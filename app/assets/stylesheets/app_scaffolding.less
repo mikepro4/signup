@@ -70,8 +70,8 @@ body {
 
 .verticalSlide-enter {
   opacity: 0;
-  .scale(.7);
-  // .transform(translateY(200px));
+  // .scale(.7);
+  .transform(translateY(200px));
   .transition(all 0.2s ease-in-out);
 
   &.verticalSlide-enter-active {
@@ -89,8 +89,8 @@ body {
 
   &.verticalSlide-leave-active {
     opacity: 0;
-    // .transform(translateY(-200px));
-    .scale(1.55);
+    .transform(translateY(-200px));
+    // .scale(1.55);
   }
 }
 

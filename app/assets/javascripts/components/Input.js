@@ -5,6 +5,7 @@ define([
 
   // components
   'jsx!assets/javascripts/components/InputError',
+  'jsx!assets/javascripts/components/Icon',
 
 ], function (
 
@@ -12,7 +13,7 @@ define([
   React, _, $,
 
   // components
-  InputError
+  InputError, Icon
 
 ) { 
 
@@ -139,21 +140,8 @@ define([
             autoComplete="off"
           />
 
-          <i className="input_error_icon" onMouseEnter={this.mouseEnterError}>
-            <svg viewBox="0 0 20 20">
-            <path d="M10,0.982c4.973,0,9.018,4.046,9.018,9.018S14.973,19.018,10,19.018S0.982,14.973,0.982,10
-              S5.027,0.982,10,0.982 M10,0C4.477,0,0,4.477,0,10c0,5.523,4.477,10,10,10s10-4.477,10-10C20,4.477,15.523,0,10,0L10,0z M9,5.703
-              V5.441h2.5v0.262l-0.66,5.779H9.66L9,5.703z M9.44,12.951h1.621v1.491H9.44V12.951z"/>
-            </svg>
-          </i>
-
-          <i className="input_valid_icon">
-            <svg viewBox="0 0 23 23">
-            <path d="M11.5,23C5.2,23,0,17.8,0,11.5S5.2,0,11.5,0S23,5.2,23,11.5S17.8,23,11.5,23z M11.5,1C5.7,1,1,5.7,1,11.5S5.7,22,11.5,22
-              S22,17.3,22,11.5S17.3,1,11.5,1z M10.4,15.2l6.7-7c0.2-0.2,0.2-0.5,0-0.7c-0.2-0.2-0.5-0.2-0.7,0L10,14.2L7,11
-              c-0.2-0.2-0.5-0.2-0.7,0c-0.2,0.2-0.2,0.5,0,0.7l3.4,3.5c0.1,0.1,0.2,0.1,0.3,0.1S10.3,15.3,10.4,15.2z"/>
-            </svg>
-          </i>
+          <i className="input_error_icon" onMouseEnter={this.mouseEnterError}> <Icon type="circle_error"/> </i>
+          <i className="input_valid_icon"> <Icon type="circle_tick"/> </i>
 
           <InputError 
             visible={this.state.errorVisible} 

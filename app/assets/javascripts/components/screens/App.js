@@ -63,8 +63,10 @@ define([
         } else {
           this.transitionTo('/user/reviewing_request/');
         }
-      } else {
+      } else if (signUpValues.userType === "pioneer") {
         alert('Pioneer!')
+      } else {
+        this.transitionTo('/');
       }
     },
 

@@ -2,7 +2,7 @@ define([
 
   'react', 'react-router', 
 
-  // icons
+  // components
   'jsx!assets/javascripts/components/Icon',
   'jsx!assets/javascripts/components/Button',
 
@@ -21,6 +21,7 @@ define([
 
       return (
         <header className={headerClassName}>
+
           <aside className="cs_logo"><Icon type="cs_logo" /></aside>
           
           <Button 
@@ -28,8 +29,9 @@ define([
             className="button button_white have_account_button"
             text="normal"
             target="_blank">
-            Have an Account?
+            Have an account?
           </Button>
+
         </header>
       );
     }
