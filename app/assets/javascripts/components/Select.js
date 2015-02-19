@@ -255,6 +255,10 @@ define([
           filteredOptions: this.filterOptions(newProps.options)
         });
       }
+
+      this.setState({
+        errorVisible: false
+      })
     },
 
     componentDidUpdate: function() {

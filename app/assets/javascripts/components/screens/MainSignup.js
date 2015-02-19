@@ -104,7 +104,7 @@ define([
 
     saveAndContinue: function(e) {
       e.preventDefault();
-      var canProceed = !_.isEmpty(this.state.email) && !_.isEmpty(this.state.market);
+      var canProceed = !_.isEmpty(this.state.email) && this.validateEmail(this.state.email) && !_.isEmpty(this.state.market);
 
       if(canProceed) {
         var data = {

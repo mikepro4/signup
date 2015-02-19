@@ -84,7 +84,7 @@ define([
     },
 
     isValid: function () {
-      if(_.isEmpty(this.state.value)) {
+      if(_.isEmpty(this.state.value) || !this.props.validate(this.state.value)) {
         this.setState({
           valid: false,
           errorVisible: true
