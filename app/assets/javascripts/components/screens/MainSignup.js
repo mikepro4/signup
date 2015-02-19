@@ -26,23 +26,17 @@ define([
 
   var MainSignupScreen = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation, React.addons.LinkedStateMixin ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
-      return _.extend(
-        this.getInputParams(), 
-        {
-          buttonTitle: 'JOIN COMPSTAK',
-          allMarkets: MarketStore.getMarkets(),
-          launchingSoon: false
-        }
-      )
-    },
-
-    getInputParams: function () {
       return {
         email: this.getParams().email,
         market: this.getParams().market,
+        buttonTitle: 'JOIN COMPSTAK',
+        allMarkets: MarketStore.getMarkets(),
+        launchingSoon: false,
+        showEmailError: false,
+        showMarketError: false,
       }
     },
 
@@ -53,10 +47,6 @@ define([
 
     componentDidMount: function () {
       MarketStore.addChangeListener(this.updateMarkets);
-
-      this.setState({
-        allMarkets: MarketStore.getMarkets()
-      })
     },
 
     componentWillUnmount: function () {
@@ -68,10 +58,9 @@ define([
         allMarkets: MarketStore.getMarkets()
       });
       this.selectMarketFromParams();
-      this.toggleUI(this.state.market);
     }, 
 
-    componentWillReceiveProps: function (newProps, newState) {
+    componentWillReceiveProps: function () {
 
       // update email from url if not undefined
       if(this.getParams().email) {
@@ -81,7 +70,6 @@ define([
       }
       
       this.selectMarketFromParams();
-      this.toggleUI(this.getParams().market);
     },
 
     onSelect: function (selectedMarket) {
@@ -91,48 +79,18 @@ define([
 
     selectMarketFromParams: function () {
       var matchedMarket = MarketStore.getMarket(this.getParams().market);
-
-      // check if market from url params matched any of the markets
-      if(!_.isEmpty(matchedMarket)){
-        var marketValue = this.getParams().market
-      } else {
-        var marketValue = null
-      }
-
       this.setState({
-        market: marketValue
+        market: !_.isEmpty(matchedMarket) ? this.getParams().market : null
       })
+      this.toggleUI(this.state.market);
     },
-    
+
     toggleUI: function (value) {
+      var marketLaunched = MarketStore.getMarketState(value);
       this.setState({
-        launchingSoon: !this.getMarketState(value)
+        launchingSoon: !MarketStore.getMarketState(value),
+        buttonTitle: marketLaunched ? 'JOIN COMPSTAK' : 'JOIN EARLY'
       });
-      this.selectContinueButtonTitle(value);
-    },
-
-    getMarketState: function (marketValue) {
-      var currentMarket = MarketStore.getMarket(marketValue);
-
-      if(_.isEmpty(currentMarket)) {
-        return true;
-      } else {
-        return currentMarket.launched
-      }
-    },
-
-    selectContinueButtonTitle: function (value) {
-      var marketLaunched = this.getMarketState(value);
-
-      if(marketLaunched) {
-         var continueButtonTitle = 'JOIN COMPSTAK';
-      } else {
-         var continueButtonTitle = 'JOIN EARLY';
-      }
-
-      this.setState({
-        buttonTitle: continueButtonTitle
-      })
     },
 
     handleEmailInput: function(event){
@@ -146,10 +104,24 @@ define([
       return re.test(event);
     },
 
-    saveAndContinue: function() {
-      console.log("Emaail: " + this.state.email);
-      console.log("Password: " + this.state.market);
-      this.props.nextScreen();
+    saveAndContinue: function(e) {
+      e.preventDefault();
+      var canProceed = !_.isEmpty(this.state.email) && !_.isEmpty(this.state.market);
+
+      if(canProceed) {
+        var data = {
+          email: this.state.email,
+          market: this.state.market,
+          userType: MarketStore.getMarketState(this.state.market) ? "user" : "pioneer"
+        }
+
+        this.props.saveValues(data)
+        this.props.nextScreen()
+
+      } else {
+        this.refs.email.isValid();
+        this.refs.market.isValid();
+      }
     },
 
     render: function () {
@@ -163,7 +135,7 @@ define([
             <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
             <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
 
-            <form>
+            <form onSubmit={this.saveAndContinue}>
 
               <Input 
                 text="Email Address" 
@@ -175,9 +147,11 @@ define([
                 onChange={this.handleEmailInput} 
                 errorMessage="Email is invalid"
                 emptyMessage="Email can't be empty"
+                errorVisible={this.state.showEmailError}
               /> 
 
               <Select 
+                ref="market"
                 options={this.state.allMarkets} 
                 value={this.state.market} 
                 defaultValue={this.state.market} 
@@ -185,9 +159,15 @@ define([
                 searchable={this.props.searchable} 
                 placeholder="Choose Your Market"
                 placeholderTitle="Your Market"
+                errorMessage="Market can't be empty"
+                errorVisible={this.state.showMarketError}
               />
 
-              <button type="button" className="button button_wide signup_start" onClick={this.saveAndContinue}>{this.state.buttonTitle}</button> 
+              <button 
+                type="submit" 
+                className="button button_wide signup_start">
+                {this.state.buttonTitle}
+              </button> 
 
             </form>
 

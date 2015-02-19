@@ -44,6 +44,16 @@ define([
       return _.findWhere(this.getMarkets(), {value: market });
     },
 
+    getMarketState: function (marketValue) {
+      var currentMarket = this.getMarket(marketValue);
+
+      if(_.isEmpty(currentMarket)) {
+        return true;
+      } else {
+        return currentMarket.launched
+      }
+    },
+
     notifyChange: function () {
       _changeListeners.forEach(function (listener) {
         listener();

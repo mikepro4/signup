@@ -182,8 +182,9 @@ define([
       filterOption: React.PropTypes.func,        // method to filter a single option: function(option, filterString)
       filterOptions: React.PropTypes.func,       // method to filter the options array: function([options], filterString, [values])
       matchPos: React.PropTypes.string,          // (any|start) match the start or entire string when filtering
-      matchProp: React.PropTypes.string,          // (any|label|value) which option property to filter on
-      errorMessage: React.PropTypes.string
+      matchProp: React.PropTypes.string,         // (any|label|value) which option property to filter on
+      errorMessage: React.PropTypes.string,
+      errorVisible: React.PropTypes.bool
     },
 
     getDefaultProps: function() {
@@ -205,8 +206,7 @@ define([
         onChange: undefined,
         className: undefined,
         matchPos: 'any',
-        matchProp: 'any',
-        errorMessage: 'Nothing is selected'
+        matchProp: 'any'
       };
     },
 
@@ -226,7 +226,7 @@ define([
         isOpen: false,
         isLoading: false,
         errorVisible: false,
-        errorMessage: 'Nothing is selected'
+        errorMessage: this.props.errorMessage
       };
     },
 
@@ -662,6 +662,15 @@ define([
         </div>
       );
 
+    },
+
+    isValid: function () {
+      if(_.isEmpty(this.state.value)) {
+        this.setState({
+          valid: false,
+          errorVisible: true
+        });
+      }
     },
 
     render: function() {

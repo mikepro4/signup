@@ -27,7 +27,7 @@ define([
         focus: false,
         value: null,
         errorVisible: false,
-        errorMessage: false
+        errorMessage: this.props.emptyMessage
       };
     },
 
@@ -71,7 +71,7 @@ define([
       }
     },
 
-    componentWillReceiveProps: function (newProps) {
+    componentWillReceiveProps: function (newProps) {      
       if(newProps.value) {
         if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
           this.validateInput(newProps.value);
@@ -80,6 +80,15 @@ define([
             empty: _.isEmpty(newProps.value)
           })
         }   
+      }
+    },
+
+    isValid: function () {
+      if(_.isEmpty(this.state.value)) {
+        this.setState({
+          valid: false,
+          errorVisible: true
+        });
       }
     },
 

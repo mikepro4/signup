@@ -23,39 +23,39 @@ define([
   var RouteHandler = Router.RouteHandler;
   var Link = Router.Link;
 
+  var signUpValues = {
+    email: null,
+    market: null,
+    firstName: null,
+    lastName: null,
+    companyName: null,
+    watchedVideo: false,
+    uploadComps: false,
+    question1: null,
+    question2: null,
+    question3: null,
+    userType: null
+  }
+
   var App = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
       return {
-
-        // sync to Compstak
-        email: null,
-        market: null,
-        firstName: null,
-        lastName: null,
-        companyName: null,
-
-        // sync to localStorage
-        watchedVideo: false,
-        uploadComps: false,
-        question1: null,
-        question2: null,
-        question3: null,
-
-        // UI states
-        userType: 'user',
         footerVisible: true,
         headerMode: 'light'
       }
     },
 
-    handleChange: function () {
+    saveValues: function(field_value) {
+      return function() {
+        signUpValues = _.extend({}, signUpValues, field_value)
+      }.bind(this)();
     },
 
     nextScreen: function () {
-      console.log('next screen')
+      console.log(signUpValues)
     },
 
     render: function () {
@@ -68,8 +68,9 @@ define([
             <section className="application_content">
               <RouteHandler 
                 {...this.props} 
-
-                nextScreen={this.nextScreen()}
+                nextScreen={this.nextScreen}
+                saveValues={this.saveValues}
+                signUpValues={signUpValues}
               />
 
               <AppFooter visible={this.state.footerVisible} />   
