@@ -1,42 +1,20 @@
 define([
 
-  'react', 'underscore', 'jquery'
+  // libraries
+  'react', 'underscore', 'jquery',
+
+  // components
+  'jsx!assets/javascripts/components/InputError',
 
 ], function (
 
-  React, _, $
+  // libraries
+  React, _, $,
+
+  // components
+  InputError
 
 ) { 
-
-  var Error = React.createClass({
-
-    getInitialState: function(){
-      return {
-        message: 'Input is invalid'
-      };
-    },
-
-    componentDidUpdate: function (newProps) {
-      this.toggleClassName()
-    },
-
-    toggleClassName: function () {
-      if(this.props.visible) {
-        return "error_container visible"
-      } else {
-         return "error_container invisible"
-      }
-    },
-
-    render: function(){ 
-      return (
-        <div className={this.toggleClassName()}>
-          <span>{this.props.errorMessage}</span>
-        </div>
-      )
-    }
-
-  })
 
   var textInput = React.createClass({
 
@@ -82,12 +60,12 @@ define([
         if(!_.isEmpty(value)) {
           this.setState({
             valid:false,
-            errorMesage: this.props.errorMessage
+            errorMessage: this.props.errorMessage
           });  
         } else {
           this.setState({
             valid:false,
-            errorMesage: this.props.emptyMessage
+            errorMessage: this.props.emptyMessage
           });  
         }
       }
@@ -166,9 +144,9 @@ define([
             </svg>
           </i>
 
-          <Error 
+          <InputError 
             visible={this.state.errorVisible} 
-            errorMessage={this.state.errorMesage} 
+            errorMessage={this.state.errorMessage} 
           />
 
         </div>

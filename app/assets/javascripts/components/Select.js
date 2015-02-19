@@ -1,10 +1,15 @@
 define([
 
-    'react', 'underscore'
+  'react', 'underscore',
+
+    // components
+  'jsx!assets/javascripts/components/InputError'
 
 ], function (
 
-    React, _
+    React, _,
+
+    InputError
 
 ) { 
 
@@ -177,7 +182,8 @@ define([
       filterOption: React.PropTypes.func,        // method to filter a single option: function(option, filterString)
       filterOptions: React.PropTypes.func,       // method to filter the options array: function([options], filterString, [values])
       matchPos: React.PropTypes.string,          // (any|start) match the start or entire string when filtering
-      matchProp: React.PropTypes.string          // (any|label|value) which option property to filter on
+      matchProp: React.PropTypes.string,          // (any|label|value) which option property to filter on
+      errorMessage: React.PropTypes.string
     },
 
     getDefaultProps: function() {
@@ -199,7 +205,8 @@ define([
         onChange: undefined,
         className: undefined,
         matchPos: 'any',
-        matchProp: 'any'
+        matchProp: 'any',
+        errorMessage: 'Nothing is selected'
       };
     },
 
@@ -217,7 +224,9 @@ define([
         options: this.props.options,
         isFocused: false,
         isOpen: false,
-        isLoading: false
+        isLoading: false,
+        errorVisible: false,
+        errorMessage: 'Nothing is selected'
       };
     },
 
@@ -320,6 +329,11 @@ define([
       newState.isOpen = false;
       this.fireChangeEvent(newState);
       this.setState(newState);
+
+      // hide error message
+      this.setState({
+        errorVisible: false
+      });
     },
 
     selectValue: function(value) {
@@ -399,6 +413,17 @@ define([
           isOpen: false,
           isFocused: false
         });
+
+        if(_.isEmpty(this.state.value)) {
+          this.setState({
+            errorMessage: this.props.errorMessage,
+            errorVisible: true
+          });
+        } else {
+          this.setState({
+            errorVisible: false
+          });
+        }
       }.bind(this), 50);
     },
 
@@ -698,6 +723,11 @@ define([
             {loading}
           </div>
           {menu}
+
+          <InputError 
+            visible={this.state.errorVisible} 
+            errorMessage={this.state.errorMessage} 
+          />
         </div>
       );
 

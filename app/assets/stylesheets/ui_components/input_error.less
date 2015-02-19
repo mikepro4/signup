@@ -1,0 +1,29 @@
+.error_container {
+  position: absolute;
+  opacity: 0;
+  .topLeft(0, 100%);
+  white-space: nowrap;
+  line-height: 70px;
+  .size(auto, 70px);
+  background: @red;
+  .box-sizing(border-box);
+  padding: 0 20px 0 20px;
+  color: white;
+  font-size: 14px;
+  font-family: @font-gotham-thin;
+  letter-spacing: .6px;
+  .user-select(none);
+  .transition(all 0.2s ease-in-out);
+
+  &.visible {
+    .transform(translateX(00px));
+    opacity: 1
+  }
+
+  &.invisible {
+    .transform(translateX(-30px));
+    opacity: 0;
+    -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
+    animation-delay: 2s;
+  }
+}
