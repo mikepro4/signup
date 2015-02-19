@@ -1,15 +1,15 @@
 @logoColor: #545a6a;
 
 header.application_header {
-  display: flex;
-  position: absolute;
+  .flex-display();
+  .flex-direction(row);
+  .justify-content(space-between);
+  .align-items(center);
   .topLeft(0, 0);
+  position: absolute;
   right: 0;
   z-index: @layer2;
   height: 100px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   padding: 0 35px;
 
   .cs_logo {

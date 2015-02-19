@@ -11,17 +11,17 @@ footer.application_footer {
     .size(55%, 100%);
     max-width: 900px;
     margin: auto;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    .flex-display();
+    .flex-direction(row);
+    .justify-content(space-between);
+    .align-items(center);
 
     li {
       .display(relative);
-      display:flex;
+      .flex-display();
+      .align-items(center);
+      .flex-direction(column);
       text-align: center;
-      align-items: center;
-      flex-direction: column;
 
       i {
         svg {

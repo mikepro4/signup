@@ -140,7 +140,7 @@ define([
                 validate={this.isEmpty}
                 value={this.state.companyName}
                 onChange={this.handleCompanyNameInput} 
-                emptyMessage="Company name can't be empty"
+                emptyMessage="Company Name can't be empty"
               /> 
 
               <div className={promoClass}>
