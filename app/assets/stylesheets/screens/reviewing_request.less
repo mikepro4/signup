@@ -1,0 +1,65 @@
+.reviewing_request_screen {
+  .display(absolute);
+  .topLeft(0, 0);
+  .bottomRight(0, 0);
+  color: @textColor;
+
+  .reviewing_request_content {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(@footer-height, 0); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .success_icon {
+      svg {
+        .size(60px, 60px);
+      }
+    }
+
+    h1 {
+      .display(relative);
+      font-size: 44px;
+      margin: 10px 0 0 0;
+    }
+
+    p {
+      font-family: @font-gotham-light;
+      font-size: 16px;
+      max-width: 500px;
+      line-height: 24px;
+      opacity: .6;
+    }
+
+    span.divider {
+      width: 50px;
+      border-top: 1px solid @dark-blue;
+      opacity: .2;
+      margin: 20px 0 30px 0;
+    }
+
+    .reviewing_footer {
+      letter-spacing: .7px;
+      font-family: @font-gotham-light;
+
+      .have_questions {
+        font-size: 16px;
+      }
+      .help_email {
+        font-size: 26px;
+        margin: 5px 0 5px 0;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      .help_phone {
+        font-size: 20px
+      }
+    }
+  }
+}
