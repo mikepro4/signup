@@ -7,7 +7,7 @@
   .main_singup_form {
     position: absolute;
     .topLeft(0, 0);
-    .bottomRight(0, 0);
+    .bottomRight(@footer-height + 20, 0); 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -84,17 +84,4 @@
       width: 430px;
     }
   }
-
- &.footer_invisible {
-    .main_singup_form {
-      .bottomRight(100px, 0);  
-    }
-  }
-
-  &.footer_visible {
-    .main_singup_form {
-      .bottomRight(@footer-height + 20, 0);  
-    }
-  }
-
 }

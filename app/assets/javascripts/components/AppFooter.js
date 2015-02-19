@@ -17,31 +17,11 @@ define([
 
     mixins: [ Router.State ],
 
-    getInitialState: function(){
-      return {
-        visibility: false
-      }
-    },
-
-    componentWillReceiveProps: function (newProps) {
-      this.toggle();
-    },
-
-    componentDidUpdate: function () {
-      this.toggle();
-    },
-
-    toggle: function () {
-      if(this.props.visibility) {
-        return {display: 'block'}
-      } else {
-        return {display: 'none'}
-      }
-    },
-
     render: function () {
+      var footerClass = this.props.visible ? "application_footer" : "application_footer hidden"
+
       return (
-        <footer className="application_footer" style={this.toggle()}>
+        <footer className={footerClass}>
           
           <ul className="compstak_description">
             <li className="single_point">

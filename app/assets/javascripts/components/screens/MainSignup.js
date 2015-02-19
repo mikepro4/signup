@@ -9,7 +9,6 @@ define([
   // components
   'jsx!assets/javascripts/components/Input',
   'jsx!assets/javascripts/components/Select',
-  'jsx!assets/javascripts/components/AppFooter',
   'jsx!assets/javascripts/components/MarketInfo'
 
 ], function (
@@ -21,7 +20,7 @@ define([
   MarketStore,
 
   // compomnents
-  Input, Select, AppFooter, MarketInfo
+  Input, Select, MarketInfo
 
 ) { 
 
@@ -35,7 +34,6 @@ define([
         {
           buttonTitle: 'JOIN COMPSTAK',
           allMarkets: MarketStore.getMarkets(),
-          footerVisibility: false,
           launchingSoon: false
         }
       )
@@ -105,24 +103,9 @@ define([
         market: marketValue
       })
     },
-
-    selectContinueButtonTitle: function (value) {
-      var marketLaunched = this.getMarketState(value);
-
-      if(marketLaunched) {
-         var continueButtonTitle = 'JOIN COMPSTAK';
-      } else {
-         var continueButtonTitle = 'JOIN EARLY';
-      }
-
-      this.setState({
-        buttonTitle: continueButtonTitle
-      })
-    },
-
+    
     toggleUI: function (value) {
       this.setState({
-        footerVisibility: this.getMarketState(value),
         launchingSoon: !this.getMarketState(value)
       });
       this.selectContinueButtonTitle(value);
@@ -138,6 +121,20 @@ define([
       }
     },
 
+    selectContinueButtonTitle: function (value) {
+      var marketLaunched = this.getMarketState(value);
+
+      if(marketLaunched) {
+         var continueButtonTitle = 'JOIN COMPSTAK';
+      } else {
+         var continueButtonTitle = 'JOIN EARLY';
+      }
+
+      this.setState({
+        buttonTitle: continueButtonTitle
+      })
+    },
+
     handleEmailInput: function(event){
       this.setState({
         email: event.target.value
@@ -150,17 +147,14 @@ define([
     },
 
     saveAndContinue: function() {
-      console.log("EMail: " + this.state.email);
+      console.log("Emaail: " + this.state.email);
       console.log("Password: " + this.state.market);
-      alert(this.state.email + ' ' + this.state.market);
+      this.props.nextScreen();
     },
 
     render: function () {
-      var footerVisibilityClass = this.state.footerVisibility ? 'footer_visible' : 'footer_invisible';
-      var minSignupClass = "main_signup_screen " + footerVisibilityClass;
-
       return (
-        <div className={minSignupClass}>
+        <div className="main_signup_screen">
 
           <div className="main_singup_form">
           
@@ -199,7 +193,6 @@ define([
 
           </div>
 
-          <AppFooter visibility={this.state.footerVisibility} />   
         </div>
       );
     }

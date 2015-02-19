@@ -24,21 +24,11 @@ define([
       };
     },
 
-    componentDidUpdate: function (newProps) {
-      this.toggleClassName()
-    },
-
-    toggleClassName: function () {
-      if(this.props.visible) {
-        return "error_container visible"
-      } else {
-         return "error_container invisible"
-      }
-    },
-
     render: function(){ 
+      var errorClass = this.props.visible ? "error_container visible" : "error_container invisible"
+
       return (
-        <div className={this.toggleClassName()}>
+        <div className={errorClass}>
           <span>{this.props.errorMessage}</span>
         </div>
       )

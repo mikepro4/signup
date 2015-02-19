@@ -4,7 +4,7 @@ define([
   'react', 'react-router',
 
   // components
-  'jsx!assets/javascripts/components/AppHeader',
+  'jsx!assets/javascripts/components/screens/App',
 
   // Main Screen
   'jsx!assets/javascripts/components/screens/MainSignup',
@@ -30,7 +30,7 @@ define([
   React, Router,
 
   // components
-  AppHeader,
+  App,
 
   // Main Screen
   MainSignup,
@@ -57,24 +57,6 @@ define([
   var RouteHandler = Router.RouteHandler;
   var Link = Router.Link;
 
-  var App = React.createClass({
-    mixins: [ Router.State ],
-
-    render: function () {
-        
-      return (
-         <div className="application_wrapper">
-
-            <AppHeader/>
-
-            <section className="application_content">
-              <RouteHandler {...this.props}/>
-            </section>
-
-        </div>
-      );
-    }
-  });
 
   var routes = (
     <Route name="app" handler={App} path="/" >
