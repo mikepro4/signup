@@ -68,6 +68,29 @@ body {
   
 }
 
+.verticalSlide-enter {
+  opacity: 0;
+  .transform(translateY(200px));
+  .transition(all 0.2s ease-in-out);
+
+  &.verticalSlide-enter-active {
+    opacity: 1;
+    .transform(translateY(0px));
+  }
+}
+
+.verticalSlide-leave {
+  opacity: 1;
+  .transform(translateY(0px));
+  .transition(all 0.2s ease-in-out);
+
+  &.verticalSlide-leave-active {
+    opacity: 0;
+    .transform(translateY(-200px));
+  }
+}
+
+
 button.button_wide {
   .display(relative);
   width: 100%;

@@ -69,23 +69,28 @@ define([
     },
 
     render: function () {
+      var name = this.getRoutes().reverse()[0].name;
         
       return (
          <div className="application_wrapper">
 
-            <AppHeader mode={this.state.headerMode} />
+          <AppHeader mode={this.state.headerMode} />
 
-            <section className="application_content">
+          <section className="application_content">
+
+            <TransitionGroup component="div" transitionName="verticalSlide">
               <RouteHandler 
                 {...this.props} 
                 nextScreen={this.nextScreen}
                 saveValues={this.saveValues}
                 signUpValues={signUpValues}
+                key={name}
               />
+            </TransitionGroup>
 
-              <AppFooter visible={this.state.footerVisible} />   
+            <AppFooter visible={this.state.footerVisible} />   
 
-            </section>
+          </section>
 
         </div>
       );

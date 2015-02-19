@@ -62,24 +62,24 @@ define([
     <Route name="app" handler={App} path="/" >
 
       // Main sign up routes and redirect
-      <Route name="signup" path="/" handler={MainSignup} />
-      <Route name="signup_market" path="/:market" handler={MainSignup} />
-      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} />
+      <Route path="/" handler={MainSignup} addHandlerKey={true}/>
+      <Route path="/:market" handler={MainSignup} addHandlerKey={true}/>
+      <Route path="/:email/:market" handler={MainSignup} addHandlerKey={true}/>
 
       // User routes
-      <Route name="user_info" path="/user/info/" handler={UserInfo} />
-      <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} />
-      <Route name="user_create_account" path="/user/create_account/" handler={CreateAccount} />
+      <Route name="user_info" path="/user/info/" handler={UserInfo} addHandlerKey={true}/>
+      <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} addHandlerKey={true}/>
+      <Route name="user_create_account" path="/user/create_account/" handler={CreateAccount} addHandlerKey={true}/>
 
       // Invite routes
-      <Route name="invite_video" path="/invite/video/" handler={Video} />
-      <Route name="invite_upload_comps" path="/invite/upload_comps/" handler={UploadComps} />
-      <Route name="invite_question_1" path="/invite/question/1/" handler={Question1} />
-      <Route name="invite_question_2" path="/invite/question/2/" handler={Question2} />
-      <Route name="invite_question_3" path="/invite/question/3/" handler={Question3} />
-      <Route name="invite_info" path="/invite/info/" handler={UserInfo} />
-      <Route name="invite_thanks" path="/invite/thanks/" handler={SignupThanks} />
-      <Route name="invite_thanks_upload" path="/invite/thanks_upload" handler={SignupThanksUpload} />
+      <Route name="invite_video" path="/invite/video/" handler={Video} addHandlerKey={true}/>
+      <Route name="invite_upload_comps" path="/invite/upload_comps/" handler={UploadComps} addHandlerKey={true}/>
+      <Route name="invite_question_1" path="/invite/question/1/" handler={Question1} addHandlerKey={true}/>
+      <Route name="invite_question_2" path="/invite/question/2/" handler={Question2} addHandlerKey={true}/>
+      <Route name="invite_question_3" path="/invite/question/3/" handler={Question3} addHandlerKey={true}/>
+      <Route name="invite_info" path="/invite/info/" handler={UserInfo} addHandlerKey={true}/>
+      <Route name="invite_thanks" path="/invite/thanks/" handler={SignupThanks} addHandlerKey={true}/>
+      <Route name="invite_thanks_upload" path="/invite/thanks_upload" handler={SignupThanksUpload} addHandlerKey={true}/>
 
     </Route>
   );
