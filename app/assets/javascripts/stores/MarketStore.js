@@ -1,10 +1,10 @@
 define([
 
-  'underscore'
+  'underscore', 'jquery'
 
 ], function (
 
-  _
+  _, $
 
 ) { 
 
@@ -22,10 +22,17 @@ define([
 
       _initCalled = true;
 
-      getJSON(API, function (err, res) {
-        _markets.push(res);
-        this.notifyChange();
-      }.bind(this));
+      $.ajax({
+        url: API,
+        dataType: 'json',
+        success: function(data) {
+          _markets.push(data);
+          this.notifyChange();
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('Markets were not loaded');
+        }.bind(this)
+      });
     },
 
     getMarkets: function () {
@@ -70,20 +77,6 @@ define([
       });
     }
   }
-
-  function getJSON(url, cb) {
-    var req = new XMLHttpRequest();
-    req.onload = function () {
-      if (req.status === 404) {
-        cb(new Error('not found'));
-      } else {
-        cb(null, JSON.parse(req.response));
-      }
-    };
-    req.open('GET', url);
-    req.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    req.send();
-  }
-
+  
   return MarketStore;
 })

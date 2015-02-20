@@ -112,8 +112,8 @@ define([
 
       if(canProceed) {
         var data = {
-          email: this.state.email,
-          market: this.state.market,
+          email: this.state.email.trim(),
+          market: this.state.market.trim(),
           userType: MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer'
         }
 

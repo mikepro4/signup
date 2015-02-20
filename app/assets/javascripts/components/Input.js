@@ -17,6 +17,8 @@ define([
 
 ) { 
 
+  var cx = React.addons.classSet;
+
   var Input = React.createClass({
 
     getInitialState: function(){
@@ -108,13 +110,19 @@ define([
     },
     
     render: function(){
-      var validClass = this.state.valid ? 'input_valid' : 'input_error';
-      var hasValueClass = this.state.empty ? 'input_empty' : 'input_hasValue';
-      var focusClass = this.state.focus ? 'input_focused' : 'input_unfocused';
-      var inputGroupClass = 'input_group ' + hasValueClass + ' ' + focusClass + ' ' + validClass;
+
+      var inputGroupClasses = cx({
+        'input_group':     true,
+        'input_valid':     this.state.valid,
+        'input_error':     !this.state.valid,
+        'input_empty':     this.state.empty,
+        'input_hasValue':  !this.state.empty,
+        'input_focused':   this.state.focus,
+        'input_unfocused': !this.state.focus
+      });
 
       return (
-        <div className={inputGroupClass}>
+        <div className={inputGroupClasses}>
 
           <label className="input_label" htmlFor={this.props.text}>
             <span className="label_text">{this.props.text}</span>
