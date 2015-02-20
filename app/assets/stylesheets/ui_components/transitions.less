@@ -1,0 +1,21 @@
+.verticalSlide-enter {
+  .scale(.7);
+  .transition(all 0.2s ease-in-out);
+  opacity: 0;
+
+  &.verticalSlide-enter-active {
+    .scale(1);
+    opacity: 1;
+  }
+}
+
+.verticalSlide-leave {
+  .transition(all 0.2s ease-in-out);
+  .scale(1);
+  opacity: 1;
+
+  &.verticalSlide-leave-active {
+    .scale(1.55);
+    opacity: 0;
+  }
+}

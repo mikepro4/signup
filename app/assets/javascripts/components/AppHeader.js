@@ -14,7 +14,11 @@ define([
   
   var AppHeader = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
+
+    handleLogoClick: function () {
+      this.transitionTo('/');
+    },
 
     render: function () {
       var headerClassName = 'application_header mode-' + this.props.mode;
@@ -22,7 +26,7 @@ define([
       return (
         <header className={headerClassName}>
 
-          <aside className="cs_logo"><Icon type="cs_logo" /></aside>
+          <aside className="cs_logo" onClick={this.handleLogoClick}><Icon type="cs_logo" /></aside>
           
           <Button 
             href="https://exchange.compstak.com/login"

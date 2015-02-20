@@ -10,7 +10,6 @@
 @vertical_breakpoint: 820px;
 @textColor: #545a6a;
 
-
 html {
   .size(100%, 100%);
   overflow: hidden;
@@ -42,84 +41,36 @@ body {
     z-index: @layer1;  
     overflow-x: hidden;  
 
+    // trigger scrollbars on smaller screens
     @media only screen and (max-height: @vertical_breakpoint) {
       overflow-y: scroll;
       .webkit-scrollbar-light(); 
     }
 
-    .application_routeHandler {
-      @media only screen and (min-height: 0) and (max-height : @vertical_breakpoint)  {
-        .display(relative);
-        height: 520px;
-        overflow: hidden;
+    // wrap Routehandler in fixed height div for better transitions
+    &.footer_visible {
+      .application_routeHandler {
+        @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) {
+          .display(relative);
+          height: 490px;
+        }
       }
     }
 
-    // Main Signup
+    // Screen
     @import "screens/main_signup.less";
-
-    // User Info
     @import "screens/user_info.less";
-
-    // Reviewing Reques
     @import "screens/reviewing_request.less";
   }
-
 }
 
-// Header
+// UI components
 @import "ui_components/header.less";
-
-// Footer
 @import "ui_components/footer.less";
-
-// Select
 @import "ui_components/select.less";
-
-// Input
 @import "ui_components/input.less";
-
-// Input Error
 @import "ui_components/input_error.less";
-
-// Scrollbar
 @import "ui_components/scrollbar.less";
-
-
-.verticalSlide-enter {
-  opacity: 0;
-  // .scale(.7);
-  .transform(translateY(200px));
-  .transition(all 0.2s ease-in-out);
-
-  &.verticalSlide-enter-active {
-    opacity: 1;
-    .scale(1);
-    .transform(translateY(0px));
-  }
-}
-
-.verticalSlide-leave {
-  opacity: 1;
-  .transform(translateY(0px));
-  .transition(all 0.2s ease-in-out);
-  .scale(1);
-
-  &.verticalSlide-leave-active {
-    opacity: 0;
-    .transform(translateY(-200px));
-    // .scale(1.55);
-  }
-}
-
-
-button.button_wide {
-  .display(relative);
-  width: 100%;
-  margin: 25px 0 0 0;
-  height: 50px;
-  font-size: 15px;
-  letter-spacing: 1px;
-}
-
+@import "ui_components/transitions.less";
+@import "ui_components/button.less";
 

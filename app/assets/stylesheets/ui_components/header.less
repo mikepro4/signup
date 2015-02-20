@@ -20,9 +20,23 @@ header.application_header {
   .cs_logo {
     .display(relative);
     width: 135px;
+    cursor: pointer;
 
     path {
+      .transition(all 0.2s ease-out);
       fill: @logoColor;
+    }
+
+    &:hover {
+      path {
+        fill: @light-blue;
+      }
+    }
+
+    &:active {
+      path {
+        fill: lighten(@light-blue, 20%);
+      }
     }
   }
 

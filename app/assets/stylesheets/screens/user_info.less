@@ -1,13 +1,9 @@
 .user_info_screen {
-  .display(relative);
+  .display(absolute);
+  .topLeft(0, 0);
+  .bottomRight(0, 0);  
   min-height: 520px;
   color: @textColor;
-
-  @media only screen and (min-height: @vertical_breakpoint) {
-    .display(absolute);
-    .topLeft(0, 0);
-    .bottomRight(0, 0);   
-  }
 
   .user_info_form {
     position: absolute;

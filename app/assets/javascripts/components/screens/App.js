@@ -21,7 +21,6 @@ define([
   var Route = Router.Route;
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
-  var Link = Router.Link;
 
   var signUpValues = {
     email: null,
@@ -72,11 +71,12 @@ define([
 
     render: function () {
       var name = this.getRoutes().reverse()[0].name;
+      var contentClass = this.state.footerVisible ? "application_content footer_visible" : "application_content footer_invisible"
         
       return (
          <div className="application_wrapper">
 
-          <section className="application_content">
+          <section className={contentClass}>
 
            <AppHeader mode={this.state.headerMode} />
 
