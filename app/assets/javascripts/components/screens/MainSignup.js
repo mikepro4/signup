@@ -65,6 +65,9 @@ define([
         this.setState({
           email: this.getParams().email
         });
+        this.props.saveValues({
+          email: this.getParams().email
+        });
       }
       
       this.selectMarketFromParams();
