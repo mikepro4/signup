@@ -17,11 +17,6 @@ require.config({
     shim: {
         'underscore' : {
             exports: '_'
-        },
-
-        'velocity': {
-            deps : ['velocity', 'velocityui'],
-            exports: 'Velocity'
         }
     },
     jsx: {

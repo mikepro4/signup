@@ -31,7 +31,7 @@ define([
     getInitialState: function(){
       return {
         email: this.props.signUpValues.email ? this.props.signUpValues.email : this.getParams().email,
-        market: this.props.signUpValues.market,
+        market: this.props.signUpValues.market ? this.props.signUpValues.market : this.getParams().market,
         buttonTitle: 'JOIN COMPSTAK',
         allMarkets: MarketStore.getMarkets(),
         launchingSoon: false
@@ -64,22 +64,17 @@ define([
       if(this.getParams().email) {
         this.setState({
           email: this.getParams().email
-        })
+        });
       }
       
       this.selectMarketFromParams();
-    },
-
-    onSelect: function (selectedMarket) {
-      this.transitionTo('/' + selectedMarket);
-      this.toggleUI(selectedMarket);
     },
 
     selectMarketFromParams: function () {
       var matchedMarket = MarketStore.getMarket(this.getParams().market);
       this.setState({
         market: !_.isEmpty(matchedMarket) ? this.getParams().market : null
-      })
+      });
       this.toggleUI(this.getParams().market);
     },
 
@@ -91,6 +86,11 @@ define([
       });
     },
 
+    onSelect: function (selectedMarket) {
+      this.transitionTo('/' + selectedMarket);
+      this.toggleUI(selectedMarket);
+    },
+
     handleEmailInput: function(event){
       this.setState({
         email: event.target.value
@@ -98,6 +98,7 @@ define([
     },
 
     validateEmail: function (event) {
+      // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(event);
     },
@@ -110,11 +111,11 @@ define([
         var data = {
           email: this.state.email,
           market: this.state.market,
-          userType: MarketStore.getMarketState(this.state.market) ? "user" : "pioneer"
+          userType: MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer'
         }
 
-        this.props.saveValues(data)
-        this.props.nextScreen()
+        this.props.saveValues(data);
+        this.props.nextScreen();
 
       } else {
         this.refs.email.isValid();
@@ -128,10 +129,17 @@ define([
 
           <div className="main_singup_form">
           
-            <MarketInfo markets={this.state.AllMarkets} visibility={this.state.launchingSoon} market={this.state.market} />
+            <MarketInfo 
+              markets={this.state.AllMarkets} 
+              visibility={this.state.launchingSoon} 
+              market={this.state.market} 
+            />
 
             <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
-            <a className="signup_landlord_link" href="https://compstak.com">Are you a Landlord, Lendor or Investor?</a>
+
+            <a className="signup_landlord_link" href="https://compstak.com" target="_blank">
+              Are you a Landlord, Lendor or Investor?
+            </a>
 
             <form onSubmit={this.saveAndContinue}>
 
@@ -163,7 +171,7 @@ define([
 
               <button 
                 type="submit" 
-                className="button button_wide signup_start">
+                className="button button_wide">
                 {this.state.buttonTitle}
               </button> 
 

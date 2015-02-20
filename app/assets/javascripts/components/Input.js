@@ -17,7 +17,7 @@ define([
 
 ) { 
 
-  var textInput = React.createClass({
+  var Input = React.createClass({
 
     getInitialState: function(){
       var valid = (this.props.isValid && this.props.isValid()) || true;
@@ -38,41 +38,34 @@ define([
         empty: _.isEmpty(event.target.value)
       });
 
+      // call input's validation method
       if(this.props.validate) {
         this.validateInput(event.target.value);
       }
 
+      // call onChange method on the parent component for updating it's state
       if(this.props.onChange) {
         this.props.onChange(event);
       }
     },
 
     validateInput: function (value) {
-
       // trigger custom validation method in the parent component
       if(this.props.validate && this.props.validate(value)){
-         this.setState({
+        this.setState({
           valid: true,
           errorVisible: false
         });
       } else {
-
-        // check if input is empty to set empty or error message
-        if(!_.isEmpty(value)) {
-          this.setState({
-            valid:false,
-            errorMessage: this.props.errorMessage
-          });  
-        } else {
-          this.setState({
-            valid:false,
-            errorMessage: this.props.emptyMessage
-          });  
-        }
+        this.setState({
+          valid: false,
+          errorMessage: !_.isEmpty(value) ? this.props.errorMessage : this.props.emptyMessage
+        });  
       }
     },
 
-    componentWillReceiveProps: function (newProps) {      
+    componentWillReceiveProps: function (newProps) {    
+      // perform update only when new value exists and not empty  
       if(newProps.value) {
         if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
           if(this.props.validate) {
@@ -81,7 +74,7 @@ define([
           this.setState({
             value: newProps.value,
             empty: _.isEmpty(newProps.value)
-          })
+          });
         }   
       }
     },
@@ -120,7 +113,7 @@ define([
       var focusClass = this.state.focus ? 'input_focused' : 'input_unfocused';
       var inputGroupClass = 'input_group ' + hasValueClass + ' ' + focusClass + ' ' + validClass;
 
-      return(
+      return (
         <div className={inputGroupClass}>
 
           <label className="input_label" htmlFor={this.props.text}>
@@ -153,5 +146,5 @@ define([
     }
   });
 
-  return textInput;
+  return Input;
 });

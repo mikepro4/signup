@@ -19,7 +19,7 @@ define([
     },
 
     render: function(){ 
-      var errorClass = this.props.visible ? "error_container visible" : "error_container invisible"
+      var errorClass = this.props.visible ? 'error_container visible' : 'error_container invisible'
 
       return (
         <div className={errorClass}>
@@ -30,5 +30,5 @@ define([
 
   })
 
-  return InputError
+  return InputError;
 })

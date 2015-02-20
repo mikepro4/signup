@@ -102,7 +102,7 @@ define([
     },
 
     render: function() {
-      var promoClass = this.state.promoCodeOpen ? "promocode_container promo_visible" : "promocode_container";
+      var promoClass = this.state.promoCodeOpen ? 'promocode_container promo_visible' : 'promocode_container';
 
       return (
         <div className="user_info_screen">
@@ -120,7 +120,7 @@ define([
                 validate={this.isEmpty}
                 value={this.state.firstName}
                 onChange={this.handleFirstNameInput} 
-                emptyMessage="First Name can't be empty"
+                emptyMessage="First name can't be empty"
               /> 
 
               <Input 
@@ -130,7 +130,7 @@ define([
                 validate={this.isEmpty}
                 value={this.state.lastName}
                 onChange={this.handleLastNameInput} 
-                emptyMessage="Last Name can't be empty"
+                emptyMessage="Last name can't be empty"
               /> 
 
               <Input 
@@ -140,11 +140,13 @@ define([
                 validate={this.isEmpty}
                 value={this.state.companyName}
                 onChange={this.handleCompanyNameInput} 
-                emptyMessage="Company Name can't be empty"
+                emptyMessage="Company name can't be empty"
               /> 
 
               <div className={promoClass}>
-                <a className="promocode_show" onClick={this.togglePromoCode}>Have promotional code?</a>
+                <a className="promocode_show" onClick={this.togglePromoCode}>
+                  Have promotional code?
+                </a>
                 <Input 
                   text="Promotional Code" 
                   ref="promoCode"
@@ -156,7 +158,7 @@ define([
 
               <button 
                 type="submit" 
-                className="button button_wide user_info_continue">
+                className="button button_wide">
                 {this.state.continueButtonTitle}
               </button> 
 

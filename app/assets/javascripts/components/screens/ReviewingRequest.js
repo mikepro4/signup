@@ -34,13 +34,12 @@ define([
 
             <div className="reviewing_footer">
               <div className="have_questions">Have Questions?</div>
-              <a className="help_email">help@compstak.com</a>
+              <a className="help_email" href="mailto:help@compStak.com" target="_blank">help@compstak.com</a>
               <div className="help_phone">1-646-926-6707</div>
             </div>
           </div>
         </div>
-      )
-      
+      ) 
     }
   });
 

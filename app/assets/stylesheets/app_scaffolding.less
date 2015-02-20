@@ -33,7 +33,7 @@ body {
   .topLeft(0, 0);
   z-index: @layer1;
 
-  // Screens
+  // ALl the content goes here
   section.application_content {
     .display(absolute);
     .topLeft(0, 0);
@@ -57,7 +57,11 @@ body {
       }
     }
 
-    // Screen
+    // Header & footer
+    @import "ui_components/header.less";
+    @import "ui_components/footer.less";
+
+    // Screens
     @import "screens/main_signup.less";
     @import "screens/user_info.less";
     @import "screens/reviewing_request.less";

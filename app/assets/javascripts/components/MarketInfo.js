@@ -1,19 +1,22 @@
 define([
-
+  // libraries
   'react', 'react-router', 'jquery', 'underscore',
 
   // stores
   'assets/javascripts/stores/MarketStore',
 
-  // icons
+  // components
   'jsx!assets/javascripts/components/Icon',
 
 ], function (
 
+  // libraries
   React, Router, $, _,
 
+  // stores
   MarketStore,
 
+  // components
   Icon
 
 ) { 
@@ -29,19 +32,10 @@ define([
     },
 
     componentWillReceiveProps: function (newProps) {
-      this.toggleFooter();
       this.getMarketDisplayName();
     },
 
-    toggleFooter: function () {
-      if(this.props.visibility) {
-        return {display: 'inline-block'}
-      } else {
-        return {display: 'none'}
-      }
-    },
-
-   getMarketDisplayName: function () {
+    getMarketDisplayName: function () {
       var matchedMarked = MarketStore.getMarket(this.props.market);
 
       if(!_.isUndefined(matchedMarked)){
@@ -52,12 +46,12 @@ define([
     },
 
     render: function () {
+      var labelClass = this.props.visibility ? 'launching_soon_label' : 'launching_soon_label hidden';
+
       return (
         <div className="signup_market_info"> 
           <h1 className="signup_main_title">{this.getMarketDisplayName()}</h1>
-          <aside className="launching_soon_label" style={this.toggleFooter()}>
-            Market Launching Soon
-          </aside>
+          <aside className={labelClass}> Market Launching Soon </aside>
         </div>
       );
     }

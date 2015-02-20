@@ -32,8 +32,8 @@ define([
       var array = [];
       _.each(_markets[0], function(item) { 
         array.push({
-          "label": item.displayName, 
-          "value": item.displayName, 
+          'label': item.displayName, 
+          'value': item.displayName, 
           launched: item.publiclyAvailable
         }); 
       });

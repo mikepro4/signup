@@ -18,7 +18,7 @@ define([
     mixins: [ Router.State ],
 
     render: function () {
-      var footerClass = this.props.visible ? "application_footer" : "application_footer hidden";
+      var footerClass = this.props.visible ? 'application_footer' : 'application_footer hidden';
 
       return (
         <footer className={footerClass}>

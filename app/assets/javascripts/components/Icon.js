@@ -11,16 +11,10 @@ define([
   
   var Icon = React.createClass({
 
-    getDefaultProps: function() {
-      return {
-        fill: '#434343'
-      }
-    },
-
     render: function() {
       switch(this.props.type) {
 
-        case "cs_logo": 
+        case 'cs_logo': 
           return (
             <svg viewBox="0 0 123 27">
             <path d="M33,13.4L33,13.4c0-3,2.3-5.5,5.4-5.5c1.9,0,3.1,0.7,4.2,1.7l-0.8,0.9C40.9,9.6,39.9,9,38.5,9
@@ -38,7 +32,7 @@ define([
             </svg>
         );
 
-        case "circle_dollar":
+        case 'circle_dollar':
           return (
             <svg viewBox="0 0 40 40">
             <path fill="#50B67F" d="M20.1,0c11.1,0,20.1,9,20.1,20.1s-9,20.1-20.1,20.1S0,31.2,0,20.1S9,0,20.1,0z M24.5,14.8
@@ -49,7 +43,7 @@ define([
             </svg>
           );
 
-        case "circle_user": 
+        case 'circle_user': 
           return (
             <svg viewBox="0 0 40 40">
             <path fill="#50B67F" d="M20.1,0c11.1,0,20.1,9,20.1,20.1s-9,20.1-20.1,20.1S0,31.2,0,20.1S9,0,20.1,0z M16.4,16.8
@@ -58,7 +52,7 @@ define([
             </svg>
           )
 
-        case "circle_asterisk": 
+        case 'circle_asterisk': 
           return (
             <svg viewBox="0 0 40 40">
             <path fill="#50B67F" d="M20.1,0c11.1,0,20.1,9,20.1,20.1s-9,20.1-20.1,20.1S0,31.2,0,20.1S9,0,20.1,0z M18.7,27.4h2.5l-0.5-6l5,3.5
@@ -66,7 +60,7 @@ define([
             </svg>
           )
 
-        case "circle_error": 
+        case 'circle_error': 
           return (
             <svg viewBox="0 0 20 20">
             <path d="M10,0.982c4.973,0,9.018,4.046,9.018,9.018S14.973,19.018,10,19.018S0.982,14.973,0.982,10
@@ -75,7 +69,7 @@ define([
             </svg>
           )
 
-        case "circle_tick": 
+        case 'circle_tick': 
           return (
             <svg viewBox="0 0 23 23">
             <path d="M11.5,23C5.2,23,0,17.8,0,11.5S5.2,0,11.5,0S23,5.2,23,11.5S17.8,23,11.5,23z M11.5,1C5.7,1,1,5.7,1,11.5S5.7,22,11.5,22
@@ -84,7 +78,7 @@ define([
             </svg>
           )
 
-        case "success_tick": 
+        case 'success_tick': 
           return (
             <svg viewBox="0 0 57 57">
               <path fill="#4FB37F" d="M56.8,28.4c0,15.7-12.7,28.4-28.4,28.4S0,44.1,0,28.4S12.7,0,28.4,0S56.8,12.7,56.8,28.4z M25.9,38.3

@@ -56,22 +56,23 @@ define([
 
     nextScreen: function () {
       console.log(signUpValues)
-      if(signUpValues.userType === "user") {
+      if(signUpValues.userType === 'user') {
         if(_.isEmpty(signUpValues.email) || _.isEmpty(signUpValues.firstName) || _.isEmpty(signUpValues.lastName)) {
           this.transitionTo('/user/info/');
         } else {
           this.transitionTo('/user/reviewing_request/');
         }
-      } else if (signUpValues.userType === "pioneer") {
+      } else if (signUpValues.userType === 'pioneer') {
         alert('Pioneer!')
       } else {
+        alert('You need to fill in email and market')
         this.transitionTo('/');
       }
     },
 
     render: function () {
       var name = this.getRoutes().reverse()[0].name;
-      var contentClass = this.state.footerVisible ? "application_content footer_visible" : "application_content footer_invisible"
+      var contentClass = this.state.footerVisible ? 'application_content footer_visible' : 'application_content footer_invisible';
         
       return (
          <div className="application_wrapper">
@@ -81,7 +82,7 @@ define([
            <AppHeader mode={this.state.headerMode} />
 
             <div className="application_routeHandler">
-              <TransitionGroup component="div" transitionName="verticalSlide">
+              <TransitionGroup component="div" transitionName="scale">
                 <RouteHandler 
                   {...this.props} 
                   nextScreen={this.nextScreen}

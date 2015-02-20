@@ -1,14 +1,18 @@
 define([
-
+  // libraries
   'react', 'react-router', 
 
   // components
   'jsx!assets/javascripts/components/Icon',
-  'jsx!assets/javascripts/components/Button',
+  'jsx!assets/javascripts/components/Button'
 
 ], function (
 
-  React, Router, Icon, Button
+  // libraries
+  React, Router, 
+
+  // components
+  Icon, Button
 
 ) { 
   
@@ -26,7 +30,9 @@ define([
       return (
         <header className={headerClassName}>
 
-          <aside className="cs_logo" onClick={this.handleLogoClick}><Icon type="cs_logo" /></aside>
+          <aside className="cs_logo" onClick={this.handleLogoClick}> 
+            <Icon type="cs_logo" /> 
+          </aside>
           
           <Button 
             href="https://exchange.compstak.com/login"
