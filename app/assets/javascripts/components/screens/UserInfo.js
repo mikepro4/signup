@@ -44,33 +44,30 @@ define([
       this.setState({
         firstName: event.target.value
       });
-      this.props.saveValues({
-        firstName: event.target.value
-      })
     },
 
     handleLastNameInput: function (event) {
       this.setState({
         lastName: event.target.value
       });
-      this.props.saveValues({
-        lastName: event.target.value
-      })
     },
 
     handleCompanyNameInput: function (event) {
       this.setState({
         companyName: event.target.value
       });
-      this.props.saveValues({
-        companyName: event.target.value
-      })
     },
 
     handlePromoCodeInput: function (event) {
       this.setState({
         promoCode: event.target.value
       });
+    },
+
+    togglePromoCode: function () {
+      this.setState({
+        promoCodeOpen: true
+      })
     },
 
     saveAndContinue: function(e) {
@@ -93,12 +90,6 @@ define([
         this.refs.lastName.isValid();
         this.refs.companyName.isValid();
       }
-    },
-
-    togglePromoCode: function () {
-      this.setState({
-        promoCodeOpen: true
-      })
     },
 
     render: function() {

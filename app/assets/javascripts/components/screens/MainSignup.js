@@ -59,7 +59,6 @@ define([
     }, 
 
     componentWillReceiveProps: function () {
-
       // update email from url if not undefined
       if(this.getParams().email) {
         this.setState({
