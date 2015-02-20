@@ -5,14 +5,14 @@
   color: @textColor;
 
   .main_singup_form {
-    position: absolute;
-    min-height: 380px;
     .topLeft(0, 0);
-    .bottomRight(@footer-height + 20, 0); 
+    .bottomRight(@footer-height + 25, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
+    position: absolute;
+    min-height: 380px;
 
     .signup_market_info {
       .display(relative);
@@ -24,9 +24,9 @@
       }
 
       aside.launching_soon_label {
+        .border-radius(50px);
         padding: 4px 20px;
         border: 1px solid @green;
-        .border-radius(50px);
         display: inline-block;
         text-transform: uppercase;
         font-family: @font-gotham-medium;
@@ -54,7 +54,6 @@
       font-size: 13px;
       margin: 0 0 28px 0;
       line-height: 18px;
-
       border-bottom: 1px solid transparent;
 
       &:hover {

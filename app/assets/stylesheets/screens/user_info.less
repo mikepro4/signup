@@ -6,26 +6,26 @@
   color: @textColor;
 
   .user_info_form {
-    position: absolute;
-    min-height: 400px;
     .topLeft(0, 0);
-    .bottomRight(@footer-height + 20, 0); 
+    .bottomRight(@footer-height + 30, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
+    position: absolute;
+    min-height: 400px;
 
     h1 {
+      .display(relative);
       font-size: 30px;
       letter-spacing: .7px;
-      .display(relative);
       margin: 0 0 10px 0;
     }
 
     .promocode_container {
       a.promocode_show {
-        text-align: center;
         .display(relative);
+        text-align: center;
         padding: 12px 0 0 0;
         cursor: pointer;
 
@@ -39,7 +39,9 @@
       }
 
       &.promo_visible {
-        a {display: none}
+        a {
+          display: none
+        }
         
         .input_group {
           display: block
