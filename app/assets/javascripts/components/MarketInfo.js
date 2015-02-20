@@ -31,10 +31,6 @@ define([
       }
     },
 
-    componentWillReceiveProps: function (newProps) {
-      this.getMarketDisplayName();
-    },
-
     getMarketDisplayName: function () {
       var matchedMarked = MarketStore.getMarket(this.props.market);
 
