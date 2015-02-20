@@ -17,6 +17,8 @@ define([
 
 ) {
 
+  var cx = React.addons.classSet;
+
   var UserInfoScreen = React.createClass({
 
     mixins: [ Router.State ],
@@ -93,7 +95,10 @@ define([
     },
 
     render: function() {
-      var promoClass = this.state.promoCodeOpen ? 'promocode_container promo_visible' : 'promocode_container';
+      var promoClass = cx({
+        'promocode_container':   true,
+        'promo_visible':         this.state.promoCodeOpen
+      });
 
       return (
         <div className="user_info_screen">

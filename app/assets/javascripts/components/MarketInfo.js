@@ -20,6 +20,8 @@ define([
   Icon
 
 ) { 
+
+  var cx = React.addons.classSet;
   
   var MarketInfo = React.createClass({
 
@@ -42,7 +44,10 @@ define([
     },
 
     render: function () {
-      var labelClass = this.props.visibility ? 'launching_soon_label' : 'launching_soon_label hidden';
+      var labelClass = cx({
+        'launching_soon_label':  true,
+        'hidden':                !this.props.visibility
+      });
 
       return (
         <div className="signup_market_info"> 

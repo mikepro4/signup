@@ -10,6 +10,8 @@ define([
 
 ) { 
 
+  var cx = React.addons.classSet;
+
   var InputError = React.createClass({
 
     getInitialState: function(){
@@ -19,7 +21,11 @@ define([
     },
 
     render: function(){ 
-      var errorClass = this.props.visible ? 'error_container visible' : 'error_container invisible'
+      var errorClass = cx({
+        'error_container':   true,
+        'visible':           this.props.visible,
+        'invisible':         !this.props.visible
+      });
 
       return (
         <div className={errorClass}>

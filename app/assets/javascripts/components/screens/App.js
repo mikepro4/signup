@@ -22,6 +22,8 @@ define([
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
 
+  var cx = React.addons.classSet;
+
   var signUpValues = {
     email: null,
     market: null,
@@ -72,12 +74,17 @@ define([
 
     render: function () {
       var name = this.getRoutes().reverse()[0].name;
-      var contentClass = this.state.footerVisible ? 'application_content footer_visible' : 'application_content footer_invisible';
+
+      var appContentClasses = cx({
+        'application_content':   true,
+        'footer_visible':        this.state.footerVisible,
+        'footer_invisible':      !this.state.footerVisible
+      });
         
       return (
          <div className="application_wrapper">
 
-          <section className={contentClass}>
+          <section className={appContentClasses}>
 
            <AppHeader mode={this.state.headerMode} />
 
