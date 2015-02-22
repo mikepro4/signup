@@ -30,8 +30,9 @@ define([
 
     getInitialState: function(){
       return {
-        email: this.props.signUpValues.email ? this.props.signUpValues.email : this.getParams().email,
-        market: this.props.signUpValues.market ? this.props.signUpValues.market : this.getParams().market,
+        email: this.getParams().email,
+        market: this.getParams().market,
+        marketId: null,
         buttonTitle: 'JOIN COMPSTAK',
         allMarkets: MarketStore.getMarkets(),
         launchingSoon: false
@@ -56,6 +57,7 @@ define([
         allMarkets: MarketStore.getMarkets()
       });
       this.selectMarketFromParams();
+      this.toggleUI(this.state.market)
     }, 
 
     componentWillReceiveProps: function () {
@@ -64,20 +66,17 @@ define([
         this.setState({
           email: this.getParams().email
         });
-        this.props.saveValues({
-          email: this.getParams().email
-        });
       }
       
       this.selectMarketFromParams();
+      this.toggleUI(this.getParams().market)
     },
 
     selectMarketFromParams: function () {
-      var matchedMarket = MarketStore.getMarket(this.getParams().market);
+      var matchedMarket = MarketStore.getMarketByName(this.getParams().market);
       this.setState({
         market: !_.isEmpty(matchedMarket) ? this.getParams().market : null
       });
-      this.toggleUI(this.getParams().market);
     },
 
     toggleUI: function (value) {
@@ -113,12 +112,10 @@ define([
         var data = {
           email: this.state.email.trim(),
           market: this.state.market.trim(),
+          marketId: MarketStore.getMarketId(this.state.market),
           userType: MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer'
         }
-
-        this.props.saveValues(data);
-        this.props.nextScreen();
-
+        this.props.updateInvite(data);
       } else {
         this.refs.email.isValid();
         this.refs.market.isValid();

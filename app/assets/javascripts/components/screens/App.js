@@ -5,7 +5,12 @@ define([
 
   // components
   'jsx!assets/javascripts/components/AppHeader',
-  'jsx!assets/javascripts/components/AppFooter'
+  'jsx!assets/javascripts/components/AppFooter',
+
+  // stores
+  'jsx!assets/javascripts/stores/InviteStore'
+
+
 
 ], function (
 
@@ -13,7 +18,10 @@ define([
   React, Router, _, $,
 
   // components
-  AppHeader, AppFooter
+  AppHeader, AppFooter,
+
+  // stores
+  InviteStore
 
 ) { 
 
@@ -24,21 +32,6 @@ define([
 
   var cx = React.addons.classSet;
 
-  var signUpValues = {
-    email: null,
-    market: null,
-    firstName: null,
-    lastName: null,
-    companyName: null,
-    watchedVideo: false,
-    uploadComps: false,
-    question1: null,
-    question2: null,
-    question3: null,
-    userType: null,
-    promoCode: null
-  }
-
   var App = React.createClass({
 
     mixins: [ Router.State, Router.Navigation ],
@@ -46,25 +39,45 @@ define([
     getInitialState: function(){
       return {
         footerVisible: true,
-        headerMode: 'light'
+        headerMode: 'light',
+        invite: InviteStore.getInvite()
       }
     },
 
-    saveValues: function(field_value) {
-      return function() {
-        signUpValues = _.extend({}, signUpValues, field_value)
-      }.bind(this)();
+    componentWillMount: function () {
+      InviteStore.init();
+    },
+
+    componentDidMount: function () {
+      InviteStore.addChangeListener(this.updateInviteValues);
+    },
+
+    componentWillUnmount: function () {
+      InviteStore.removeChangeListener(this.updateInviteValues);
+    },
+
+    updateInviteValues: function() {
+      this.setState({
+        invite: InviteStore.getInvite()
+      })
+    },
+
+    updateInvite: function(value) {
+      InviteStore.updateInvite(value, this.nextScreen);
     },
 
     nextScreen: function () {
-      console.log(signUpValues)
-      if(signUpValues.userType === 'user') {
-        if(_.isEmpty(signUpValues.email) || _.isEmpty(signUpValues.firstName) || _.isEmpty(signUpValues.lastName)) {
+      this.updateInviteValues();
+      var Invite = InviteStore.getInvite();
+      console.log(Invite);
+
+      if(Invite.userType === 'user') {
+        if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
           this.transitionTo('/user/info/');
         } else {
           this.transitionTo('/user/reviewing_request/');
         }
-      } else if (signUpValues.userType === 'pioneer') {
+      } else if (Invite.userType === 'pioneer') {
         alert('Pioneer!')
       } else {
         alert('You need to fill in email and market')
@@ -93,8 +106,8 @@ define([
                 <RouteHandler 
                   {...this.props} 
                   nextScreen={this.nextScreen}
-                  saveValues={this.saveValues}
-                  signUpValues={signUpValues}
+                  updateInvite={this.updateInvite}
+                  signUpValues={this.state.invite}
                   key={name}
                 />
               </TransitionGroup>

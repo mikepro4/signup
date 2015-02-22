@@ -1,0 +1,21 @@
+{
+ "id": 123,
+ "comment": "Comment",
+ "dateCreated": "date",
+ "email": "mikhail@example.com",
+ "firstName": "Mikhail",
+ "lastName": null,
+ "registrationToken": 123,
+ "statusId": 123,
+ "userInfo": "Info",
+ "phone": "1.718.510.4402",
+ "clientIp": "48.32.45.32",
+ "forwardedFor": "Froward",
+ "remoteAddress": "Address",
+ "marketId": 1,
+ "statusChange": 123,
+ "companyName": null,
+ "promoCodeId": null,
+ "userType": null,
+ "market": null
+}

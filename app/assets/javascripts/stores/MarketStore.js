@@ -10,7 +10,7 @@ define([
 
   var API = '/markets.json';
 
-  var _markets = [];
+  var Markets = [];
   var _changeListeners = [];
   var _initCalled = false;
 
@@ -26,7 +26,14 @@ define([
         url: API,
         dataType: 'json',
         success: function(data) {
-          _markets.push(data);
+          _.each(data, function(market) { 
+            Markets.push({
+              'label': market.displayName, 
+              'value': market.displayName, 
+              'id': market.id,
+              launched: market.publiclyAvailable
+            }); 
+          });
           this.notifyChange();
         }.bind(this),
         error: function(xhr, status, err) {
@@ -36,23 +43,20 @@ define([
     },
 
     getMarkets: function () {
-      var array = [];
-      _.each(_markets[0], function(item) { 
-        array.push({
-          'label': item.displayName, 
-          'value': item.displayName, 
-          launched: item.publiclyAvailable
-        }); 
-      });
-      return array;
+      return Markets;
     },
 
-    getMarket: function (market) {
-      return _.findWhere(this.getMarkets(), {value: market });
+    getMarketByName: function (market) {
+      return _.findWhere(Markets, {value: market });
+    },
+
+    getMarketId: function (market) {
+      var market = this.getMarketByName(market);
+      return market.id
     },
 
     getMarketState: function (marketValue) {
-      var currentMarket = this.getMarket(marketValue);
+      var currentMarket = this.getMarketByName(marketValue);
 
       if(_.isEmpty(currentMarket)) {
         return true;

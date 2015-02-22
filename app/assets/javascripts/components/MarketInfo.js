@@ -34,7 +34,7 @@ define([
     },
 
     getMarketDisplayName: function () {
-      var matchedMarked = MarketStore.getMarket(this.props.market);
+      var matchedMarked = MarketStore.getMarketByName(this.props.market);
 
       if(!_.isUndefined(matchedMarked)){
         return matchedMarked.value;

@@ -83,10 +83,7 @@ define([
           companyName: this.state.companyName,
           promoCode: this.state.promoCode
         }
-
-        this.props.saveValues(data)
-        this.props.nextScreen()
-
+        this.props.updateInvite(data)
       } else {
         this.refs.firstName.isValid();
         this.refs.lastName.isValid();
