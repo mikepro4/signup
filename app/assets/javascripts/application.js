@@ -62,13 +62,13 @@ define([
     <Route name="app" handler={App} path="/" >
 
       // Main sign up routes and redirect
-      <Route path="/" handler={MainSignup} addHandlerKey={true}/>
-      <Route path="/:market" handler={MainSignup} addHandlerKey={true}/>
-      <Route path="/:email/:market" handler={MainSignup} addHandlerKey={true}/>
+      <Route path="/" handler={MainSignup} addHandlerKey={true} ignoreScrollBehavior/>
+      <Route path="/:market" handler={MainSignup} addHandlerKey={true} ignoreScrollBehavior/>
+      <Route path="/:email/:market" handler={MainSignup} addHandlerKey={true} ignoreScrollBehavior/>
 
       // User routes
-      <Route name="user_info" path="/user/info/" handler={UserInfo} addHandlerKey={true}/>
-      <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} addHandlerKey={true}/>
+      <Route name="user_info" path="/user/info/" handler={UserInfo} addHandlerKey={true} ignoreScrollBehavior/>
+      <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} addHandlerKey={true} ignoreScrollBehavior/>
       <Route name="user_create_account" path="/user/create_account/" handler={CreateAccount} addHandlerKey={true}/>
 
       // Invite routes

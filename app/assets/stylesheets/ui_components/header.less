@@ -11,6 +11,11 @@ header.application_header {
   right: 0; 
   z-index: @layer2;
 
+  @media @mobile {
+    padding: 0 10px;
+    height: 70px;
+  }
+
   @media only screen and (min-height: @vertical_breakpoint) {
     position: absolute;
   }
@@ -36,6 +41,10 @@ header.application_header {
         fill: lighten(@light-blue, 20%);
       }
     }
+
+    @media @mobile {
+      width: 100px;
+    }
   }
 
   .have_account_button {
@@ -55,6 +64,11 @@ header.application_header {
     &:active {
       background: lighten(@light-blue, 10%);
       color: #fff;
+    }
+
+    @media @mobile {
+      width: 100px;
+      font-size: 11px;
     }
   }
 }

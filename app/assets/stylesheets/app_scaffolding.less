@@ -22,7 +22,6 @@ body {
   background: @body-bg;
   overflow: hidden;
   font: normal normal normal @font-size-base/@line-height-base @font-opensans-light;
-  min-width: 990px; // TODO - remove this when mobile version is developed
   -webkit-overflow-scrolling: touch;
   display: block;
 }
@@ -41,20 +40,26 @@ body {
     z-index: @layer1;  
     overflow-x: hidden;  
 
-    // trigger scrollbars on smaller screens
-    @media only screen and (max-height: @vertical_breakpoint) {
-      overflow-y: scroll;
-      .webkit-scrollbar-light(); 
-    }
-
     // wrap Routehandler in fixed height div for better transitions
     &.footer_visible {
       .application_routeHandler {
-        @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) {
+
+        @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) and (min-width: 870px) {
           .display(relative);
           height: 490px;
         }
+
+        @media @mobile {
+          .display(relative);
+          min-height: 430px
+        }
       }
+    }
+
+    // trigger scrollbars on smaller screens
+    @media only screen and (max-height: @vertical_breakpoint) and (min-width : 870px) {
+      overflow-y: scroll;
+      .webkit-scrollbar-light(); 
     }
 
     // Header & footer

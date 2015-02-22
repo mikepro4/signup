@@ -88,14 +88,15 @@
   // 
   // Control
   // ------------------------------
-
+  @input-height: 70px;
+  @input-height-mobile: 64px;
 
   // base
 
   .Select-control {
     .display(relative);
     .box-shadow(none);
-    .size(100%, 70px);
+    .size(100%, @input-height);
     .box-sizing(border-box);
     .transition(all 0.7s ease-in-out);
     background: white;
@@ -108,6 +109,10 @@
     letter-spacing: .5px;
     font-family: @font-gotham-book;
     font-size: 18px;
+
+    @media @mobile {
+      height: @input-height-mobile;
+    }
   }
 
   &.is-searchable {
@@ -139,11 +144,20 @@
 
   .Select-placeholder {
     .display(absolute);
-    .topLeft(21px, 15px);
+    .topLeft(20px, 0);
     font-size: 18px;
     font-family: @font-gotham-light;
     letter-spacing: .7px;
+    position: absolute;
+    z-index: @layer2;
+    cursor: text;
+    padding: 0 0 0 15px;
     color: #c1c5cc;
+
+    @media @mobile {
+      font-size: 16px;
+      font-family: @font-gotham-book;
+    }
 
     // crop text
     z-index: @layer2;
@@ -159,6 +173,10 @@
     .topLeft(14px, 15px);
     z-index: @layer2;
     font-family: @font-gotham-light;
+
+    @media @mobile {
+      font-family: @font-gotham-book;
+    }
   }
 
   &.is-focused {
@@ -180,6 +198,10 @@
       letter-spacing: .5px;
       font-family: @font-gotham-light;
       font-size: 16px;
+
+      @media @mobile {
+        font-size: 14px;
+      }
     }
   }
 
@@ -214,7 +236,7 @@
     > input {
       .display(relative);
       .box-shadow(none);
-      .size(410px, 70px);
+      .size(410px, @input-height);
       .border-radius(3px);
       .transition(all 0.7s ease-in-out);
       .box-sizing(border-box);
@@ -228,6 +250,11 @@
       letter-spacing: .5px;
       font-family: @font-gotham-light;
       font-size: 16px;
+
+      @media @mobile {
+        height: @input-height-mobile;
+        font-size: 14px;
+      }
 
       .is-focused & {
         cursor: text;
@@ -277,6 +304,10 @@
     top: 32px;
     width: 0;
     opacity: .8;
+
+    @media @mobile {
+      top: 30px;
+    }
   }
 
   // 
@@ -300,6 +331,12 @@
     z-index: @select-menu-zindex;
     -webkit-overflow-scrolling: touch;
     .webkit-scrollbar-light();
+
+
+    @media @mobile {
+      top: 64px;
+    }
+
   }
 
   // options

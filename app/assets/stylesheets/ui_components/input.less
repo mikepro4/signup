@@ -1,49 +1,61 @@
+@input-height: 70px;
+@input-height-mobile: 64px;
+
 .input_group {
   .display(relative);
-  .size(100%, 70px);
+  width: 100%;
+  min-height: 70px;
   margin-bottom: 10px;
 
+  @media @mobile {
+    min-height: @input-height-mobile;
+    margin-bottom: 0;
+  }
+
   label.input_label {
-    .display(absolute);
+    .flex-display();
+    .align-items(center);
     .topLeft(0, 0);
-    .bottomRight(0, 0);
+    .size(100%, 100%);
+    .user-select(none);
+    .box-sizing(border-box);
+    position: absolute;
     z-index: @layer2;
     cursor: text;
-    .user-select(none);
+    padding: 0 0 0 15px;
 
     .label_text {
-      .display(absolute);
-      .topLeft(21px, 15px);
       font-size: 18px;
       font-family: @font-gotham-light;
       letter-spacing: .7px;
+
+      @media @mobile {
+        font-size: 16px;
+        font-family: @font-gotham-book;
+      }
+    }
+
+    @media @mobile {
+      height: @input-height-mobile;
     }
   }
 
   &.input_empty.input_unfocused {
     color: #c1c5cc;
-
-    &:hover {
-      label.input_label {
-        .label_text {
-        }
-      }
-    }
-  }
-
-  &.input_focused {
-    label.input_label {
-      .bottomRight(40px, 0);
-    }
   }
 
   &.input_focused, &.input_hasValue {
     label.input_label {
+      height: 46px;
+
+      @media @mobile {
+        height: 40px
+      }
+
       .label_text {
         color: #b8bdc4;
         letter-spacing: .3px;
         font-size: 11px;
-        top: 14px;
       }
     }
   }
@@ -57,7 +69,7 @@
   input.input {
     .display(relative);
     .box-shadow(none);
-    .size(100%, 100%);
+    width: 100%;
     .box-sizing(border-box);
     .transition(all 0.7s ease-in-out);
     z-index: @layer1;
@@ -70,15 +82,14 @@
     letter-spacing: .5px;
     font-family: @font-gotham-light;
     font-size: 16px;
+    height: 70px;
 
-
-    &.error {
-      background: #ffcfcf;
-
-      &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px #ffcfcf inset;
-      }
+    @media @mobile {
+      font-size: 14px;
+      padding: 15px 15px 0 15px;
+      height: @input-height-mobile;
     }
+
 
     &:-webkit-autofill {
       -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -86,45 +97,64 @@
     }
   }
 
-  i.input_error_icon {
+  i {
+    .topRight(0, 15px);
+    .flex-display();
+    .flex-direction(row);
+    .align-items(center);
+    .size(20px, @input-height);
+    z-index: @layer4;
     position: absolute;
-    display: none;
-    .topRight(27px, 15px);
-    .size(20px, 20px);
     z-index: @layer3;
 
-    path {
-      fill: @red;
-    }
-  }
-
-  &.input_error {
-    i.input_error_icon {
-      display: block;
+    @media @mobile {
+      height: @input-height-mobile;
     }
 
-    label.input_label {
-      .label_text {
-        // color: @red;
+    svg {
+      opacity: 0;
+      .transition(all 0.2s ease-in-out);
+      .size(20px, 20px);
+    }
+
+    &.input_error_icon {
+      z-index: @layer2;
+      path {
+        fill: @red;
+      }
+    }   
+
+    &.input_valid_icon {
+      z-index: @layer1;
+      path {
+        fill: @green;
       }
     }
   }
 
-  i.input_valid_icon {
-    position: absolute;
-    display: none;
-    .topRight(27px, 15px);
-    .size(20px, 20px);
-    z-index: @layer3;
-
-    path {
-      fill: @green;
-    }
+  &.input_error  {
+    i {
+      &.input_error_icon {
+        svg {
+          opacity: 1
+        }
+      }
+      &.input_valid_icon {
+        display: none
+      }
+    }  
   }
 
   &.input_valid.input_hasValue {
-    i.input_valid_icon {
-      display: block;
+    i {
+      &.input_error_icon {
+        display: none
+      }
+      &.input_valid_icon {
+        svg {
+          opacity: 1
+        }
+      }  
     }
   } 
 }

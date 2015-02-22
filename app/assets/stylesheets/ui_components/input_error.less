@@ -15,9 +15,22 @@
   .user-select(none);
   .transition(all 0.2s ease-in-out);
 
+  @media @mobile {
+    position: relative;
+    .topLeft(-13px, 0);
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 15px 0 15px;
+    font-family: @font-gotham-book;
+  }
+
   &.visible {
-    .transform(translateX(00px));
-    opacity: 1
+    .transform(translateX(0px));
+    opacity: 1;
+
+    @media @mobile {
+      height: 30px;
+    }
   }
 
   &.invisible {
@@ -25,5 +38,11 @@
     opacity: 0;
     -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
     animation-delay: 2s;
+
+    @media @mobile {
+      height: 0;
+      line-height: 0;
+      .transform(translateX(0px));
+    }
   }
 }
