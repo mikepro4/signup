@@ -139,22 +139,28 @@
           opacity: 1
         }
       }
-      &.input_valid_icon {
-        display: none
-      }
     }  
   }
 
-  &.input_valid.input_hasValue {
+  &.input_valid {
     i {
       &.input_error_icon {
-        display: none
+        z-index: @layer1;
       }
       &.input_valid_icon {
-        svg {
-          opacity: 1
-        }
-      }  
+        z-index: @layer2;
+      }
+    }
+
+    &.input_hasValue {
+
+      i {
+        &.input_valid_icon {
+          svg {
+            opacity: 1
+          }
+        }  
+      }
     }
   } 
 }
