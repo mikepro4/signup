@@ -5,6 +5,11 @@
   min-height: 520px;
   color: @textColor;
 
+  @media @mobile {
+    position: relative;
+    min-height: 450px;
+  }
+
   .user_info_form {
     .topLeft(0, 0);
     .bottomRight(@footer-height + 30, 0); 
@@ -20,6 +25,11 @@
       font-size: 30px;
       letter-spacing: .7px;
       margin: 0 0 10px 0;
+
+       @media @mobile {
+        font-size: 18px;
+        margin: 10px 0 20px 0;
+      }
     }
 
     .promocode_container {
@@ -28,6 +38,10 @@
         text-align: center;
         padding: 12px 0 5px 0;
         cursor: pointer;
+
+        @media @mobile {
+          padding: 5px 0 20px 0;
+        }
 
         &:hover {
           text-decoration: underline;
@@ -48,9 +62,19 @@
         }
       }
     }
+
+    .button {   
+      @media @mobile {
+        margin: 0 0 400px 0;
+      }
+    }
   }
 
   form {
     width: 430px;
+
+    @media @mobile {
+      width: 300px;
+    }
   }
 }

@@ -4,6 +4,11 @@
   .bottomRight(0, 0); 
   color: @textColor;
 
+  @media @mobile {
+    position: relative;
+    min-height: 420px;
+  }
+
   .main_singup_form {
     .topLeft(0, 0);
     .bottomRight(@footer-height + 25, 0); 
@@ -13,11 +18,6 @@
     .align-items(center);
     position: absolute;
     min-height: 380px;
-
-    @media @mobile {
-     .justify-content(flex-start);
-     min-height: 370px;
-    }
 
     .signup_market_info {
       .display(relative);
