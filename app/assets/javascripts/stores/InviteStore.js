@@ -1,97 +1,92 @@
 define([
+  // libraries
+  'underscore', 'jquery',
 
-  'underscore', 'jquery'
+  // flux
+  'jsx!assets/javascripts/dispatcher/dispatcher',
+  'jsx!assets/javascripts/constants/AppConstants',
+  'eventemitter'
 
 ], function (
+  //libraries
+  _, $,
 
-  _, $
+  // flux
+  AppDispatcher, Constants, EventEmitter
 
 ) { 
 
   var API = '/invite.json';
+  var CHANGE_EVENT = 'change';
 
   var Invite = {};
-  var _changeListeners = [];
-  var _initCalled = false;
 
-  var InviteStore = {
+  function loadInvite(email, marketId) {
+    console.log(email + ' ' + marketId)
+    $.ajax({
+      url: API,
+      dataType: 'json',
+      success: function(data) {
+        parseData(data);
+        InviteStore.emitChange();
+      },
+      error: function(xhr, status, err) {
+        console.error("Invite didn't load");
+      }
+    });  
+  }
 
-    init: function () {
-      if (_initCalled)
-        return;
+  function parseData(data) {
+    Invite = {
+      'firstName': data.firstName, 
+      'lastName': data.lastName, 
+      'companyName': data.companyName,
+      'email': data.email,
+      'marketId': data.marketId,
+      'userType': data.userType,
+      'promoCode': data.promoCodeId,
+      'market': data.market
+    };
+    localStorage.setItem('inviteObject', JSON.stringify(Invite));
+  }
 
-      _initCalled = true;
+  function updateInvite(value) {
+    Invite = _.extend({}, Invite, value);
+    localStorage.setItem('inviteObject', JSON.stringify(Invite));
+    InviteStore.emitChange();
+  }
 
-      $.ajax({
-        url: API,
-        dataType: 'json',
-        success: function(data) {
-          this.parseData(data);
-          this.notifyChange();
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error("Invite didn't load");
-        }.bind(this)
-      });    
-    },
-
-    parseData: function (data) {
-      Invite = {
-        'firstName': data.firstName, 
-        'lastName': data.lastName, 
-        'companyName': data.companyName,
-        'email': data.email,
-        'marketId': data.marketId,
-        'userType': data.userType,
-        'promoCode': data.promoCodeId,
-        'market': data.market
-      };
-      localStorage.setItem('inviteObject', JSON.stringify(Invite));
-    },
+  var InviteStore = _.extend({}, EventEmitter.prototype, {
 
     getInvite: function () {
       return Invite;
     },
 
-    updateInvite: function (value, cb) {
-      Invite = _.extend({}, Invite, value);
-      localStorage.setItem('inviteObject', JSON.stringify(Invite));
-      this.notifyChange();
-      cb();
+    emitChange: function() {
+      this.emit(CHANGE_EVENT);
     },
 
-    notifyChange: function () {
-      _changeListeners.forEach(function (listener) {
-        listener();
-      });
+    addChangeListener: function(callback) {
+      this.on(CHANGE_EVENT, callback);
     },
 
-    addChangeListener: function (listener) {
-      _changeListeners.push(listener);
-    },
-
-    removeChangeListener: function (listener) {
-      _changeListeners = _changeListeners.filter(function (l) {
-        return listener !== l;
-      });
-    },
-
-    postInvite: function () {
-      $.ajax({
-        url: API,
-        type: 'PUT',
-        data: JSON.stringify(Invite),
-        dataType: 'json',
-        success: function(data) {
-          this.parseData(data);
-          this.notifyChange();
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error("Invite didn't update");
-        }.bind(this)
-      });  
+    removeChangeListener: function(callback) {
+      this.removeListener(CHANGE_EVENT, callback);
     }
-  }
+  })
+
+  AppDispatcher.register(function(action) {
+    switch(action.actionType) {
+      case Constants.INVITE_LOAD:
+        loadInvite(action.email, action.marketId);
+        break;
+      case Constants.INVITE_UPDATE:
+        updateInvite(action.invite);
+        break;
+
+      default:
+    }
+  });
   
   return InviteStore;
 })
