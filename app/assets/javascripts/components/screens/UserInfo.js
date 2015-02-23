@@ -25,16 +25,16 @@ define([
 
     getInitialState: function () {
       return {
-        userType: this.props.signUpValues.userType,
-        market: this.props.signUpValues.market,
+        userType: this.props.signUpValues ? this.props.signUpValues.userType : null,
+        market: this.props.signUpValues ? this.props.signUpValues.market : null,
         mainHeadline: 'Complete Registration',
         subHeadline: null,
         promoCodeOpen: false,
         continueButtonTitle: 'CONTINUE',
-        firstName: this.props.signUpValues.firstName,
-        lastName: this.props.signUpValues.lastName,
-        companyName: this.props.signUpValues.companyName,
-        promoCode: this.props.signUpValues.promoCode
+        firstName: this.props.signUpValues ? this.props.signUpValues.firstName : null,
+        lastName: this.props.signUpValues ? this.props.signUpValues.lastName : null,
+        companyName: this.props.signUpValues ? this.props.signUpValues.companyName : null,
+        promoCode: this.props.signUpValues ? this.props.signUpValues.promoCode : null
       }
     },
 

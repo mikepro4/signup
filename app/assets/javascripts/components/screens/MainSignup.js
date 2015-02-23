@@ -141,7 +141,7 @@ define([
 
           <div className="main_singup_form">
 
-            <div className="throbber throbber_large"></div>;
+            <div className="throbber throbber_large"></div>
 
             <MarketInfo 
               markets={this.state.AllMarkets} 

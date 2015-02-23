@@ -49,7 +49,7 @@ define([
     },
 
     componentWillMount: function () {
-      Actions.loadInvite('email', '23')
+      Actions.loadInvite('email', 'marketId');
     },
 
     componentDidMount: function () {
