@@ -3,11 +3,14 @@
   .topLeft(0, 0);
   .bottomRight(0, 0); 
   color: @textColor;
+  
 
   @media @mobile {
     position: relative;
     min-height: 420px;
   }
+
+
 
   .main_singup_form {
     .topLeft(0, 0);
@@ -112,6 +115,19 @@
 
       @media @mobile {
         width: 300px;
+      }
+    }
+  }
+
+  &.loading {
+
+    .main_singup_form {
+      .transition(all 0.2s ease-out);
+      opacity: .6;
+
+      .throbber {
+        display: block;
+        opacity: 1
       }
     }
   }

@@ -24,17 +24,19 @@ define([
   var Markets = [];
 
   function loadMarkets() {
-    $.ajax({
-      url: API,
-      dataType: 'json',
-      success: function(data) {
-        parseData(data);
-        MarketStore.emitChange();
-      },
-      error: function(xhr, status, err) {
-        console.error('Markets were not loaded');
-      }
-    });
+    _.delay(function () {
+      $.ajax({
+        url: API,
+        dataType: 'json',
+        success: function(data) {
+          parseData(data);
+          MarketStore.emitChange();
+        },
+        error: function(xhr, status, err) {
+          console.error('Markets were not loaded');
+        }
+      });
+    }, 2000)
   }
 
   function parseData(data) {
