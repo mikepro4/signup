@@ -10,6 +10,9 @@ define([
   // stores
   'jsx!assets/javascripts/stores/InviteStore',
 
+  // flux
+  'jsx!assets/javascripts/actions/AppActions'
+
 ], function (
 
   // libraries
@@ -19,7 +22,10 @@ define([
   AppHeader, AppFooter,
 
   // stores
-  InviteStore
+  InviteStore,
+
+  // flux
+  Actions
 
 ) { 
 
@@ -38,12 +44,12 @@ define([
       return {
         footerVisible: true,
         headerMode: 'light',
-        invite: InviteStore.getInvite()
+        invite: null
       }
     },
 
     componentWillMount: function () {
-      InviteStore.init();
+      Actions.loadInvite('email', 'marketId');
     },
 
     componentDidMount: function () {
@@ -54,21 +60,21 @@ define([
       InviteStore.removeChangeListener(this.updateInviteValues);
     },
 
-    updateInviteValues: function() {
+    updateInviteValues: function(cb) {
       this.setState({
         invite: InviteStore.getInvite()
-      })
+      }, function () {
+        if(cb){cb()}
+      }.bind(this));
     },
 
     updateInvite: function(value) {
-      InviteStore.updateInvite(value, this.nextScreen);
+      Actions.updateInvite(value);
+      this.updateInviteValues(this.nextScreen);
     },
 
     nextScreen: function () {
-      this.updateInviteValues();
-      InviteStore.postInvite();
-      var Invite = InviteStore.getInvite();
-
+      var Invite = this.state.invite;
       console.log(Invite);
 
       if(Invite.userType === 'user') {

@@ -16,6 +16,7 @@
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
+    .transition(all 0.2s ease-out);
     position: absolute;
     min-height: 380px;
 
@@ -112,6 +113,18 @@
 
       @media @mobile {
         width: 300px;
+      }
+    }
+  }
+
+  &.loading {
+
+    .main_singup_form {
+      opacity: .6;
+
+      .throbber {
+        display: block;
+        opacity: 1
       }
     }
   }

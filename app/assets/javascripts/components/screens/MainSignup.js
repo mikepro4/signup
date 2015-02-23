@@ -9,7 +9,10 @@ define([
   // components
   'jsx!assets/javascripts/components/Input',
   'jsx!assets/javascripts/components/Select',
-  'jsx!assets/javascripts/components/MarketInfo'
+  'jsx!assets/javascripts/components/MarketInfo',
+
+  // flux
+  'jsx!assets/javascripts/actions/AppActions'
 
 ], function (
 
@@ -20,9 +23,14 @@ define([
   MarketStore,
 
   // compomnents
-  Input, Select, MarketInfo
+  Input, Select, MarketInfo,
+
+  // flux
+  Actions
 
 ) { 
+
+  var cx = React.addons.classSet;
 
   var MainSignupScreen = React.createClass({
 
@@ -34,13 +42,14 @@ define([
         market: this.getParams().market,
         marketId: null,
         buttonTitle: 'JOIN COMPSTAK',
-        allMarkets: MarketStore.getMarkets(),
-        launchingSoon: false
+        allMarkets: null,
+        launchingSoon: false,
+        loading: true
       }
     },
 
     componentWillMount: function () {
-      MarketStore.init();
+      Actions.loadMarkets();
       this.selectMarketFromParams();
     },
 
@@ -54,7 +63,8 @@ define([
 
     updateMarkets: function () {
       this.setState({
-        allMarkets: MarketStore.getMarkets()
+        allMarkets: MarketStore.getMarkets(),
+        loading: false
       });
       this.selectMarketFromParams();
       this.toggleUI(this.state.market)
@@ -124,10 +134,15 @@ define([
 
     render: function () {
       return (
-        <div className="main_signup_screen">
+        <div className={cx({
+          'main_signup_screen': true,
+          'loading': this.state.loading
+          })}>
 
           <div className="main_singup_form">
-          
+
+            <div className="throbber throbber_large"></div>
+
             <MarketInfo 
               markets={this.state.AllMarkets} 
               visibility={this.state.launchingSoon} 
