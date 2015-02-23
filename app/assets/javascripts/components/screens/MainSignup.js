@@ -9,7 +9,10 @@ define([
   // components
   'jsx!assets/javascripts/components/Input',
   'jsx!assets/javascripts/components/Select',
-  'jsx!assets/javascripts/components/MarketInfo'
+  'jsx!assets/javascripts/components/MarketInfo',
+
+  // flux
+  'jsx!assets/javascripts/actions/AppActions'
 
 ], function (
 
@@ -20,7 +23,10 @@ define([
   MarketStore,
 
   // compomnents
-  Input, Select, MarketInfo
+  Input, Select, MarketInfo,
+
+  // flux
+  Actions
 
 ) { 
 
@@ -40,7 +46,7 @@ define([
     },
 
     componentWillMount: function () {
-      MarketStore.init();
+      Actions.loadMarkets();
       this.selectMarketFromParams();
     },
 
@@ -54,6 +60,7 @@ define([
 
     updateMarkets: function () {
       this.setState({
+        
         allMarkets: MarketStore.getMarkets()
       });
       this.selectMarketFromParams();

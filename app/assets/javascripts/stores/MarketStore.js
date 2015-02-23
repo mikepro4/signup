@@ -1,50 +1,54 @@
 define([
+  // libraries
+  'underscore', 'jquery',
 
-  'underscore', 'jquery'
+  // flux
+  'jsx!assets/javascripts/dispatcher/dispatcher',
+  'jsx!assets/javascripts/constants/AppConstants',
+  'eventemitter'
+
 
 ], function (
 
-  _, $
+  // libraries
+  _, $,
+
+  // flux
+  AppDispatcher, Constants, EventEmitter
 
 ) { 
 
   var API = '/markets.json';
+  var CHANGE_EVENT = 'change';
 
   var Markets = [];
-  var _changeListeners = [];
-  var _initCalled = false;
 
-  var MarketStore = {
+  function loadMarkets() {
+    $.ajax({
+      url: API,
+      dataType: 'json',
+      success: function(data) {
+        parseData(data);
+        MarketStore.emitChange();
+      },
+      error: function(xhr, status, err) {
+        console.error('Markets were not loaded');
+      }
+    });
+  }
 
-    init: function () {
-      if (_initCalled)
-        return;
+  function parseData(data) {
+    _.each(data, function(market) { 
+      Markets.push({
+        'label': market.displayName, 
+        'value': market.displayName, 
+        'id': market.id,
+        launched: market.publiclyAvailable
+      }); 
+    });
+  }
 
-      _initCalled = true;
-
-      $.ajax({
-        url: API,
-        dataType: 'json',
-        success: function(data) {
-          this.parseData(data);
-          this.notifyChange();
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error('Markets were not loaded');
-        }.bind(this)
-      });
-    },
-
-    parseData: function (data) {
-      _.each(data, function(market) { 
-        Markets.push({
-          'label': market.displayName, 
-          'value': market.displayName, 
-          'id': market.id,
-          launched: market.publiclyAvailable
-        }); 
-      });
-    },
+  var MarketStore = _.extend({}, EventEmitter.prototype, {
 
     getMarkets: function () {
       return Markets;
@@ -69,22 +73,27 @@ define([
       }
     },
 
-    notifyChange: function () {
-      _changeListeners.forEach(function (listener) {
-        listener();
-      });
+    emitChange: function() {
+      this.emit(CHANGE_EVENT);
     },
 
-    addChangeListener: function (listener) {
-      _changeListeners.push(listener);
+    addChangeListener: function(callback) {
+      this.on(CHANGE_EVENT, callback);
     },
 
-    removeChangeListener: function (listener) {
-      _changeListeners = _changeListeners.filter(function (l) {
-        return listener !== l;
-      });
+    removeChangeListener: function(callback) {
+      this.removeListener(CHANGE_EVENT, callback);
     }
-  }
+
+  });
+
+  AppDispatcher.register(function(action) {
+    switch(action.actionType) {
+      case Constants.MARKETS_LOAD:
+        loadMarkets()
+        break;
+    }
+  });
   
   return MarketStore;
 })

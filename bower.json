@@ -23,6 +23,9 @@
     "requirejs": "~2.1.16",
     "react-router": "~0.12.0",
     "rxjs": "~2.3.25",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "flux": "~2.0.2",
+    "es6-promise-polyfill": "~1.0.0",
+    "eventemitter2": "~0.4.14"
   }
 }

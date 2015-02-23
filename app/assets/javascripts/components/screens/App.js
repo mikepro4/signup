@@ -8,7 +8,7 @@ define([
   'jsx!assets/javascripts/components/AppFooter',
 
   // stores
-  'jsx!assets/javascripts/stores/InviteStore',
+  'jsx!assets/javascripts/stores/InviteStore'
 
 ], function (
 
