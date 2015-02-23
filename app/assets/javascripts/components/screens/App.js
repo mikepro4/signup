@@ -8,9 +8,7 @@ define([
   'jsx!assets/javascripts/components/AppFooter',
 
   // stores
-  'jsx!assets/javascripts/stores/InviteStore'
-
-
+  'jsx!assets/javascripts/stores/InviteStore',
 
 ], function (
 
@@ -68,13 +66,17 @@ define([
 
     nextScreen: function () {
       this.updateInviteValues();
+      InviteStore.postInvite();
       var Invite = InviteStore.getInvite();
+
       console.log(Invite);
 
       if(Invite.userType === 'user') {
         if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
           this.transitionTo('/user/info/');
         } else {
+          var inviteObject = localStorage.getItem('inviteObject')
+          delete localStorage.inviteObject;
           this.transitionTo('/user/reviewing_request/');
         }
       } else if (Invite.userType === 'pioneer') {
@@ -106,6 +108,7 @@ define([
                 <RouteHandler 
                   {...this.props} 
                   nextScreen={this.nextScreen}
+                  getInvite={this.getInvite}
                   updateInvite={this.updateInvite}
                   signUpValues={this.state.invite}
                   key={name}

@@ -25,17 +25,8 @@ define([
       $.ajax({
         url: API,
         dataType: 'json',
-        success: function(Invite) {
-          Invite = {
-            'firstName': Invite.firstName, 
-            'lastName': Invite.lastName, 
-            'companyName': Invite.companyName,
-            'email': Invite.email,
-            'marketId': Invite.marketId,
-            'userType': Invite.userType,
-            'promoCode': Invite.promoCodeId,
-            'market': Invite.market
-          };
+        success: function(data) {
+          this.parseData(data);
           this.notifyChange();
         }.bind(this),
         error: function(xhr, status, err) {
@@ -44,12 +35,27 @@ define([
       });    
     },
 
+    parseData: function (data) {
+      Invite = {
+        'firstName': data.firstName, 
+        'lastName': data.lastName, 
+        'companyName': data.companyName,
+        'email': data.email,
+        'marketId': data.marketId,
+        'userType': data.userType,
+        'promoCode': data.promoCodeId,
+        'market': data.market
+      };
+      localStorage.setItem('inviteObject', JSON.stringify(Invite));
+    },
+
     getInvite: function () {
       return Invite;
     },
 
     updateInvite: function (value, cb) {
       Invite = _.extend({}, Invite, value);
+      localStorage.setItem('inviteObject', JSON.stringify(Invite));
       this.notifyChange();
       cb();
     },
@@ -68,6 +74,22 @@ define([
       _changeListeners = _changeListeners.filter(function (l) {
         return listener !== l;
       });
+    },
+
+    postInvite: function () {
+      $.ajax({
+        url: API,
+        type: 'PUT',
+        data: JSON.stringify(Invite),
+        dataType: 'json',
+        success: function(data) {
+          this.parseData(data);
+          this.notifyChange();
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error("Invite didn't update");
+        }.bind(this)
+      });  
     }
   }
   

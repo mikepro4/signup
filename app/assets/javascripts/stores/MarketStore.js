@@ -26,19 +26,23 @@ define([
         url: API,
         dataType: 'json',
         success: function(data) {
-          _.each(data, function(market) { 
-            Markets.push({
-              'label': market.displayName, 
-              'value': market.displayName, 
-              'id': market.id,
-              launched: market.publiclyAvailable
-            }); 
-          });
+          this.parseData(data);
           this.notifyChange();
         }.bind(this),
         error: function(xhr, status, err) {
           console.error('Markets were not loaded');
         }.bind(this)
+      });
+    },
+
+    parseData: function (data) {
+      _.each(data, function(market) { 
+        Markets.push({
+          'label': market.displayName, 
+          'value': market.displayName, 
+          'id': market.id,
+          launched: market.publiclyAvailable
+        }); 
       });
     },
 
