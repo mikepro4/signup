@@ -6,6 +6,7 @@ define([
   // components
   'jsx!assets/javascripts/components/InputError',
   'jsx!assets/javascripts/components/Icon',
+  'jsx!assets/javascripts/components/PasswordValidator'
 
 ], function (
 
@@ -13,7 +14,7 @@ define([
   React, _, $,
 
   // components
-  InputError, Icon
+  InputError, Icon, PasswordValidator
 
 ) { 
 
@@ -30,7 +31,14 @@ define([
         focus: false,
         value: null,
         errorVisible: false,
-        errorMessage: this.props.emptyMessage
+        errorMessage: this.props.emptyMessage,
+        validator: this.props.validator,
+        validatorVisible: false,
+        type: this.props.type,
+        minCharacters: this.props.minCharacters,
+        requireCapitals: this.props.requireCapitals,
+        requireNumbers: this.props.requireNumbers,
+        forbiddenWords: this.props.forbiddenWords
       };
     },
 
@@ -92,20 +100,29 @@ define([
 
     handleFocus: function () {
       this.setState({
-        focus: true
+        focus: true,
+        validatorVisible: true
       });
     },
 
     handleBlur: function () {
       this.setState({
         focus: false,
-        errorVisible: !this.state.valid
+        errorVisible: !this.state.valid,
+        validatorVisible: false
       });
     },
 
     mouseEnterError: function () {
       this.setState({
         errorVisible: true
+      });
+    },
+
+    hideError: function () {
+      this.setState({
+        errorVisible: false,
+        alidatorVisible: false
       });
     },
     
@@ -120,6 +137,27 @@ define([
         'input_focused':   this.state.focus,
         'input_unfocused': !this.state.focus
       });
+
+      var validation
+
+      if(this.state.validator) {
+        validation = 
+          <PasswordValidator
+            visible={this.state.validatorVisible}
+            name={this.props.text}
+            value={this.state.value}
+            minCharacters={this.props.minCharacters}
+            requireCapitals={this.props.requireCapitals}
+            requireNumbers={this.props.requireNumbers}
+            forbiddenWords={this.props.forbiddenWords}
+          />
+      } else {
+        validation = 
+          <div className="validationIcons">
+            <i className="input_error_icon" onMouseEnter={this.mouseEnterError}> <Icon type="circle_error"/> </i>
+            <i className="input_valid_icon"> <Icon type="circle_tick"/> </i>
+          </div>
+      }
 
       return (
         <div className={inputGroupClasses}>
@@ -141,13 +179,12 @@ define([
             autoComplete="off"
           />
 
-          <i className="input_error_icon" onMouseEnter={this.mouseEnterError}> <Icon type="circle_error"/> </i>
-          <i className="input_valid_icon"> <Icon type="circle_tick"/> </i>
-
           <InputError 
             visible={this.state.errorVisible} 
             errorMessage={this.state.errorMessage} 
           />
+
+          {validation}
 
         </div>
       );

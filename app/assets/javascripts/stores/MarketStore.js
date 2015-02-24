@@ -36,7 +36,7 @@ define([
           console.error('Markets were not loaded');
         }
       });
-    }, 2000)
+    }, 500)
   }
 
   function parseData(data) {

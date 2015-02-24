@@ -2,7 +2,7 @@ define([
   // libraries
   'underscore', 'jquery',
 
-  // flux
+  // flux 
   'jsx!assets/javascripts/dispatcher/dispatcher',
   'jsx!assets/javascripts/constants/AppConstants',
   'eventemitter'
