@@ -107,7 +107,7 @@ gulp.task('less', ['express', 'livereload'], function brewLess () {
                   gutil.log(err);
                   this.emit('end');
                 }))
-                .pipe(gulp.dest(APP_ROOT + '/assets/'))
+                .pipe(gulp.dest(APP_ROOT + '/assets/stylesheets/'))
                 .pipe(livereload(liveReloadServer));
     });
 });
