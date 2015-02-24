@@ -1,3 +1,6 @@
+.idea/
+*.flags.json
+
 app/assets/stylesheets/application.css
 app/bower_components
 node_modules

@@ -6,7 +6,7 @@ require.config({
 
         // react
         'react': 'bower_components/react/react-with-addons',
-        'react-router': 'bower_components/react-router/dist/react-router',
+        'react-router': 'bower_components/react-router/build/global/ReactRouter',
         'jsx': 'bower_components/jsx-requirejs-plugin/js/jsx',
         'JSXTransformer': 'bower_components/jsx-requirejs-plugin/js/JSXTransformer',
         'flux': 'bower_components/flux/dist/Flux',
