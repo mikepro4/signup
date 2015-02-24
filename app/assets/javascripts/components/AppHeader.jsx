@@ -3,8 +3,8 @@ define([
   'react', 'react-router', 
 
   // components
-  'jsx!assets/javascripts/components/Icon',
-  'jsx!assets/javascripts/components/Button'
+  'jsx!components/Icon',
+  'jsx!components/Button'
 
 ], function (
 

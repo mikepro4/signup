@@ -4,14 +4,14 @@ define([
   'react', 'react-router', 'underscore', 'jquery',
 
   // components
-  'jsx!assets/javascripts/components/AppHeader',
-  'jsx!assets/javascripts/components/AppFooter',
+  'jsx!components/AppHeader',
+  'jsx!components/AppFooter',
 
   // stores
-  'jsx!assets/javascripts/stores/InviteStore',
+  'stores/InviteStore',
 
   // flux
-  'jsx!assets/javascripts/actions/AppActions'
+  'actions/AppActions'
 
 ], function (
 

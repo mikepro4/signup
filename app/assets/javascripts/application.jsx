@@ -4,24 +4,24 @@ define([
   'react', 'react-router',
 
   // components
-  'jsx!assets/javascripts/components/screens/App',
+  'jsx!components/screens/App',
 
   // Main Screen
-  'jsx!assets/javascripts/components/screens/MainSignup',
+  'jsx!components/screens/MainSignup',
 
   // User Screens
-  'jsx!assets/javascripts/components/screens/UserInfo',
-  'jsx!assets/javascripts/components/screens/ReviewingRequest',
-  'jsx!assets/javascripts/components/screens/CreateAccount',
+  'jsx!components/screens/UserInfo',
+  'jsx!components/screens/ReviewingRequest',
+  'jsx!components/screens/CreateAccount',
 
   // Invite Screen
-  'jsx!assets/javascripts/components/screens/Video',
-  'jsx!assets/javascripts/components/screens/UploadComps',
-  'jsx!assets/javascripts/components/screens/Question1',
-  'jsx!assets/javascripts/components/screens/Question2',
-  'jsx!assets/javascripts/components/screens/Question3',
-  'jsx!assets/javascripts/components/screens/SignupThanks',
-  'jsx!assets/javascripts/components/screens/SignupThanksUpload'
+  'jsx!components/screens/Video',
+  'jsx!components/screens/UploadComps',
+  'jsx!components/screens/Question1',
+  'jsx!components/screens/Question2',
+  'jsx!components/screens/Question3',
+  'jsx!components/screens/SignupThanks',
+  'jsx!components/screens/SignupThanksUpload'
 
 
 ], function (

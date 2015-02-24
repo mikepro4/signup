@@ -133,7 +133,7 @@ gulp.task('html', ['express', 'livereload'], function brewHtml () {
 gulp.task('javascripts', ['express', 'livereload'], function brewJavaScript () {
   watch({
     name: 'javascripts',
-    glob: APP_ROOT + '/assets/javascripts/**/*.js'
+    glob: [APP_ROOT + '/assets/javascripts/**/*.js', APP_ROOT + '/assets/javascripts/**/*.jsx']
   })
     .pipe(plumber())
     .pipe(livereload(liveReloadServer))

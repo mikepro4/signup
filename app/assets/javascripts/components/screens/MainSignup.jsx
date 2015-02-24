@@ -4,15 +4,15 @@ define([
   'react', 'react-router', 'underscore',
 
   // stores
-  'assets/javascripts/stores/MarketStore',
+  'stores/MarketStore',
 
   // components
-  'jsx!assets/javascripts/components/Input',
-  'jsx!assets/javascripts/components/Select',
-  'jsx!assets/javascripts/components/MarketInfo',
+  'jsx!components/Input',
+  'jsx!components/Select',
+  'jsx!components/MarketInfo',
 
   // flux
-  'jsx!assets/javascripts/actions/AppActions'
+  'actions/AppActions'
 
 ], function (
 

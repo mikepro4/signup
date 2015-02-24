@@ -3,8 +3,8 @@ define([
   'underscore', 'jquery',
 
   // flux
-  'jsx!assets/javascripts/dispatcher/dispatcher',
-  'jsx!assets/javascripts/constants/AppConstants',
+  'dispatcher/dispatcher',
+  'constants/AppConstants',
   'eventemitter'
 
 

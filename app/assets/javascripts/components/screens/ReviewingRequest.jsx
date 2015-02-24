@@ -4,7 +4,7 @@ define([
   'react', 'react-router', 'underscore',
 
   // components
-  'jsx!assets/javascripts/components/Icon'
+  'jsx!components/Icon'
 
 
 ], function (

@@ -3,7 +3,7 @@ define([
   'react', 'underscore',
 
     // components
-  'jsx!assets/javascripts/components/InputError'
+  'jsx!components/InputError'
 
 ], function (
 

@@ -1,5 +1,13 @@
 require.config({
     paths: {
+        'signup': 'assets/javascripts',
+        'actions': 'assets/javascripts/actions',
+        'components': 'assets/javascripts/components',
+        'constants': 'assets/javascripts/constants',
+        'dispatcher': 'assets/javascripts/dispatcher',
+        'mixins': 'assets/javascripts/mixins',
+        'stores': 'assets/javascripts/stores',
+
         'jquery': 'bower_components/jquery/dist/jquery',
         'underscore': 'bower_components/underscore/underscore',
         'text': 'bower_components/requirejs-text/text',
@@ -19,6 +27,7 @@ require.config({
         }
     },
     jsx: {
+        fileExtension: '.jsx',
         transformOptions: {
             harmony: true,
             stripTypes: true

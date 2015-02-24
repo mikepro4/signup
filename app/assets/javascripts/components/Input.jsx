@@ -4,9 +4,9 @@ define([
   'react', 'underscore', 'jquery',
 
   // components
-  'jsx!assets/javascripts/components/InputError',
-  'jsx!assets/javascripts/components/Icon',
-  'jsx!assets/javascripts/components/PasswordValidator'
+  'jsx!components/InputError',
+  'jsx!components/Icon',
+  'jsx!components/PasswordValidator'
 
 ], function (
 

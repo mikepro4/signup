@@ -3,10 +3,10 @@ define([
   'react', 'react-router', 'jquery', 'underscore',
 
   // stores
-  'assets/javascripts/stores/MarketStore',
+  'stores/MarketStore',
 
   // components
-  'jsx!assets/javascripts/components/Icon',
+  'jsx!components/Icon',
 
 ], function (
 

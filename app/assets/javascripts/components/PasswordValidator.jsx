@@ -4,7 +4,7 @@ define([
   'react', 'underscore', 'jquery',
 
   // components
-  'jsx!assets/javascripts/components/Icon'
+  'jsx!components/Icon'
   
 ], function (
 

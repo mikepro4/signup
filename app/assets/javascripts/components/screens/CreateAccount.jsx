@@ -4,7 +4,7 @@ define([
   'react', 'react-router', 'underscore',
 
   // components
-  'jsx!assets/javascripts/components/Input'
+  'jsx!components/Input'
 
 ], function (
 

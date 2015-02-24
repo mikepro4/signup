@@ -3,7 +3,7 @@ define([
   'react', 'react-router', 'jquery',
 
   // components
-  'jsx!assets/javascripts/components/Icon',
+  'jsx!components/Icon',
 
 ], function (
 
