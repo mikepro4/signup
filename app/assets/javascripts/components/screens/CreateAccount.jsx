@@ -50,7 +50,7 @@ define([
     },
 
     isConfirmedPassword: function (event) {
-      return (event.target.value == this.state.password)
+      return (event == this.state.password)
     },
 
     render: function() {
