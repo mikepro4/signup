@@ -124,6 +124,9 @@ module.exports = function (grunt) {
                 src: ['app/index.html'],
                 dest: 'build/index.html',
                 replacements: [{
+                    from: 'jsx!',
+                    to: ''
+                }, {
                     from: /data-main="[^"]+"/, // javascripts
                     to: function (matchedWord, index, fullText, regexMatches) {
                         var javascript = grunt.config.get('fingerprint').javascripts.files[0];
