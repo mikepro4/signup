@@ -15,6 +15,10 @@ require.config({
     shim: {
         underscore : {
             exports: '_'
+        },
+        'react-router': {
+            exports: 'ReactRouter',
+            deps: ['react']
         }
     },
     jsx: {
