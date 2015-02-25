@@ -335,10 +335,6 @@ module.exports = function (grunt) {
         grunt.file.write(currentVersionFilename, release);
         grunt.config.set('s3.deploy.upload', [
             {
-                src: './config/nginx/nginx.staging.conf',
-                dest: grunt.config.get('s3.deploy.upload')[0].dest + 'nginx.' + this.target + '.conf'
-            },
-            {
                 src: currentVersionFilename,
                 dest: grunt.config.get('s3.deploy.upload')[0].dest + currentVersionFilename
             }
