@@ -13,13 +13,14 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            build: ['build', 'tmp'],
+            all: ['build', 'tmp'],
+            tmp: ['tmp'],
             currentVersion: ['currentVersion.*.txt']
         },
         build: {
-            release: 'kraken' + grunt.template.today('-yyyymmdd-HHMMss-')
+            release: 'signup' + grunt.template.today('-yyyymmdd-HHMMss-')
             + shell.exec('git rev-parse --short HEAD', { silent: true }).output.toString().trim(),
-            releasePattern: /kraken-[0-9]{8}-[0-9]{6}-[a-f0-9]{7}\.tar\.gz/
+            releasePattern: /signup-[0-9]{8}-[0-9]{6}-[a-f0-9]{7}\.tar\.gz/
         },
         react: {
             dynamic_mappings: {
@@ -39,7 +40,8 @@ module.exports = function (grunt) {
                 options: {
                     appDir: 'tmp',
                     dir: 'build',
-                    mainConfigFile: 'kraken/assets/javascripts/kraken/application.js',
+                    baseUrl: 'bower_components',
+                    mainConfigFile: 'tmp/assets/javascripts/dependencies.js',
                     done: function (done, output) {
                         var duplicates = require('rjs-build-analysis').duplicates(output);
                         if (duplicates.length > 0) {
@@ -51,7 +53,7 @@ module.exports = function (grunt) {
                     },
                     modules: [
                         {
-                            name: 'kraken/application'
+                            name: 'signup/application'
                         }
                     ],
                     preserveLicenseComments: false,
@@ -69,7 +71,7 @@ module.exports = function (grunt) {
                         warnings: false,
                         mangle: true
                     },
-                    generateSourceMaps: true,
+                    generateSourceMaps: false,
                     skipDirOptimize: true,
                     removeCombined: true, // TODO fix issues with hbs
                     logLevel: 2,
@@ -82,7 +84,7 @@ module.exports = function (grunt) {
         less: {
             build: {
                 files: {
-                    'build/assets/stylesheets/kraken/application.css': 'kraken/assets/stylesheets/kraken/application.less'
+                    'build/assets/stylesheets/application.css': 'app/assets/stylesheets/application.less'
                 },
                 options: {
                     compress: true,
@@ -119,7 +121,7 @@ module.exports = function (grunt) {
         },
         replace: {
             html: {
-                src: ['kraken/index.html'],
+                src: ['app/index.html'],
                 dest: 'build/index.html',
                 replacements: [{
                     from: /data-main="[^"]+"/, // javascripts
@@ -141,6 +143,14 @@ module.exports = function (grunt) {
                         }
                         return output;
                     }
+                }]
+            },
+            tmp: {
+                src: ['tmp/**/*.js'],
+                overwrite: true,
+                replacements: [{
+                    from: 'jsx!',
+                    to: ''
                 }]
             }
         },
@@ -188,7 +198,7 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: '<%= compress.build.options.archive %>',
-                        dest: 'deploy/kraken/' + '<%= compress.build.options.archive %>'
+                        dest: 'deploy/signup/' + '<%= compress.build.options.archive %>'
                     }
                 ]
             },
@@ -196,7 +206,7 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: null,
-                        dest: 'deploy/kraken/'
+                        dest: 'deploy/signup/'
                     }
                 ]
             }
@@ -215,7 +225,7 @@ module.exports = function (grunt) {
         bower: {
             install: {
                 options: {
-                    targetDir: './kraken/bower_components',
+                    targetDir: './app/bower_components',
                     cleanTargetDir: true,
                     copy: false
                 }
@@ -235,7 +245,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-s3');
 
     grunt.registerMultiTask('fingerprint', 'fingerprint assets', function () {
-        var appPath = grunt.config.get('requirejs').build.options.appDir;     // kraken
+        var appPath = grunt.config.get('requirejs').build.options.appDir;     // signup
         var basePath = grunt.config.get('requirejs').build.options.baseUrl;   // assets/javascripts
         var buildPath = grunt.config.get('requirejs').build.options.dir;      // build
 
@@ -299,7 +309,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerMultiTask('deploy', 'deploy the kraken frontend application', function (release) {
+    grunt.registerMultiTask('deploy', 'deploy the signup frontend application', function (release) {
         grunt.task.clearQueue(); // makes sure there's only one environment being deployed at the same time
         if (typeof release === 'undefined' || !grunt.config.get('build.releasePattern').test(release)) {
             var files = fs.readdirSync('./').filter(function (file) {
@@ -336,14 +346,21 @@ module.exports = function (grunt) {
     grunt.registerTask('mirror', function() {
         grunt.task.run('copy:tmp');
     });
+
+    grunt.registerTask('remove-jsx', function() {
+        grunt.task.run('replace:tmp');
+    });
+
     grunt.registerTask('server', ['express:dev', 'watch']);
     grunt.registerTask('test', ['express:dev', 'saucelabs-mocha']);
     grunt.registerTask('build', [
-        'clean:build',
+        'clean:all',
         'bower:install',
         'react',
         'mirror',
+        'remove-jsx',
         'requirejs',
+        'clean:tmp',
         'less',
         'blesscss',
         'fingerprint',

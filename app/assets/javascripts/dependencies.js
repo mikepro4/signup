@@ -6,7 +6,6 @@ require.config({
         components: '../assets/javascripts/components',
         constants: '../assets/javascripts/constants',
         dispatcher: '../assets/javascripts/dispatcher',
-        mixins: '../assets/javascripts/mixins',
         stores: '../assets/javascripts/stores',
 
         jquery: 'jquery/dist/jquery',
