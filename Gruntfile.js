@@ -71,7 +71,7 @@ module.exports = function (grunt) {
                         warnings: false,
                         mangle: true
                     },
-                    generateSourceMaps: false,
+                    generateSourceMaps: true,
                     skipDirOptimize: true,
                     removeCombined: true, // TODO fix issues with hbs
                     logLevel: 2,
