@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                 options: {
                     appDir: 'tmp',
                     dir: 'build',
-                    baseUrl: 'bower_components',
+                    baseUrl: 'assets/javascripts',
                     mainConfigFile: 'tmp/assets/javascripts/dependencies.js',
                     done: function (done, output) {
                         var duplicates = require('rjs-build-analysis').duplicates(output);
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
                     },
                     modules: [
                         {
-                            name: 'signup/application'
+                            name: 'application'
                         }
                     ],
                     preserveLicenseComments: false,
@@ -262,7 +262,7 @@ module.exports = function (grunt) {
         };
         switch (this.target) {
             case 'javascripts':
-                fingerprint([{ name: 'application' }].map(function (module) {
+                fingerprint(grunt.config.get('requirejs').build.options.modules.map(function (module) {
                     return 'assets/javascripts/' + module.name + '.js';
                 }), buildPath);
                 grunt.config.set('fingerprint.javascripts.files', Object.keys(fingerprints).map(function (key) {
@@ -343,22 +343,14 @@ module.exports = function (grunt) {
         grunt.task.run('s3:deploy');
     });
 
-    grunt.registerTask('mirror', function() {
-        grunt.task.run('copy:tmp');
-    });
-
-    grunt.registerTask('remove-jsx', function() {
-        grunt.task.run('replace:tmp');
-    });
-
     grunt.registerTask('server', ['express:dev', 'watch']);
     grunt.registerTask('test', ['express:dev', 'saucelabs-mocha']);
     grunt.registerTask('build', [
         'clean:all',
         'bower:install',
         'react',
-        'mirror',
-        'remove-jsx',
+        'copy:tmp',
+        'replace:tmp',
         'requirejs',
         'clean:tmp',
         'less',
