@@ -262,7 +262,7 @@ module.exports = function (grunt) {
         };
         switch (this.target) {
             case 'javascripts':
-                fingerprint(grunt.config.get('requirejs').build.options.modules.map(function (module) {
+                fingerprint([{ name: 'application' }].map(function (module) {
                     return 'assets/javascripts/' + module.name + '.js';
                 }), buildPath);
                 grunt.config.set('fingerprint.javascripts.files', Object.keys(fingerprints).map(function (key) {
@@ -364,8 +364,8 @@ module.exports = function (grunt) {
         'less',
         'blesscss',
         'fingerprint',
-        'replace',
-        'copy',
+        'replace:html',
+        'copy:build',
         'compress',
         's3:publish'
     ]);
