@@ -71,6 +71,7 @@ define([
                 requireNumbers="1"
                 forbiddenWords={this.state.forbiddenWords}
                 value={this.state.passsword}
+                emptyMessage="Password is invalid"
                 onChange={this.handlePasswordInput} 
               /> 
 
