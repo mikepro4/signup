@@ -50,7 +50,7 @@ define([
     },
 
     isConfirmedPassword: function (event) {
-      return (event == this.state.password)
+      return (event.target.value == this.state.password)
     },
 
     render: function() {
@@ -71,6 +71,7 @@ define([
                 requireNumbers="1"
                 forbiddenWords={this.state.forbiddenWords}
                 value={this.state.passsword}
+                emptyMessage="Password is invalid"
                 onChange={this.handlePasswordInput} 
               /> 
 
