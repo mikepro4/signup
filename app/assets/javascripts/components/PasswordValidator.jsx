@@ -48,7 +48,7 @@ define([
 
       var validatorTitle;
 
-      if(this.props.allValidatorValid) {
+      if(this.props.valid) {
         validatorTitle = 
           <h4 className="validator_title valid">
             {this.props.name} IS OK
