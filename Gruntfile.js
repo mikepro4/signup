@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: {
-            all: ['build', 'tmp'],
+            all: ['build', 'tmp', 'signup-*'],
             tmp: ['tmp'],
             currentVersion: ['currentVersion.*.txt']
         },
