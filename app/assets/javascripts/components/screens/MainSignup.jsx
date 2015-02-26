@@ -71,6 +71,12 @@ define([
       this.toggleUI(this.state.market)
     }, 
 
+    hideLoader: function () {
+      this.setState({
+        loading: false
+      })
+    },
+
     componentWillReceiveProps: function (newProps) {
       console.log('will receieve props')
       console.log(newProps)
@@ -125,6 +131,7 @@ define([
     saveAndContinue: function(e) {
       e.preventDefault();
       var canProceed = !_.isEmpty(this.state.email) && this.validateEmail(this.state.email) && !_.isEmpty(this.state.market);
+      var userType = MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer';
 
       if(canProceed) {
         var data = {
@@ -132,8 +139,13 @@ define([
           market: this.state.market.trim(),
           marketId: MarketStore.getMarketId(this.state.market)
         }
-        this.setState({ loading: true});
-        this.props.updateInvite(data);
+        if (userType === 'user') {
+          this.setState({ loading: true});
+          this.props.updateInvite(data);
+        } else {
+          alert('Pioneer')
+        }
+       
       } else {
         this.refs.email.isValid();
         this.refs.market.isValid();

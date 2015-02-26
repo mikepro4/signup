@@ -82,7 +82,7 @@ define([
     saveAndContinue: function(e) {
       e.preventDefault();
       var canProceed = !_.isEmpty(this.state.firstName) && !_.isEmpty(this.state.lastName) && !_.isEmpty(this.state.companyName);
-
+      
       if(canProceed) {
         var data = {
           firstName: this.state.firstName,

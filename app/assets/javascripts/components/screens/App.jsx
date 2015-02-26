@@ -79,39 +79,31 @@ define([
 
     nextScreen: function () {
       var Invite = this.state.invite;
-      var userType = MarketStore.getMarketStateById(this.state.invite.marketId) ? 'user' : 'pioneer';
       
-      if(userType === 'user') {
-        if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
+      if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
 
-          InviteStore.loadInvite(Invite.email, Invite.marketId)
-            .done(function () {
-              this.transitionTo('/user/info/');
-            }.bind(this))
-            .error(function (xhr) {
-              alert('Sorry there was an error');
-              this.transitionTo('/');
-            }.bind(this));
-          
-        } else {
-          var inviteObject = localStorage.getItem('inviteObject')
-
-          InviteStore.postInvite()
-            .done(function() {
-              delete localStorage.inviteObject;
-              this.transitionTo('/user/reviewing_request/');
-            }.bind(this)).error(function (xhr) {
-               alert('Sorry there was an error');
-               this.transitionTo('/');
-            }.bind(this));
-
-        }
-      } else if (userType === 'pioneer') {
-        alert('Pioneer!')
+        InviteStore.loadInvite(Invite.email, Invite.marketId)
+          .done(function () {
+            this.transitionTo('/user/info/');
+          }.bind(this))
+          .error(function (xhr) {
+            alert('Sorry there was an error');
+            this.transitionTo('/');
+          }.bind(this));
+        
       } else {
-        alert('You need to fill in email and market')
-        this.transitionTo('/');
-      }
+        var inviteObject = localStorage.getItem('inviteObject')
+
+        InviteStore.postInvite()
+          .done(function() {
+            delete localStorage.inviteObject;
+            this.transitionTo('/user/reviewing_request/');
+          }.bind(this)).error(function (xhr) {
+             alert('Sorry there was an error');
+             this.transitionTo('/');
+          }.bind(this));
+
+      } 
     },
 
     render: function () {
@@ -138,7 +130,6 @@ define([
                 updateInvite={this.updateInvite}
                 clearInvite={this.clearInvite}
                 signUpValues={this.state.invite}
-                key={name}
               />
             </div>
             
