@@ -38,6 +38,7 @@ define([
   }
 
   function parseData(data) {
+    Markets = [];
     _.each(data, function(market) { 
       Markets.push({
         'label': market.displayName, 

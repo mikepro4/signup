@@ -55,20 +55,21 @@ define([
   var Route = Router.Route;
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
+  var NotFoundRoute = Router.NotFoundRoute;
   var Link = Router.Link;
 
   var routes = (
     <Route name="app" handler={App} path="/" >
 
       // Main sign up routes and redirect
-      <Route path="/" handler={MainSignup} addHandlerKey={true} />
-      <Route path="/:market" handler={MainSignup} addHandlerKey={true} />
-      <Route path="/:email/:market" handler={MainSignup} addHandlerKey={true} />
+      <Route name="signup" path="/" handler={MainSignup} addHandlerKey={true} />
+      <Route name="signup_market" path="/:market" handler={MainSignup} addHandlerKey={true} />
+      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} addHandlerKey={true} />
 
       // User routes
       <Route name="user_info" path="/user/info/" handler={UserInfo} addHandlerKey={true}/>
       <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} addHandlerKey={true}/>
-      <Route name="user_create_account" path="/user/create_account/" handler={CreateAccount} addHandlerKey={true}/>
+      <Route name="user_create_account" path="/user/create_account/:token" handler={CreateAccount} addHandlerKey={true}/>
 
       // Invite routes
       <Route name="invite_video" path="/invite/video/" handler={Video} addHandlerKey={true}/>
@@ -79,6 +80,8 @@ define([
       <Route name="invite_info" path="/invite/info/" handler={UserInfo} addHandlerKey={true}/>
       <Route name="invite_thanks" path="/invite/thanks/" handler={SignupThanks} addHandlerKey={true}/>
       <Route name="invite_thanks_upload" path="/invite/thanks_upload" handler={SignupThanksUpload} addHandlerKey={true}/>
+
+      <NotFoundRoute handler={MainSignup} />
 
     </Route>
   );
