@@ -16,16 +16,23 @@ define([
 
 ) { 
 
-  var API = '/invite.json';
+  var API = '/api/invites';
   var CHANGE_EVENT = 'change';
 
   var Invite = {};
 
   function loadInvite(email, marketId) {
-    console.log(email + ' ' + marketId)
-    $.ajax({
+    inviteObj = {
+      "email": email,
+      "marketId": marketId,
+      "madeNoMarket": false
+    }
+
+    return $.ajax({
       url: API,
-      dataType: 'json',
+      data: JSON.stringify(inviteObj),
+      type: 'POST',
+      contentType: 'application/json',
       success: function(data) {
         parseData(data);
         InviteStore.emitChange();
@@ -38,22 +45,40 @@ define([
 
   function parseData(data) {
     Invite = {
+      'id': data.id,
       'firstName': data.firstName, 
       'lastName': data.lastName, 
-      'companyName': data.companyName,
+      'userInfo': data.userInfo,
       'email': data.email,
       'marketId': data.marketId,
-      'userType': data.userType,
-      'promoCode': data.promoCodeId,
-      'market': data.market
+      'userType': 'user',
+      'promotionalCode': data.promotionalCode,
+      'market': data.market,
+      'madeNoMarket': false
     };
     localStorage.setItem('inviteObject', JSON.stringify(Invite));
   }
 
   function updateInvite(value) {
     Invite = _.extend({}, Invite, value);
-    localStorage.setItem('inviteObject', JSON.stringify(Invite));
+    localStorage.setItem('inviteObject', JSON.stringify(Invite));  
     InviteStore.emitChange();
+  }
+
+  function postUpdateInvite(){
+    return $.ajax({
+      url: '/api/invites/' + Invite.id,
+      data: JSON.stringify(Invite),
+      type: 'PUT',
+      contentType: 'application/json',
+      success: function(data) {
+        parseData(data);
+        InviteStore.emitChange();
+      },
+      error: function(xhr, status, err) {
+        console.error("Invite didn't invite");
+      }
+    })
   }
 
   var InviteStore = _.extend({}, EventEmitter.prototype, {
@@ -72,6 +97,14 @@ define([
 
     removeChangeListener: function(callback) {
       this.removeListener(CHANGE_EVENT, callback);
+    },
+
+    postInvite: function () {
+      return postUpdateInvite()
+    },
+
+    loadInvite: function (email, marketId) {
+      return loadInvite(email, marketId)
     }
   })
 

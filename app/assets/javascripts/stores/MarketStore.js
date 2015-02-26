@@ -18,25 +18,23 @@ define([
 
 ) { 
 
-  var API = '/markets.json';
+  var API = '/api/markets/all';
   var CHANGE_EVENT = 'change';
 
   var Markets = [];
 
   function loadMarkets() {
-    _.delay(function () {
-      $.ajax({
-        url: API,
-        dataType: 'json',
-        success: function(data) {
-          parseData(data);
-          MarketStore.emitChange();
-        },
-        error: function(xhr, status, err) {
-          console.error('Markets were not loaded');
-        }
-      });
-    }, 500)
+    $.ajax({
+      url: API,
+      dataType: 'json',
+      success: function(data) {
+        parseData(data);
+        MarketStore.emitChange();
+      },
+      error: function(xhr, status, err) {
+        console.error('Markets were not loaded');
+      }
+    });
   }
 
   function parseData(data) {

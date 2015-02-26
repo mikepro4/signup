@@ -203,6 +203,9 @@ define([
             validData={this.state.isValidatorValid}
             valid={this.state.allValidatorValid}
             forbiddenWords={this.state.forbiddenWords}
+            minCharacters={this.state.minCharacters}
+            requireCapitals={this.props.requireCapitals}
+            requireNumbers={this.props.requireNumbers}
           />
       }
 

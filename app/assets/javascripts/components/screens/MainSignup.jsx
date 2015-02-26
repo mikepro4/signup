@@ -37,6 +37,7 @@ define([
     mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
+      console.log('initial state')
       return {
         email: this.getParams().email,
         market: this.getParams().market,
@@ -70,11 +71,13 @@ define([
       this.toggleUI(this.state.market)
     }, 
 
-    componentWillReceiveProps: function () {
+    componentWillReceiveProps: function (newProps) {
+      console.log('will receieve props')
+      console.log(newProps)
       // update email from url if not undefined
       if(this.getParams().email) {
         this.setState({
-          email: this.getParams().email
+          email: this.getParams().email 
         });
       }
       
@@ -106,6 +109,11 @@ define([
       this.setState({
         email: event.target.value
       });
+
+      // reset router params if manually typing email
+      if(this.getParams().email) {
+        this.replaceWith('/' +  this.state.market);
+      }
     },
 
     validateEmail: function (event) {

@@ -71,19 +71,19 @@ define([
               <li className={cx({'valid': this.props.validData.minChars})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
-                <span className="error_message">{this.state.minCharacters} characters minimum</span>
+                <span className="error_message">{this.props.minCharacters} characters minimum</span>
               </li>
 
               <li className={cx({'valid': this.props.validData.capitalLetters})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
-                <span className="error_message">Contains at least {this.state.requireCapitals} capital letter</span>
+                <span className="error_message">Contains at least {this.props.requireCapitals} capital letter</span>
               </li>
 
               <li className={cx({'valid': this.props.validData.numbers})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
-                <span className="error_message">Contains at least {this.state.requireNumbers} number</span>
+                <span className="error_message">Contains at least {this.props.requireNumbers} number</span>
               </li>
 
               <li className={cx({'valid': this.props.validData.words})}> 

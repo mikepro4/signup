@@ -49,7 +49,6 @@ define([
     },
 
     componentWillMount: function () {
-      Actions.loadInvite('email', 'marketId');
     },
 
     componentDidMount: function () {
@@ -64,7 +63,7 @@ define([
       this.setState({
         invite: InviteStore.getInvite()
       }, function () {
-        if(cb){cb()}
+        if(cb) cb()
       }.bind(this));
     },
 
@@ -76,14 +75,29 @@ define([
     nextScreen: function () {
       var Invite = this.state.invite;
       console.log(Invite);
-
+      
       if(Invite.userType === 'user') {
         if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
-          this.transitionTo('/user/info/');
+          InviteStore.loadInvite(Invite.email, Invite.marketId).done(function () {
+            this.transitionTo('/user/info/');
+          }.bind(this)).error(function (xhr) {
+            var res = xhr.responseJSON;
+            if(res.id) {
+              this.transitionTo('/user/info/');
+            }
+          }.bind(this));
+          
         } else {
           var inviteObject = localStorage.getItem('inviteObject')
-          delete localStorage.inviteObject;
-          this.transitionTo('/user/reviewing_request/');
+          InviteStore.postInvite().done(function() {
+            delete localStorage.inviteObject;
+            this.transitionTo('/user/reviewing_request/');
+          }.bind(this)).error(function (xhr) {
+            var res = xhr.responseJSON;
+            if(res.id) {
+              this.transitionTo('/user/info/');
+            }
+          }.bind(this));
         }
       } else if (Invite.userType === 'pioneer') {
         alert('Pioneer!')

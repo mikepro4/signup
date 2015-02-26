@@ -34,7 +34,7 @@ define([
         firstName: this.props.signUpValues ? this.props.signUpValues.firstName : null,
         lastName: this.props.signUpValues ? this.props.signUpValues.lastName : null,
         companyName: this.props.signUpValues ? this.props.signUpValues.companyName : null,
-        promoCode: this.props.signUpValues ? this.props.signUpValues.promoCode : null
+        promotionalCode: this.props.signUpValues ? this.props.signUpValues.promoCode : null
       }
     },
 
@@ -62,7 +62,7 @@ define([
 
     handlePromoCodeInput: function (event) {
       this.setState({
-        promoCode: event.target.value
+        promotionalCode: event.target.value
       });
     },
 
@@ -80,8 +80,8 @@ define([
         var data = {
           firstName: this.state.firstName,
           lastName: this.state.lastName,
-          companyName: this.state.companyName,
-          promoCode: this.state.promoCode
+          userInfo: this.state.companyName,
+          promotionalCode: this.state.promotionalCode
         }
         this.props.updateInvite(data)
       } else {
@@ -143,8 +143,8 @@ define([
                 <Input 
                   text="Promotional Code" 
                   ref="promoCode"
-                  defaultValue={this.state.promoCode} 
-                  value={this.state.promoCode}
+                  defaultValue={this.state.promotionalCode} 
+                  value={this.state.promotionalCode}
                   onChange={this.handlePromoCodeInput} 
                 /> 
               </div>
