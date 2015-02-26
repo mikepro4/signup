@@ -34,7 +34,7 @@ define([
       type: 'POST',
       contentType: 'application/json',
       success: function(data) {
-        parseData(data);
+        Invite = data;
         InviteStore.emitChange();
       },
       error: function(xhr, status, err) {
@@ -43,25 +43,8 @@ define([
     });  
   }
 
-  function parseData(data) {
-    Invite = {
-      'id': data.id,
-      'firstName': data.firstName, 
-      'lastName': data.lastName, 
-      'userInfo': data.userInfo,
-      'email': data.email,
-      'marketId': data.marketId,
-      'userType': 'user',
-      'promotionalCode': data.promotionalCode,
-      'market': data.market,
-      'madeNoMarket': false
-    };
-    localStorage.setItem('inviteObject', JSON.stringify(Invite));
-  }
-
   function updateInvite(value) {
     Invite = _.extend({}, Invite, value);
-    localStorage.setItem('inviteObject', JSON.stringify(Invite));  
     InviteStore.emitChange();
   }
 
@@ -72,7 +55,7 @@ define([
       type: 'PUT',
       contentType: 'application/json',
       success: function(data) {
-        parseData(data);
+        Invite = data;
         InviteStore.emitChange();
       },
       error: function(xhr, status, err) {
@@ -105,6 +88,10 @@ define([
 
     loadInvite: function (email, marketId) {
       return loadInvite(email, marketId)
+    },
+
+    clearInvite: function() {
+      Invite = {}
     }
   })
 

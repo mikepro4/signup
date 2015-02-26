@@ -23,23 +23,10 @@ header.application_header {
   .cs_logo {
     .display(relative);
     width: 135px;
-    cursor: pointer;
 
     path {
       .transition(all 0.2s ease-out);
       fill: @textColor;
-    }
-
-    &:hover {
-      path {
-        fill: @light-blue;
-      }
-    }
-
-    &:active {
-      path {
-        fill: lighten(@light-blue, 20%);
-      }
     }
 
     @media @mobile {

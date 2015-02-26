@@ -101,7 +101,7 @@ define([
     },
 
     onSelect: function (selectedMarket) {
-      this.transitionTo('/' + selectedMarket);
+      this.transitionTo('/' + encodeURIComponent(selectedMarket));
       this.toggleUI(selectedMarket);
     },
 
@@ -130,9 +130,9 @@ define([
         var data = {
           email: this.state.email.trim(),
           market: this.state.market.trim(),
-          marketId: MarketStore.getMarketId(this.state.market),
-          userType: MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer'
+          marketId: MarketStore.getMarketId(this.state.market)
         }
+        this.setState({ loading: true});
         this.props.updateInvite(data);
       } else {
         this.refs.email.isValid();

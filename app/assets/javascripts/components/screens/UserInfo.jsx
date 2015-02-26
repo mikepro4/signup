@@ -21,10 +21,11 @@ define([
 
   var UserInfoScreen = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function () {
       return {
+        loading: false,
         userType: this.props.signUpValues ? this.props.signUpValues.userType : null,
         market: this.props.signUpValues ? this.props.signUpValues.market : null,
         mainHeadline: 'Complete Registration',
@@ -72,6 +73,12 @@ define([
       })
     },
 
+    componentDidMount: function () {
+      if(!this.props.signUpValues) {
+        this.goBack();
+      }
+    },
+
     saveAndContinue: function(e) {
       e.preventDefault();
       var canProceed = !_.isEmpty(this.state.firstName) && !_.isEmpty(this.state.lastName) && !_.isEmpty(this.state.companyName);
@@ -83,7 +90,8 @@ define([
           userInfo: this.state.companyName,
           promotionalCode: this.state.promotionalCode
         }
-        this.props.updateInvite(data)
+        this.setState({ loading: true});
+        this.props.updateInvite(data);
       } else {
         this.refs.firstName.isValid();
         this.refs.lastName.isValid();
@@ -98,9 +106,13 @@ define([
       });
 
       return (
-        <div className="user_info_screen">
+        <div className={cx({
+          'user_info_screen': true,
+          'loading': this.state.loading
+          })}>
 
           <div className="user_info_form">
+            <div className="throbber throbber_large"></div>
             <h1>{this.state.mainHeadline}</h1>
             <p>{this.state.subHeadline}</p>
 

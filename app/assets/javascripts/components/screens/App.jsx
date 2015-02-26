@@ -6,9 +6,11 @@ define([
   // components
   'jsx!components/AppHeader',
   'jsx!components/AppFooter',
+  'jsx!./Stats',
 
   // stores
   'stores/InviteStore',
+  'stores/MarketStore',
 
   // flux
   'actions/AppActions'
@@ -19,10 +21,10 @@ define([
   React, Router, _, $,
 
   // components
-  AppHeader, AppFooter,
+  AppHeader, AppFooter, Stats,
 
   // stores
-  InviteStore,
+  InviteStore, MarketStore,
 
   // flux
   Actions
@@ -48,10 +50,8 @@ define([
       }
     },
 
-    componentWillMount: function () {
-    },
-
     componentDidMount: function () {
+      this.clearInvite()
       InviteStore.addChangeListener(this.updateInviteValues);
     },
 
@@ -72,34 +72,41 @@ define([
       this.updateInviteValues(this.nextScreen);
     },
 
+    clearInvite: function() {
+      this.setState({ invite: null })
+      InviteStore.clearInvite();
+    },
+
     nextScreen: function () {
       var Invite = this.state.invite;
-      console.log(Invite);
+      var userType = MarketStore.getMarketStateById(this.state.invite.marketId) ? 'user' : 'pioneer';
       
-      if(Invite.userType === 'user') {
+      if(userType === 'user') {
         if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
-          InviteStore.loadInvite(Invite.email, Invite.marketId).done(function () {
-            this.transitionTo('/user/info/');
-          }.bind(this)).error(function (xhr) {
-            var res = xhr.responseJSON;
-            if(res.id) {
+
+          InviteStore.loadInvite(Invite.email, Invite.marketId)
+            .done(function () {
               this.transitionTo('/user/info/');
-            }
-          }.bind(this));
+            }.bind(this))
+            .error(function (xhr) {
+              alert('Sorry there was an error');
+              this.transitionTo('/');
+            }.bind(this));
           
         } else {
           var inviteObject = localStorage.getItem('inviteObject')
-          InviteStore.postInvite().done(function() {
-            delete localStorage.inviteObject;
-            this.transitionTo('/user/reviewing_request/');
-          }.bind(this)).error(function (xhr) {
-            var res = xhr.responseJSON;
-            if(res.id) {
-              this.transitionTo('/user/info/');
-            }
-          }.bind(this));
+
+          InviteStore.postInvite()
+            .done(function() {
+              delete localStorage.inviteObject;
+              this.transitionTo('/user/reviewing_request/');
+            }.bind(this)).error(function (xhr) {
+               alert('Sorry there was an error');
+               this.transitionTo('/');
+            }.bind(this));
+
         }
-      } else if (Invite.userType === 'pioneer') {
+      } else if (userType === 'pioneer') {
         alert('Pioneer!')
       } else {
         alert('You need to fill in email and market')
@@ -108,8 +115,6 @@ define([
     },
 
     render: function () {
-      var name = this.getRoutes().reverse()[0].name;
-
       var appContentClasses = cx({
         'application_content':   true,
         'footer_visible':        this.state.footerVisible,
@@ -119,21 +124,22 @@ define([
       return (
          <div className="application_wrapper">
 
+          <Stats isActive={true} />
+
           <section className={appContentClasses}>
 
            <AppHeader mode={this.state.headerMode} />
 
             <div className="application_routeHandler">
-              <TransitionGroup component="div" transitionName="scale">
-                <RouteHandler 
-                  {...this.props} 
-                  nextScreen={this.nextScreen}
-                  getInvite={this.getInvite}
-                  updateInvite={this.updateInvite}
-                  signUpValues={this.state.invite}
-                  key={name}
-                />
-              </TransitionGroup>
+              <RouteHandler 
+                {...this.props} 
+                nextScreen={this.nextScreen}
+                getInvite={this.getInvite}
+                updateInvite={this.updateInvite}
+                clearInvite={this.clearInvite}
+                signUpValues={this.state.invite}
+                key={name}
+              />
             </div>
             
             <AppFooter visible={this.state.footerVisible} />   

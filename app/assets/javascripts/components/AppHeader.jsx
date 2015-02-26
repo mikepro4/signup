@@ -20,17 +20,13 @@ define([
 
     mixins: [ Router.State, Router.Navigation ],
 
-    handleLogoClick: function () {
-      this.transitionTo('/');
-    },
-
     render: function () {
       var headerClassName = 'application_header mode-' + this.props.mode;
 
       return (
         <header className={headerClassName}>
 
-          <aside className="cs_logo" onClick={this.handleLogoClick}> 
+          <aside className="cs_logo"> 
             <Icon type="cs_logo" /> 
           </aside>
           

@@ -21,6 +21,10 @@ define([
 
     mixins: [ Router.State ],
 
+    componentDidMount: function () {
+      this.props.clearInvite();
+    },
+
     render: function() {
       return (
         <div className="reviewing_request_screen">

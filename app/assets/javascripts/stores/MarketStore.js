@@ -60,17 +60,17 @@ define([
 
     getMarketId: function (market) {
       var market = this.getMarketByName(market);
-      return market.id
+      return market.id;
     },
 
     getMarketState: function (marketValue) {
       var currentMarket = this.getMarketByName(marketValue);
+      return _.isEmpty(currentMarket) ? true : currentMarket.launched;
+    },
 
-      if(_.isEmpty(currentMarket)) {
-        return true;
-      } else {
-        return currentMarket.launched
-      }
+    getMarketStateById: function (id) {
+      var market = _.findWhere(Markets, {id: id});
+      return _.isEmpty(market) ? true : market.launched;
     },
 
     emitChange: function() {
