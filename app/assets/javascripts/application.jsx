@@ -57,7 +57,6 @@ define([
   var RouteHandler = Router.RouteHandler;
   var Link = Router.Link;
 
-
   var routes = (
     <Route name="app" handler={App} path="/" >
 

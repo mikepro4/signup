@@ -201,7 +201,7 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: '<%= compress.build.options.archive %>',
-                        dest: 'deploy/signup/' + '<%= compress.build.options.archive %>'
+                        dest: 'deploy/dark-crystal/' + '<%= compress.build.options.archive %>'
                     }
                 ]
             },
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
                 upload: [
                     {
                         src: null,
-                        dest: 'deploy/signup/'
+                        dest: 'deploy/dark-crystal/'
                     }
                 ]
             }
