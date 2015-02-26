@@ -179,6 +179,15 @@ define([
       })
     },
 
+    focus: function() {
+      this.refs.input.getDOMNode().focus();
+    },
+    
+    select: function() {
+      this.refs.input.getDOMNode().select();
+    },
+
+
     render: function(){
 
       var inputGroupClasses = cx({
@@ -220,6 +229,7 @@ define([
             {...this.props}
             placeholder={this.props.placeholder} 
             className="input" 
+            ref="input"
             id={this.props.text}
             defaultValue={this.props.defaultValue} 
             value={this.state.value} 

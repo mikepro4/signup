@@ -77,6 +77,9 @@ define([
       if(!this.props.signUpValues) {
         this.goBack();
       }
+      this.refs.firstName.focus();
+
+      
     },
 
     saveAndContinue: function(e) {

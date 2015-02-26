@@ -1,9 +1,12 @@
 footer.application_footer {
   .display(relative);
+  .animation(fadeIn .4s .4s linear forwards);
   z-index: @layer2;
   height: @footer-height;
   background: #fff;
   width: 100%;
+  opacity: 0;
+
 
   @media only screen and (min-height: @vertical_breakpoint) {
     .display(absolute);

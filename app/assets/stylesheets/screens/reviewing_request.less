@@ -2,7 +2,9 @@
   .display(absolute);
   .topLeft(0, 0);
   .bottomRight(0, 0);  
+  .animation(fadeIn .4s linear forwards);
   color: @textColor;
+  opacity: 0;
 
   @media @mobile {
     position: relative;
