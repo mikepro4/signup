@@ -6,7 +6,7 @@ define([
   // components
   'jsx!components/AppHeader',
   'jsx!components/AppFooter',
-  'jsx!./Stats',
+  './Stats',
 
   // stores
   'stores/InviteStore',
@@ -106,7 +106,7 @@ define([
 
     errorHandler: function () {
       alert('Sorry there was an error');
-      this.transitionTo('/');
+      this.transitionTo('signup');
     },
 
     render: function () {
@@ -119,7 +119,6 @@ define([
       return (
          <div className="application_wrapper">
 
-          // FPS meter for testing perfomance
           <Stats isActive={false} />
 
           <section className={appContentClasses}>
@@ -133,7 +132,7 @@ define([
                 getInvite={this.getInvite}
                 updateInvite={this.updateInvite}
                 clearInvite={this.clearInvite}
-                signUpValues={this.state.invite}
+                inviteValues={this.state.invite}
               />
             </div>
             

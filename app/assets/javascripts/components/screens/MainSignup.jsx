@@ -140,9 +140,8 @@ define([
           this.setState({ loading: true});
           this.props.updateInvite(data);
         } else {
-          alert('Pioneer')
+          alert("Can't create account for Pioneer yet.")
         }
-       
       } else {
         this.refs.email.isValid();
         this.refs.market.isValid();

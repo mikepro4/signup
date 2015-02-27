@@ -26,16 +26,14 @@ define([
     getInitialState: function () {
       return {
         loading: false,
-        userType: this.props.signUpValues ? this.props.signUpValues.userType : null,
-        market: this.props.signUpValues ? this.props.signUpValues.market : null,
         mainHeadline: 'Complete Registration',
         subHeadline: null,
         promoCodeOpen: false,
         continueButtonTitle: 'CONTINUE',
-        firstName: this.props.signUpValues ? this.props.signUpValues.firstName : null,
-        lastName: this.props.signUpValues ? this.props.signUpValues.lastName : null,
-        companyName: this.props.signUpValues ? this.props.signUpValues.companyName : null,
-        promotionalCode: this.props.signUpValues ? this.props.signUpValues.promoCode : null
+        firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
+        lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
+        companyName: this.props.inviteValues ? this.props.inviteValues.companyName : null,
+        promotionalCode: this.props.inviteValues ? this.props.inviteValues.promotionalCode : null
       }
     },
 
@@ -74,7 +72,7 @@ define([
     },
 
     componentDidMount: function () {
-      if(!this.props.signUpValues) {
+      if(!this.props.inviteValues) {
         this.transitionTo('signup');
       } else {
         // TODO – find a better way to detect mobile and prevent focus
@@ -95,7 +93,7 @@ define([
           userInfo: this.state.companyName,
           promotionalCode: this.state.promotionalCode
         }
-        this.setState({ loading: true});
+        this.setState({ loading: true });
         this.props.updateInvite(data);
       } else {
         this.refs.firstName.isValid();

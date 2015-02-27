@@ -21,7 +21,7 @@ define([
     mixins: [ Router.State, Router.Navigation ],
 
     handleLogoClick: function () {
-      this.transitionTo('/');
+      this.transitionTo('signup');
     },
 
     render: function () {

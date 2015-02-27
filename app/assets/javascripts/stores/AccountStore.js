@@ -30,9 +30,6 @@ define([
       contentType: 'application/json',
       success: function(data) {
         AccountStore.emitChange();
-      },
-      error: function(xhr, status, err) {
-        console.error('Markets were not loaded');
       }
     });
   }

@@ -35,12 +35,7 @@ define([
 
     getMarketDisplayName: function () {
       var matchedMarked = MarketStore.getMarketByName(this.props.market);
-
-      if(!_.isUndefined(matchedMarked)){
-        return matchedMarked.value;
-      } else {
-        return 'Join CompStak';
-      }
+      return !_.isUndefined(matchedMarked) ? matchedMarked.value : 'Join CompStak'
     },
 
     render: function () {
