@@ -1,7 +1,7 @@
 define([
 
   // flux
-  'dispatcher/dispatcher',
+  'dispatcher/AppDispatcher',
   'constants/AppConstants'
 
 ], function (
@@ -13,13 +13,13 @@ define([
   var SignupActions = {
 
     loadMarkets: function() {
-      AppDispatcher.dispatch({
+      AppDispatcher.handleViewAction({
         actionType: Constants.MARKETS_LOAD
       });
     },
 
     loadInvite: function(email, marketId) {
-      AppDispatcher.dispatch({
+      AppDispatcher.handleViewAction({
         actionType: Constants.INVITE_LOAD,
         email: email,
         marketId: marketId
@@ -27,7 +27,7 @@ define([
     },
 
     updateInvite: function(invite) {
-      AppDispatcher.dispatch({
+      AppDispatcher.handleViewAction({
         actionType: Constants.INVITE_UPDATE,
         invite: invite
       });

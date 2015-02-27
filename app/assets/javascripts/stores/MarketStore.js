@@ -3,10 +3,9 @@ define([
   'underscore', 'jquery',
 
   // flux
-  'dispatcher/dispatcher',
+  'dispatcher/AppDispatcher',
   'constants/AppConstants',
   'eventemitter'
-
 
 ], function (
 
@@ -88,13 +87,17 @@ define([
 
   });
 
-  AppDispatcher.register(function(action) {
-    switch(action.actionType) {
+  dispatcherIndex:AppDispatcher.register(function(payload){
+    var action = payload.action;
+    
+    switch(action.actionType){
       case Constants.MARKETS_LOAD:
         loadMarkets()
         break;
     }
-  });
+
+    return true;
+  })
   
   return MarketStore;
 })

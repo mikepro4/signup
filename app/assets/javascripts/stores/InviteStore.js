@@ -3,7 +3,7 @@ define([
   'underscore', 'jquery',
 
   // flux 
-  'dispatcher/dispatcher',
+  'dispatcher/AppDispatcher',
   'constants/AppConstants',
   'eventemitter'
 
@@ -95,18 +95,21 @@ define([
     }
   })
 
-  AppDispatcher.register(function(action) {
-    switch(action.actionType) {
+  dispatcherIndex:AppDispatcher.register(function(payload){
+    var action = payload.action;
+    
+    switch(action.actionType){
       case Constants.INVITE_LOAD:
         loadInvite(action.email, action.marketId);
         break;
+
       case Constants.INVITE_UPDATE:
         updateInvite(action.invite);
         break;
-
-      default:
     }
-  });
+
+    return true;
+  })
   
   return InviteStore;
 })
