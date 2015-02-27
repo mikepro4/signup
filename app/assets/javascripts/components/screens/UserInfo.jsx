@@ -75,11 +75,10 @@ define([
 
     componentDidMount: function () {
       if(!this.props.signUpValues) {
-        this.goBack();
+        this.transitionTo('signup');
+      } else {
+        this.refs.firstName.focus();
       }
-      this.refs.firstName.focus();
-
-      
     },
 
     saveAndContinue: function(e) {
