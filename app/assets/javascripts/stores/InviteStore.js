@@ -83,15 +83,15 @@ define([
     },
 
     postInvite: function () {
-      return postUpdateInvite()
+      return postUpdateInvite();
     },
 
     loadInvite: function (email, marketId) {
-      return loadInvite(email, marketId)
+      return loadInvite(email, marketId);
     },
 
     clearInvite: function() {
-      Invite = {}
+      Invite = {};
     }
   })
 

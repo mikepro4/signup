@@ -51,7 +51,7 @@ define([
     },
 
     componentDidMount: function () {
-      this.clearInvite()
+      this.clearInvite();
       InviteStore.addChangeListener(this.updateInviteValues);
     },
 
@@ -73,22 +73,22 @@ define([
     },
 
     clearInvite: function() {
-      this.setState({ invite: null })
+      this.setState({ invite: null });
       InviteStore.clearInvite();
     },
 
     nextScreen: function () {
       var Invite = this.state.invite;
+      console.log(Invite);
       
       if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
 
         InviteStore.loadInvite(Invite.email, Invite.marketId)
           .done(function () {
-            this.transitionTo('/user/info/');
+            this.transitionTo('user_info');
           }.bind(this))
           .error(function (xhr) {
-            alert('Sorry there was an error');
-            this.transitionTo('/');
+            this.errorHandler();
           }.bind(this));
         
       } else {
@@ -96,14 +96,17 @@ define([
 
         InviteStore.postInvite()
           .done(function() {
-            delete localStorage.inviteObject;
-            this.transitionTo('/user/reviewing_request/');
+            this.transitionTo('user_reviewing_request');
           }.bind(this)).error(function (xhr) {
-             alert('Sorry there was an error');
-             this.transitionTo('/');
+            this.errorHandler();
           }.bind(this));
 
       } 
+    },
+
+    errorHandler: function () {
+      alert('Sorry there was an error');
+      this.transitionTo('/');
     },
 
     render: function () {

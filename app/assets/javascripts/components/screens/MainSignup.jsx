@@ -37,7 +37,6 @@ define([
     mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function(){
-      console.log('initial state')
       return {
         email: this.getParams().email,
         market: this.getParams().market,
@@ -78,8 +77,6 @@ define([
     },
 
     componentWillReceiveProps: function (newProps) {
-      console.log('will receieve props')
-      console.log(newProps)
       // update email from url if not undefined
       if(this.getParams().email) {
         this.setState({
