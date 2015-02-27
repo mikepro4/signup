@@ -74,7 +74,8 @@ define([
 
         AccountStore.createAccount(data)
           .done(function (data) {
-            console.log('good')
+            console.log('good');
+            alert('Hooray! Account has been created');
           })
           .error(function (data) {
             console.log('bad')
