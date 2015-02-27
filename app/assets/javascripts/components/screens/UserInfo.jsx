@@ -77,7 +77,10 @@ define([
       if(!this.props.signUpValues) {
         this.transitionTo('signup');
       } else {
-        this.refs.firstName.focus();
+        // TODO – find a better way to detect mobile and prevent focus
+        if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          this.refs.firstName.focus();
+        }
       }
     },
 

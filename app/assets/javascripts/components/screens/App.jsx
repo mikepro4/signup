@@ -119,7 +119,8 @@ define([
       return (
          <div className="application_wrapper">
 
-          <Stats isActive={true} />
+          // FPS meter for testing perfomance
+          <Stats isActive={false} />
 
           <section className={appContentClasses}>
 

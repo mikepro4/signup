@@ -168,7 +168,7 @@ define([
 
             <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
 
-            <a className="signup_landlord_link" href="https://compstak.com" target="_blank">
+            <a className="signup_landlord_link" href="http://compstak.com/landing/pageSplitProNew" target="_blank">
               Are you a Landlord, Lendor or Investor?
             </a>
 

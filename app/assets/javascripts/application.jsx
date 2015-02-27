@@ -3,10 +3,8 @@ define([
   // libraries
   'react', 'react-router',
 
-  // components
+  // Main Screens
   'jsx!components/screens/App',
-
-  // Main Screen
   'jsx!components/screens/MainSignup',
 
   // User Screens
@@ -14,7 +12,7 @@ define([
   'jsx!components/screens/ReviewingRequest',
   'jsx!components/screens/CreateAccount',
 
-  // Invite Screen
+  // Pioneer Screens
   'jsx!components/screens/Video',
   'jsx!components/screens/UploadComps',
   'jsx!components/screens/Question1',
@@ -29,18 +27,15 @@ define([
   // libraries
   React, Router,
 
-  // components
-  App,
-
-  // Main Screen
-  MainSignup,
+  // Main Screens
+  App, MainSignup,
 
   // User Screens
   UserInfo,
   ReviewingRequest,
   CreateAccount,
 
-  // Invite Screens
+  // Pioneer Screens
   Video,
   UploadComps,
   Question1,
@@ -51,17 +46,15 @@ define([
 
 ) {
 
-  var TransitionGroup = React.addons.CSSTransitionGroup;
   var Route = Router.Route;
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
   var NotFoundRoute = Router.NotFoundRoute;
-  var Link = Router.Link;
 
   var routes = (
     <Route name="app" handler={App} path="/" >
 
-      // Main sign up routes and redirect
+      // Main sign up routes
       <Route name="signup" path="/" handler={MainSignup} addHandlerKey={true} />
       <Route name="signup_market" path="/:market" handler={MainSignup} addHandlerKey={true} />
       <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} addHandlerKey={true} />
@@ -71,15 +64,15 @@ define([
       <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} addHandlerKey={true}/>
       <Route name="user_create_account" path="/user/create_account/:token" handler={CreateAccount} addHandlerKey={true}/>
 
-      // Invite routes
-      <Route name="invite_video" path="/invite/video/" handler={Video} addHandlerKey={true}/>
-      <Route name="invite_upload_comps" path="/invite/upload_comps/" handler={UploadComps} addHandlerKey={true}/>
-      <Route name="invite_question_1" path="/invite/question/1/" handler={Question1} addHandlerKey={true}/>
-      <Route name="invite_question_2" path="/invite/question/2/" handler={Question2} addHandlerKey={true}/>
-      <Route name="invite_question_3" path="/invite/question/3/" handler={Question3} addHandlerKey={true}/>
-      <Route name="invite_info" path="/invite/info/" handler={UserInfo} addHandlerKey={true}/>
-      <Route name="invite_thanks" path="/invite/thanks/" handler={SignupThanks} addHandlerKey={true}/>
-      <Route name="invite_thanks_upload" path="/invite/thanks_upload" handler={SignupThanksUpload} addHandlerKey={true}/>
+      // Pioneer routes
+      <Route name="pioneer_video" path="/pioneer/video/" handler={Video} addHandlerKey={true}/>
+      <Route name="pioneer_upload_comps" path="/pioneer/upload_comps/" handler={UploadComps} addHandlerKey={true}/>
+      <Route name="pioneer_question_1" path="/pioneer/question/1/" handler={Question1} addHandlerKey={true}/>
+      <Route name="pioneer_question_2" path="/pioneer/question/2/" handler={Question2} addHandlerKey={true}/>
+      <Route name="pioneer_question_3" path="/pioneer/question/3/" handler={Question3} addHandlerKey={true}/>
+      <Route name="pioneer_info" path="/pioneer/info/" handler={UserInfo} addHandlerKey={true}/>
+      <Route name="pioneer_thanks" path="/pioneer/thanks/" handler={SignupThanks} addHandlerKey={true}/>
+      <Route name="pioneer_thanks_upload" path="/pioneer/thanks_upload" handler={SignupThanksUpload} addHandlerKey={true}/>
 
       <NotFoundRoute handler={MainSignup} />
 
