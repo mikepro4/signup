@@ -46,6 +46,8 @@ define([
         launched: market.publiclyAvailable
       }); 
     });
+
+    Markets = _.sortBy(Markets, 'label');
   }
 
   var MarketStore = _.extend({}, EventEmitter.prototype, {
