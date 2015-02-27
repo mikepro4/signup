@@ -4,7 +4,10 @@ define([
   'react', 'react-router', 'underscore',
 
   // components
-  'jsx!components/Input'
+  'jsx!components/Input',
+
+  // stores
+  'stores/AccountStore',
 
 ], function (
 
@@ -12,7 +15,10 @@ define([
   React, Router, _,
 
   // components
-  Input
+  Input,
+
+  // stores
+  AccountStore
 
 ) {
 
@@ -23,7 +29,7 @@ define([
     getInitialState: function () {
       return {
         forbiddenWords: ["password", "user", "username"],
-        passsword: null,
+        password: null,
         confirmPassword: null,
         termsOfUse: null
       }
@@ -45,8 +51,35 @@ define([
       });
     },
 
+    handleTermsCheckbox: function (event) {
+      this.setState({
+        termsOfUse: this.refs.termsOfUse.getDOMNode().checked
+      })
+    },
+
     saveAndContinue: function (e) {
       e.preventDefault();
+
+      if(this.refs.password.getValidStatus() 
+          && this.refs.password.getValidStatus()
+          && this.state.termsOfUse) {
+
+        var data = {
+          registrationToken: this.getParams().token,
+          password: this.state.password,
+          confirmPassword: this.state.confirmPassword,
+          termsOfUse: this.state.termsOfUse,
+          madeNoMarket: false
+        }
+
+        AccountStore.createAccount(data)
+          .done(function (data) {
+            console.log('good')
+          })
+          .error(function (data) {
+            console.log('bad')
+          })
+      }
     },
 
     isConfirmedPassword: function (event) {
@@ -92,7 +125,7 @@ define([
                   ref="termsOfUse" 
                   name="terms_of_use" 
                   id="terms_of_use" 
-                  value={this.state.termsOfUse} 
+                  onChange={this.handleTermsCheckbox} 
                   className="checkbox checkbox_minimal"
                 />
                 <label htmlFor="terms_of_use"/>
@@ -101,7 +134,8 @@ define([
 
               <button 
                 type="submit" 
-                className="button button_wide">
+                className="button button_wide"
+                onClick={this.saveAndContinue}>
                 CREATE ACCOUNT
               </button>
 

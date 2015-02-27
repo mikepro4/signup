@@ -111,6 +111,10 @@ define([
       }
     },
 
+    getValidStatus: function () {
+      return this.state.valid;
+    },
+
     handleFocus: function () {
       this.setState({
         focus: true,
