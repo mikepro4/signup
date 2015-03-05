@@ -25,7 +25,6 @@ define([
 
     getInitialState: function () {
       return {
-        loading: false,
         mainHeadline: 'Complete Registration',
         subHeadline: null,
         promoCodeOpen: false,
@@ -87,15 +86,14 @@ define([
       var canProceed = !_.isEmpty(this.state.firstName) && !_.isEmpty(this.state.lastName) && !_.isEmpty(this.state.companyName);
       
       if(canProceed) {
-        var data = {
+        // update invite data, wait for success and continue to next screen
+        this.props.updateInvite({
           firstName: this.state.firstName,
           lastName: this.state.lastName,
-          userInfo: this.state.companyName,
-          promotionalCode: this.state.promotionalCode
-        }
-        this.setState({ loading: true });
-        this.props.updateInvite(data);
+          userInfo: this.state.companyName
+        });
       } else {
+        // trigger validation and show errors
         this.refs.firstName.isValid();
         this.refs.lastName.isValid();
         this.refs.companyName.isValid();
@@ -111,7 +109,7 @@ define([
       return (
         <div className={cx({
           'user_info_screen': true,
-          'loading': this.state.loading
+          'loading': this.props.loading
           })}>
 
           <div className="user_info_form">

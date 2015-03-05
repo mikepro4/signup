@@ -11,7 +11,13 @@ define([
 ) {
 
   var Video = React.createClass({
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
+
+    componentDidMount: function () {
+      if(!this.props.inviteValues) {
+        this.transitionTo('signup');
+      }
+    },
 
     render: function() {
       return (

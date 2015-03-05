@@ -46,9 +46,10 @@ define([
       return {
         footerVisible: true,
         headerMode: 'light',
+        loginButton: true,
+        contacts: false,
         allMarkets: null,
         invite: null,
-        userType: null,
         loading: true
       }
     },
@@ -58,7 +59,6 @@ define([
     },
 
     componentDidMount: function () {
-      this.clearInvite();
       MarketStore.addChangeListener(this.updateMarkets);
       InviteStore.addChangeListener(this.updateInviteValues);
     },
@@ -66,6 +66,16 @@ define([
     componentWillUnmount: function () {
       MarketStore.removeChangeListener(this.updateMarkets);
       InviteStore.removeChangeListener(this.updateInviteValues);
+    },
+
+    componentWillReceiveProps: function () {
+      if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
+        this.clearInvite();
+        this.setState({
+          footerVisible: true,
+          headerMode: 'light',
+        });
+      }
     },
 
     updateInviteValues: function(cb) {
@@ -96,7 +106,6 @@ define([
 
     nextScreen: function () {
       var userType = MarketStore.getMarketStateById(this.state.invite.marketId) ? 'user' : 'pioneer';
-      console.log(userType);
 
       switch(userType) {
         case 'user': 
@@ -109,6 +118,10 @@ define([
     },
 
     routeRegularUser: function () {
+      this.setState({
+        footerVisible: true
+      })
+
       if(_.isEmpty(this.state.invite.email) 
           || _.isEmpty(this.state.invite.firstName) 
           || _.isEmpty(this.state.invite.lastName)
@@ -136,17 +149,24 @@ define([
     },
 
     routePioneerUser: function () {
-      this.transitionTo('pioneer_video');
-      this.setState({ loading: false });
+      InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
+        .done(function () {
+          this.transitionTo('pioneer_video');
+          this.setState({
+            footerVisible: false,
+            loading: false
+          });
+        }.bind(this))
+        .error(function (xhr) {
+          this.errorHandler();
+        }.bind(this));
     },
 
     errorHandler: function () {
       alert('Sorry there was an error');
       this.transitionTo('signup');
       this.clearInvite();
-      this.setState({
-        loading: false
-      })
+      this.setState({ loading: false })
     },
 
     render: function () {
@@ -159,22 +179,26 @@ define([
       return (
          <div className="application_wrapper">
 
-          <Stats isActive={false} />
+          <Stats isActive={true} />
 
           <section className={appContentClasses}>
 
-           <AppHeader mode={this.state.headerMode} />
+            <AppHeader 
+              mode={this.state.headerMode} 
+              loginButton={this.state.loginButton}
+              contacts={this.state.cintacts}
+            />
 
             <div className="application_routeHandler">
               <RouteHandler 
                 {...this.props} 
                 loading={this.state.loading}
                 allMarkets={this.state.allMarkets}
+                inviteValues={this.state.invite}
                 nextScreen={this.nextScreen}
                 getInvite={this.getInvite}
                 updateInvite={this.updateInvite}
                 clearInvite={this.clearInvite}
-                inviteValues={this.state.invite}
               />
             </div>
             

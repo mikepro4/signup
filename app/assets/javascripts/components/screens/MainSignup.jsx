@@ -106,12 +106,14 @@ define([
       var canProceed = !_.isEmpty(this.state.email) && this.validateEmail(this.state.email) && !_.isEmpty(this.state.market);
 
       if(canProceed) {
+        // update invite data, wait for success and continue to next screen
         this.props.updateInvite({
           email: this.state.email.trim(),
           market: this.state.market.trim(),
           marketId: MarketStore.getMarketId(this.state.market)
         });
       } else {
+        // trigger validation and show errors
         this.refs.email.isValid();
         this.refs.market.isValid();
       }
