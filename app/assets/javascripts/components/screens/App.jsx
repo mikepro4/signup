@@ -46,16 +46,25 @@ define([
       return {
         footerVisible: true,
         headerMode: 'light',
-        invite: null
+        allMarkets: null,
+        invite: null,
+        userType: null,
+        loading: true
       }
+    },
+
+    componentWillMount: function () {
+      Actions.loadMarkets();
     },
 
     componentDidMount: function () {
       this.clearInvite();
+      MarketStore.addChangeListener(this.updateMarkets);
       InviteStore.addChangeListener(this.updateInviteValues);
     },
 
     componentWillUnmount: function () {
+      MarketStore.removeChangeListener(this.updateMarkets);
       InviteStore.removeChangeListener(this.updateInviteValues);
     },
 
@@ -67,7 +76,15 @@ define([
       }.bind(this));
     },
 
+    updateMarkets: function () {
+      this.setState({
+        allMarkets: MarketStore.getMarkets(),
+        loading: false
+      });
+    }, 
+
     updateInvite: function(value) {
+      this.setState({ loading: true });
       Actions.updateInvite(value);
       this.updateInviteValues(this.nextScreen);
     },
@@ -78,35 +95,58 @@ define([
     },
 
     nextScreen: function () {
-      var Invite = this.state.invite;
-      console.log(Invite);
-      
-      if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
+      var userType = MarketStore.getMarketStateById(this.state.invite.marketId) ? 'user' : 'pioneer';
+      console.log(userType);
 
-        InviteStore.loadInvite(Invite.email, Invite.marketId)
+      switch(userType) {
+        case 'user': 
+          this.routeRegularUser();
+          break
+        case 'pioneer':
+          this.routePioneerUser();
+          break
+      }
+    },
+
+    routeRegularUser: function () {
+      if(_.isEmpty(this.state.invite.email) 
+          || _.isEmpty(this.state.invite.firstName) 
+          || _.isEmpty(this.state.invite.lastName)
+        ) {
+
+        InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
           .done(function () {
             this.transitionTo('user_info');
+            this.setState({ loading: false });
           }.bind(this))
           .error(function (xhr) {
             this.errorHandler();
           }.bind(this));
-        
+
       } else {
-        var inviteObject = localStorage.getItem('inviteObject')
 
         InviteStore.postInvite()
           .done(function() {
             this.transitionTo('user_reviewing_request');
+            this.setState({ loading: false });
           }.bind(this)).error(function (xhr) {
             this.errorHandler();
           }.bind(this));
+      }
+    },
 
-      } 
+    routePioneerUser: function () {
+      this.transitionTo('pioneer_video');
+      this.setState({ loading: false });
     },
 
     errorHandler: function () {
       alert('Sorry there was an error');
       this.transitionTo('signup');
+      this.clearInvite();
+      this.setState({
+        loading: false
+      })
     },
 
     render: function () {
@@ -128,6 +168,8 @@ define([
             <div className="application_routeHandler">
               <RouteHandler 
                 {...this.props} 
+                loading={this.state.loading}
+                allMarkets={this.state.allMarkets}
                 nextScreen={this.nextScreen}
                 getInvite={this.getInvite}
                 updateInvite={this.updateInvite}

@@ -42,38 +42,14 @@ define([
         market: this.getParams().market,
         marketId: null,
         buttonTitle: 'JOIN COMPSTAK',
-        allMarkets: null,
-        launchingSoon: false,
-        loading: true
+        launchingSoon: false
       }
     },
 
     componentWillMount: function () {
-      Actions.loadMarkets();
-      this.selectMarketFromParams();
-    },
-
-    componentDidMount: function () {
-      MarketStore.addChangeListener(this.updateMarkets);
-    },
-
-    componentWillUnmount: function () {
-      MarketStore.removeChangeListener(this.updateMarkets);
-    },
-
-    updateMarkets: function () {
-      this.setState({
-        allMarkets: MarketStore.getMarkets(),
-        loading: false
-      });
-      this.selectMarketFromParams();
-      this.toggleUI(this.state.market)
-    }, 
-
-    hideLoader: function () {
-      this.setState({
-        loading: false
-      })
+      if(this.getParams().market) {
+        this.toggleUI(this.getParams().market);
+      }
     },
 
     componentWillReceiveProps: function (newProps) {
@@ -85,7 +61,7 @@ define([
       }
       
       this.selectMarketFromParams();
-      this.toggleUI(this.getParams().market)
+      this.toggleUI(this.getParams().market);
     },
 
     selectMarketFromParams: function () {
@@ -128,20 +104,13 @@ define([
     saveAndContinue: function(e) {
       e.preventDefault();
       var canProceed = !_.isEmpty(this.state.email) && this.validateEmail(this.state.email) && !_.isEmpty(this.state.market);
-      var userType = MarketStore.getMarketState(this.state.market) ? 'user' : 'pioneer';
 
       if(canProceed) {
-        var data = {
+        this.props.updateInvite({
           email: this.state.email.trim(),
           market: this.state.market.trim(),
           marketId: MarketStore.getMarketId(this.state.market)
-        }
-        if (userType === 'user') {
-          this.setState({ loading: true});
-          this.props.updateInvite(data);
-        } else {
-          alert("Can't create account for Pioneer yet.")
-        }
+        });
       } else {
         this.refs.email.isValid();
         this.refs.market.isValid();
@@ -152,7 +121,7 @@ define([
       return (
         <div className={cx({
           'main_signup_screen': true,
-          'loading': this.state.loading
+          'loading': this.props.loading
           })}>
 
           <div className="main_singup_form">
@@ -188,7 +157,7 @@ define([
 
               <Select 
                 ref="market"
-                options={this.state.allMarkets} 
+                options={this.props.allMarkets} 
                 value={this.state.market} 
                 defaultValue={this.state.market} 
                 onChange={this.onSelect} 
