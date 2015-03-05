@@ -45,7 +45,7 @@ define([
     getInitialState: function(){
       return {
         footerVisible: true,
-        headerMode: 'light',
+        headerDark: true,
         loginButton: true,
         contacts: false,
         allMarkets: null,
@@ -73,7 +73,13 @@ define([
         this.clearInvite();
         this.setState({
           footerVisible: true,
-          headerMode: 'light',
+          headerDark: true,
+          loginButton: true,
+          contacts: false
+        });
+      } else if(this.isActive("pioneer_video")) {
+        this.setState({
+          headerDark: false
         });
       }
     },
@@ -119,8 +125,10 @@ define([
 
     routeRegularUser: function () {
       this.setState({
-        footerVisible: true
-      })
+        footerVisible: true,
+        loginButton: false,
+        contacts: true
+      });
 
       if(_.isEmpty(this.state.invite.email) 
           || _.isEmpty(this.state.invite.firstName) 
@@ -149,13 +157,16 @@ define([
     },
 
     routePioneerUser: function () {
+      this.setState({
+        footerVisible: false,
+        loginButton: false,
+        contacts: true
+      });
+
       InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
         .done(function () {
           this.transitionTo('pioneer_video');
-          this.setState({
-            footerVisible: false,
-            loading: false
-          });
+          this.setState({ loading: false });
         }.bind(this))
         .error(function (xhr) {
           this.errorHandler();
@@ -166,7 +177,7 @@ define([
       alert('Sorry there was an error');
       this.transitionTo('signup');
       this.clearInvite();
-      this.setState({ loading: false })
+      this.setState({ loading: false });
     },
 
     render: function () {
@@ -184,9 +195,9 @@ define([
           <section className={appContentClasses}>
 
             <AppHeader 
-              mode={this.state.headerMode} 
+              headerDark={this.state.headerDark} 
               loginButton={this.state.loginButton}
-              contacts={this.state.cintacts}
+              contacts={this.state.contacts}
             />
 
             <div className="application_routeHandler">
