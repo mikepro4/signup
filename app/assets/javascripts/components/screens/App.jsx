@@ -56,6 +56,15 @@ define([
 
     componentWillMount: function () {
       Actions.loadMarkets();
+
+      if(this.isActive("pioneer_video")) {
+        this.setState({
+          headerDark: false,
+          footerVisible: false,
+          loginButton: false,
+          contacts: true
+        });
+      }
     },
 
     componentDidMount: function () {
@@ -79,7 +88,10 @@ define([
         });
       } else if(this.isActive("pioneer_video")) {
         this.setState({
-          headerDark: false
+          headerDark: false,
+          footerVisible: false,
+          loginButton: false,
+          contacts: true
         });
       }
     },

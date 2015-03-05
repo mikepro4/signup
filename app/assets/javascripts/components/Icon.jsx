@@ -95,6 +95,14 @@ define([
                 c-0.4,0.4-0.4,1.1,0,1.6l7.5,7.4C25.4,38.2,25.6,38.3,25.9,38.3C26,38.3,26,38.3,25.9,38.3z"/>
             </svg>
           )
+
+        case 'play_video':
+          return (
+            <svg viewBox="0 0 67 67">
+              <circle fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="33.5" cy="33.5" r="32.5"/>
+              <path fill="#FFFFFF" d="M45.5,33.5l-16,11v-22L45.5,33.5z"/>
+            </svg>
+          )
       } 
     }
   });
