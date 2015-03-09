@@ -99,8 +99,8 @@ define([
         case 'play_video':
           return (
             <svg viewBox="0 0 67 67">
-              <circle fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" cx="33.5" cy="33.5" r="32.5"/>
-              <path fill="#FFFFFF" d="M45.5,33.5l-16,11v-22L45.5,33.5z"/>
+              <circle fill="none" stroke="#FFFFFF" stroke-miterlimit="10" cx="33.5" cy="33.5" r="32.5"/>
+              <path fill="#FFFFFF" d="M43.5,33.5l-14,9.6V23.9L43.5,33.5z"/>
             </svg>
           )
       } 

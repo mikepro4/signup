@@ -37,24 +37,47 @@
       text-align: center;
 
       i.play_video {
-        opacity: 0;
         .display(relative);
         .size(66px, 66px);
-        margin: 0 auto;
         .animation(fadeIn .4s .2s linear forwards);
+        .transition(all 0.2s ease-out);
+        .user-select(none);
+        margin: 0 auto;
+        opacity: 0;
+        cursor: pointer;
 
         svg {
           .size(66px, 66px);
+
+          circle {
+            stroke: @light-blue;
+            fill: rgba(0,0,0,0);
+            .transition(all 0.2s ease-out);
+          }
+        }
+
+        &:hover {
+          .scale(1.2);
+
+          svg {
+            circle {
+              fill: @light-blue;
+            }
+          }
+        }
+
+        &:active {
+          .scale(.7);
         }
       }
 
       h4 {
         .display(relative);
         .animation(fadeIn .4s .3s linear forwards);
-        margin: 30px 0 0px 0;
+        margin: 34px 0 0 0;
         color: #fff;
         font-size: 13px;
-        letter-spacing: 1.7px;
+        letter-spacing: 1.8px;
         opacity: 0;
 
         span {

@@ -63,9 +63,6 @@ define([
             </ul>
 
           </aside>
-          
-          
-
         </header>
       );
     }
