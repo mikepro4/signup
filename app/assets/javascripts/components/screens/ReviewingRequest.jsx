@@ -3,6 +3,9 @@ define([
   // libraries
   'react', 'react-router', 'underscore',
 
+  // mixins,
+  'jsx!mixins/InviteCheck',
+
   // components
   'jsx!components/Icon'
 
@@ -12,6 +15,9 @@ define([
   // libraries
   React, Router, _,
 
+  // mixins
+  InviteCheck,
+
   // components
   Icon
 
@@ -19,7 +25,7 @@ define([
 
   var ReviewingRequestScreen = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     componentDidMount: function () {
       this.props.clearInvite();

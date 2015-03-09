@@ -3,6 +3,9 @@ define([
   // libraries
   'react', 'react-router', 'underscore', 'jquery',
 
+  // mixins,
+  'jsx!mixins/InviteCheck',
+
   // components
   'jsx!components/Icon'
 
@@ -11,18 +14,26 @@ define([
   // libraries
   React, Router, _, $,
 
+  // mixins
+  InviteCheck,
+
   // components
   Icon
 
 ) {
 
+  var cx = React.addons.classSet;
+
   var Video = React.createClass({
-    mixins: [ Router.State, Router.Navigation ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck ],
+
+    getInitialState: function () {
+      return {
+        videoPlaying: this.getQuery().play ? true : false
+      }
+    },
 
     componentDidMount: function () {
-      if(!this.props.inviteValues) {
-        // this.transitionTo('signup');
-      }
 
       if (window.addEventListener){
         window.addEventListener('message', this.onMessageReceived, false);
@@ -53,7 +64,7 @@ define([
       }
     },
 
-    post: function (action, value) {
+    vimeoPost: function (action, value) {
       var f = $('iframe');
       var url = f.attr('src').split('?')[0];
       var data = { method: action };
@@ -66,9 +77,9 @@ define([
     },
 
     onVideoReady: function () {
-      this.post('addEventListener', 'pause');
-      this.post('addEventListener', 'finish');
-      this.post('addEventListener', 'playProgress');
+      this.vimeoPost('addEventListener', 'pause');
+      this.vimeoPost('addEventListener', 'finish');
+      this.vimeoPost('addEventListener', 'playProgress');
     },
 
     onPause: function () {
@@ -84,8 +95,10 @@ define([
       // console.log(data)
     },
 
-    handleClick: function () {
-      this.post('play');
+    watchVideo: function () {
+      this.replaceWith('pioneer_video', {}, {play: true});
+      this.setState({ videoPlaying: true });
+      this.vimeoPost('play');
     },
 
     skipVideo: function () {
@@ -93,35 +106,55 @@ define([
     },
 
     render: function() {
-      return (
-        <div className="video_screen">
+      if(!this.state.videoPlaying) {
+        var backgroundVideo = 
           <video preload="auto" autoPlay loop muted className="pioneer_video">
             <source src="https://s3.amazonaws.com/www-assets.invisionapp.com/Homepage/enterprise-loop.mp4" type="video/mp4" />
           </video>
+      }
+
+      return (
+        <div className="video_screen">
+          
+          {backgroundVideo}
           <div className="video_cover"></div>
 
           <div className="video_content_container">
 
-            <div className="video_content">
-              <i className="play_video">
+            <div className={cx({
+              'video_content': true,
+              'video_playing': this.state.videoPlaying
+            })}>
+
+              <i className="play_video" onClick={this.watchVideo}>
                 <Icon type="play_video" />
               </i>
 
               <h4><span>PIONEER STATUS & THE REWARDS IN 60 SECONDS...</span></h4>
               <h1>Join early to get exclusive <br/> access and rewards.</h1>
-              <a href="#" className="button button_green button_large" onClick={this.handleClick}>
+              <a className="button button_green button_large" onClick={this.watchVideo}>
                 <span>JOIN EARLY</span>
               </a>
+
             </div>
 
-            <div className="video_container">
+            <div className={cx({
+              'video_container': true,
+              'video_playing': this.state.videoPlaying
+            })}>
+
               <iframe 
                 src="http://player.vimeo.com/video/22645550?api=1" 
-                width="800" height="450" 
+                width="840" height="470" 
                 className="vimeo_video"
                 frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
               </iframe>
-              <div className="skip_video" onClick={this.skipVideo}>I can’t watch video now</div>
+
+              <div className="skip_video" onClick={this.skipVideo}>
+                <span>I can’t watch video now</span>
+                <i><Icon type="arrow_right_rounded"/></i>
+              </div>
+
             </div>
        
           </div>

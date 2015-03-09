@@ -3,6 +3,9 @@ define([
   // libraries
   'react', 'react-router', 'underscore',
 
+  // mixins,
+  'jsx!mixins/InviteCheck',
+
   // components
   'jsx!components/Input',
   'jsx!components/AppFooter'
@@ -11,6 +14,9 @@ define([
 
   // libraries
   React, Router, _,
+
+  // mixins
+  InviteCheck,
 
   // components
   Input, AppFooter
@@ -21,7 +27,7 @@ define([
 
   var UserInfoScreen = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     getInitialState: function () {
       return {
@@ -71,14 +77,9 @@ define([
     },
 
     componentDidMount: function () {
-      if(!this.props.inviteValues) {
-        this.transitionTo('signup');
-      } else {
-        // TODO – find a better way to detect mobile and prevent focus
-        if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-          this.refs.firstName.focus();
-        }
-      }
+      // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      //   this.refs.firstName.focus();
+      // }
     },
 
     saveAndContinue: function(e) {

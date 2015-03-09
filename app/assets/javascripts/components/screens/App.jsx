@@ -69,7 +69,7 @@ define([
 
     componentDidMount: function () {
       MarketStore.addChangeListener(this.updateMarkets);
-      InviteStore.addChangeListener(this.updateInviteValues);
+      InviteStore.addChangeListener(this.updateInviteValues);    
     },
 
     componentWillUnmount: function () {
@@ -90,6 +90,14 @@ define([
         this.setState({
           headerDark: false,
           footerVisible: false,
+          loginButton: false,
+          contacts: true
+        });
+      } else {
+        var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
+        this.setState({
+          headerDark: true,
+          footerVisible: marketLaunched ? true : false,
           loginButton: false,
           contacts: true
         });
@@ -142,10 +150,7 @@ define([
         contacts: true
       });
 
-      if(_.isEmpty(this.state.invite.email) 
-          || _.isEmpty(this.state.invite.firstName) 
-          || _.isEmpty(this.state.invite.lastName)
-        ) {
+      if(_.isEmpty(this.state.invite.email) || _.isEmpty(this.state.invite.firstName) || _.isEmpty(this.state.invite.lastName)) {
 
         InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
           .done(function () {
