@@ -68,36 +68,37 @@
     background: #fff;
 
     h1.faq_title {
+      .display(relative);
+      padding: 40px 0 40px 0;
+      font-size: 26px;
       text-align: center;
+      letter-spacing: .7px;
     }
 
     .faq_content {
       .display(relative);
-      width: 800px;
+      width: 750px;
       margin: 0 auto;
-
-      h1 {}
-
-      ul.faq_content {
-        li {
-          .icon_toggle {}
-          .faq_title {}
-          .faq_answer {}
-        }
-      }
+      padding: 0 0 60px 0;
     }
   }
 
   .faq_footer {
     .display(relative);
     text-align: center;
-    padding: 50px;
+    padding: 80px;
 
     h3 {
       font-size: 20px;
+      font-family: @font-gotham-light;
     }
 
     p {
+      letter-spacing: .2px;
+      font-family: @font-gotham-light;
+      font-size: 12px;
+      margin: 0;
+
       a {}
     }
   }

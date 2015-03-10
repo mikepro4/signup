@@ -1,7 +1,7 @@
 define([
 
   // libraries
-  'react', 'underscore',
+  'react', 'underscore', 'jquery',
 
   // components
   'jsx!components/Icon'
@@ -9,7 +9,7 @@ define([
 ], function (
 
   // libraries
-  React, _,
+  React, _, $,
 
   // components
   Icon
@@ -37,11 +37,10 @@ define([
       return (
         <article onClick={this.toggle} className={cx({
           'faq_item': true,
-          'item_open': this.state.faqItemOpen,
-          'iten_closed': !this.state.faqItemOpen
+          'item_open': this.state.faqItemOpen
         })}>
 
-          <i className="icon_toggle">+</i>
+          <i className="icon_toggle"><Icon type="plus"/></i>
           <h2 className="faq_title">{this.props.question}</h2>
           <p className="faq_answer">{this.props.answer}</p>
 

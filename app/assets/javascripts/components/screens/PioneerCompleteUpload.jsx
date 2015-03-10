@@ -74,20 +74,32 @@ define([
       return {
         faqData: [
           {
-            "question": "Q1",
+            "question": "I need more time. I’m not organized.",
             "answer": "A1"
           },
           {
-            "question": "Q2",
+            "question": "I’m not allowed to upload lease comps.",
             "answer": "A2"
           },
           {
-            "question": "Q3",
-            "answer": "A3"
+            "question": "What lease comp details are needed?",
+            "answer": "We want this to be easy. No templates. No requirements. We will accept any format you’re already using. Most likely, your comps already have all the information we need, and if they don’t, our research team will email you."
           },
           {
-            "question": "Q4",
+            "question": "How will you use my comp data?",
             "answer": "A4"
+          },
+          {
+            "question": "What are the risks? ",
+            "answer": "A5"
+          },
+          {
+            "question": "Is my identity protected?",
+            "answer": "A6"
+          },
+          {
+            "question": "What if I change my mind? ",
+            "answer": "A7"
           }
         ]
       }
@@ -95,7 +107,7 @@ define([
 
     componentDidMount: function () {
       this.props.clearData();
-      offsetLoop(0, count, count);
+      // offsetLoop(0, count, count);
     },
 
     render: function() {
@@ -151,7 +163,7 @@ define([
           </div>
 
           <div className="faq_footer">
-            <h3>Still Have Questions</h3>
+            <h3>Still Have Questions?</h3>
             <p>
               Contact us at 1-646-926-6707 or <a className="help_email" href="mailto:help@compstak.com" target="_blank">
                 help@compstak.com
