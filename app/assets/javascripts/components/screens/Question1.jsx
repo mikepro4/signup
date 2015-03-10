@@ -1,12 +1,18 @@
 define([
 
   // libraries
-  'react', 'react-router', 'underscore'
+  'react', 'react-router', 'underscore',
+
+  // components
+  'jsx!components/AnswerItem'
 
 ], function (
 
   // libraries
-  React, Router, _
+  React, Router, _,
+
+  // components
+  AnswerItem
 
 ) {
 
@@ -14,10 +20,56 @@ define([
 
     mixins: [ Router.State ],
 
+    getInitialState: function () {
+      return {
+        question: "Your years of experience in CRE?",
+        answers: [
+          {
+            answer: "1 – 5"
+          },
+          {
+            answer: "6 – 10"
+          },
+          {
+            answer: "11 – 15"
+          },
+          {
+            answer: "15+"
+          }
+        ]
+      }
+    },
+
+    saveAndContinue: function (answer) {
+      alert(answer)
+    },
+
     render: function() {
+
+      var answers = this.state.answers.map(function (answer) {
+        return (
+          <AnswerItem
+            answer={answer.answer}
+            saveAndContinue={this.saveAndContinue} 
+          />
+        );
+      }.bind(this));
+
       return (
-        <div>
-          Question1
+        <div className="questions_screen question_1">
+          <div className="questions_content">
+            <aside className="question_counter">
+              1 of 3
+            </aside>
+
+            <h1 className="question">
+              {this.state.question}
+            </h1>
+
+            <div className="answers">
+              {answers}
+            </div>
+          </div>
         </div>
       )
       

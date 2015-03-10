@@ -123,8 +123,8 @@ define([
         return (
           <FaqItem
             question={faqItem.question} 
-            answer={faqItem.answer}>
-          </FaqItem>
+            answer={faqItem.answer}
+          />
         );
       });
 
