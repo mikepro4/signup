@@ -23,6 +23,8 @@ define([
 
 ) {
 
+  var cx = React.addons.classSet;
+
   var ReviewingRequestScreen = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
@@ -35,7 +37,10 @@ define([
       return (
         <div className="reviewing_request_screen">
 
-          <div className="reviewing_request_content">
+          <div className={cx({
+            'reviewing_request_content': true,
+            'footer_visible': this.props.footerVisible
+          })}>
             <i className="success_icon"> <Icon type="success_tick"/> </i>
 
             <h1>Reviewing Your Request</h1>

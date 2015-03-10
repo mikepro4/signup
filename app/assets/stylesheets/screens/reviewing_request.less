@@ -15,13 +15,17 @@
   .reviewing_request_content, .pioneer_complete_content {
     .display(absolute);
     .topLeft(0, 0);
-    .bottomRight(@footer-height, 0); 
+    .bottomRight(0, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
     text-align: center;
     min-height: 400px;
+
+    &.footer_visible {
+      .bottomRight(@footer-height, 0);
+    }
 
     .success_icon {
       svg {

@@ -23,6 +23,8 @@ define([
 
 ) {
 
+  var cx = React.addons.classSet;
+
   var PioneerComplete = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
@@ -35,7 +37,10 @@ define([
       return (
         <div className="pioneer_complete_screen">
 
-          <div className="pioneer_complete_content">
+          <div className={cx({
+            'pioneer_complete_content': true,
+            'footer_visible': this.props.footerVisible
+          })}>
             <i className="success_icon"> <Icon type="success_tick"/> </i>
 
             <h1>Thanks</h1>
