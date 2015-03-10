@@ -34,44 +34,13 @@ define([
   var callsPerSecond = 1;
   var delay = 1000;
 
-  function offsetLoop(i, counter, idsRemaining) {
-
-    while (idsRemaining >= 0) {
-      var secondsRemaining = (idsRemaining * delay) / 1000;
-      var hour = parseInt(secondsRemaining / 3600);
-      secondsRemaining -= hour * 3600;
-
-      var minute = parseInt(secondsRemaining / 60);
-      secondsRemaining -= minute * 60;
-      secondsRemaining = parseInt(secondsRemaining % 60, 10);
-
-      var formattedTime = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute) + ":" + (secondsRemaining  < 10 ? "0" + secondsRemaining : secondsRemaining);
-      
-      log(formattedTime);
-      i++;
-      idsRemaining--;
-      if (idsRemaining >= 0) {
-          setTimeout(function () {
-              offsetLoop(i, counter, idsRemaining);
-          }, delay);
-         break;
-      }
-    }
-    if (idsRemaining < 0 ) {
-      log("Time's up...");
-    }
-  };
-
-  function log(text) {
-      $('#countdown').html(text);
-  }
-
   var PioneerCompleteUpload = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     getInitialState: function () {
       return {
+        time: null,
         faqData: [
           {
             "question": "I need more time. I’m not organized.",
@@ -107,7 +76,39 @@ define([
 
     componentDidMount: function () {
       this.props.clearData();
-      // offsetLoop(0, count, count);
+      this.countdown(0, count, count);
+    },
+
+    countdown: function (i, counter, idsRemaining) {
+      while (idsRemaining >= 0) {
+        var secondsRemaining = (idsRemaining * delay) / 1000;
+        var hour = parseInt(secondsRemaining / 3600);
+        secondsRemaining -= hour * 3600;
+
+        var minute = parseInt(secondsRemaining / 60);
+        secondsRemaining -= minute * 60;
+        secondsRemaining = parseInt(secondsRemaining % 60, 10);
+
+        var formattedTime = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute) + ":" + (secondsRemaining  < 10 ? "0" + secondsRemaining : secondsRemaining);
+        
+        this.setState({
+          time: formattedTime
+        });
+
+        i++;
+        idsRemaining--;
+        if (idsRemaining >= 0) {
+          setTimeout(function () {
+              this.countdown(i, counter, idsRemaining);
+          }.bind(this), delay);
+          break;
+        }
+      }
+      if (idsRemaining < 0 ) {
+        this.setState({
+          time: "Time's up..."
+        });
+      }
     },
 
     render: function() {
@@ -137,7 +138,7 @@ define([
                 membership@compstak.com
               </a>
             </h1>
-            <div className="countdown" id="countdown"></div>
+            <div className="countdown">{this.state.time}</div>
 
             <div className="pioneer_description">
               <h5>We hold Pioneer slots for 48 hours. </h5>

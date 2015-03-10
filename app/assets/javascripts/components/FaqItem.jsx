@@ -1,7 +1,7 @@
 define([
 
   // libraries
-  'react', 'underscore', 'jquery',
+  'react', 'underscore',
 
   // components
   'jsx!components/Icon'
@@ -9,7 +9,7 @@ define([
 ], function (
 
   // libraries
-  React, _, $,
+  React, _,
 
   // components
   Icon
