@@ -15,13 +15,17 @@
 
   .user_info_form {
     .topLeft(0, 0);
-    .bottomRight(@footer-height + 30, 0); 
+    .bottomRight(50px, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
     position: absolute;
     min-height: 400px;
+
+    &.footer_visible {
+      .bottomRight(@footer-height + 30, 0); 
+    }
 
     h1 {
       .display(relative);
@@ -63,16 +67,16 @@
       }
 
       .input_group {
-        display: none
+        display: none;
       }
 
       &.promo_visible {
         a {
-          display: none
+          display: none;
         }
         
         .input_group {
-          display: block
+          display: block;
         }
       }
     }
@@ -90,7 +94,7 @@
 
       .throbber {
         display: block;
-        opacity: 1
+        opacity: 1;
       }
     }
   }

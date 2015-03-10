@@ -44,7 +44,7 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: true,
+        footerVisible: false,
         headerDark: true,
         loginButton: true,
         contacts: false,
@@ -203,6 +203,7 @@ define([
             <div className="application_routeHandler">
               <RouteHandler 
                 {...this.props} 
+                footerVisible={this.state.footerVisible}
                 loading={this.state.loading}
                 allMarkets={this.state.allMarkets}
                 inviteValues={this.state.invite}

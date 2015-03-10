@@ -6,32 +6,40 @@
     text-align: center;
 
     h4.complete_title {
-      font-size: 14px;
+      font-size: 13px;
       color: @green;
-      letter-spacing: 1.5px;
+      letter-spacing: 2.5px;
     }
 
     h1.upload_email {
       .display(relative);
       max-width: 700px;
       margin: 20px auto;
-      font-size: 30px;
-      line-height: 38px;
+      font-size: 28px;
+      line-height: 36px;
+      letter-spacing: .7px;
 
       a {
         font-family: @font-gotham-medium;
+        color: @dark-blue;
+
+        &:hover {
+          color: @light-blue;
+        }
       }
     }
 
     .countdown {
+      .border-radius(4px);
       width: 180px;
       display: inline-block;
       border: 1px solid @green;
-      margin: 15px 0 35px 0;
-      .border-radius(4px);
+      margin: 17px 0 35px 0;
       padding: 10px 40px 10px 40px;
       font-family: @font-gotham-thin;
-      font-size: 40px;
+      font-size: 44px;
+      text-align: left;
+      letter-spacing: 1px;
       color: @green;
     }
 
@@ -41,13 +49,17 @@
       }
 
       p {
-        opacity: .7
+        font-family: @font-gotham-light;
+        margin: 0;
       }
     }
 
     .terms_of_use_note {
       .display(relative);
-      top: -55px;
+      top: -57px;
+      font-family: @font-gotham-light;
+      font-size: 11px;
+      letter-spacing: .3px;
     }
   }
 

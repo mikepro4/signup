@@ -88,6 +88,10 @@ define([
       //   this.refs.firstName.focus();
       // }
 
+      if(this.refs.firstName) {
+        this.refs.firstName.focus();
+      }
+
       if(this.props.inviteValues) {
         var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
       } else {
@@ -147,13 +151,17 @@ define([
         <div className={cx({
           'user_info_screen': true,
           'loading': this.props.loading
+        })}>
+
+          <div className={cx({
+            'user_info_form': true,
+            'footer_visible': this.props.footerVisible
           })}>
 
-          <div className="user_info_form">
             <div className="throbber throbber_large"></div>
             <h1>{this.state.mainHeadline}</h1>
             <p className={cx({
-            'hidden': !this.state.subHeadline
+              'hidden': !this.state.subHeadline
             })}>
               {this.state.subHeadline}
             </p>

@@ -11,7 +11,8 @@ define([
 
   //components
   'jsx!components/Icon',
-  'jsx!components/VideoLink'
+  'jsx!components/VideoLink',
+  'jsx!components/FaqItem'
 
 ], function (
 
@@ -25,7 +26,7 @@ define([
   InviteCheck,
 
   // components
-  Icon, VideoLink
+  Icon, VideoLink, FaqItem
 
 ) {
 
@@ -69,6 +70,29 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
+    getInitialState: function () {
+      return {
+        faqData: [
+          {
+            "question": "Q1",
+            "answer": "A1"
+          },
+          {
+            "question": "Q2",
+            "answer": "A2"
+          },
+          {
+            "question": "Q3",
+            "answer": "A3"
+          },
+          {
+            "question": "Q4",
+            "answer": "A4"
+          }
+        ]
+      }
+    },
+
     componentDidMount: function () {
       this.props.clearData();
       offsetLoop(0, count, count);
@@ -81,6 +105,15 @@ define([
       } else {
         var marketName = 'PHOENIX';
       }
+
+      var faqNodes = this.state.faqData.map(function (faqItem) {
+        return (
+          <FaqItem
+            question={faqItem.question} 
+            answer={faqItem.answer}>
+          </FaqItem>
+        );
+      });
 
       return (
         <div className="pioneer_complete_upload_screen">
@@ -95,7 +128,7 @@ define([
             <div className="countdown" id="countdown"></div>
 
             <div className="pioneer_description">
-              <h5>We hold Pioneer slots for 24 hours. </h5>
+              <h5>We hold Pioneer slots for 48 hours. </h5>
               <p>If we have not recieved comps from you, you may loose your Pioneer status. </p>
               <p>Have Questions? Check out our FAQs Below</p>
             </div>
@@ -103,7 +136,7 @@ define([
             <VideoLink />
 
             <aside className="terms_of_use_note">
-              By sending us comps you agree to the <a href="" target="_blank">terms of use</a>
+              By sending us comps you agree to the <a href="" target="_blank">terms of use</a>.
             </aside>
           </div>
 
@@ -111,54 +144,9 @@ define([
 
             <h1 className="faq_title">Frequently Asked Questions</h1>
 
-            <ul className="faq_content">
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">I need more time. I’m not organized.</div>
-                <div className="faq_answer">text...</div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">I’m not allowed to upload lease comps. </div>
-                <div className="faq_answer">text...</div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">What lease comp details are needed? </div>
-                <div className="faq_answer">
-                  We want this to be easy. 
-                  No templates. No requirements. 
-                  We will accept any format you’re already using. 
-                  Most likely, your comps already have all the information we need, and if they don’t, our research team will email you.
-                </div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">How will you use my comp data?</div>
-                <div className="faq_answer">text...</div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">What are the risks?</div>
-                <div className="faq_answer">text...</div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">Is my identity protected?</div>
-                <div className="faq_answer">text...</div>
-              </li>
-
-              <li>
-                <div className="icon_toggle">+</div>
-                <div className="faq_title">What if I change my mind?</div>
-                <div className="faq_answer">text...</div>
-              </li>
-            </ul>
+            <div className="faq_content">
+              {faqNodes}
+            </div>
 
           </div>
 
