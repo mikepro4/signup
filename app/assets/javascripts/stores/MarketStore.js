@@ -75,6 +75,11 @@ define([
       return _.isEmpty(market) ? true : market.launched;
     },
 
+    getMarketName: function (id) {
+      var market = _.findWhere(Markets, {id: id});
+      return market.label;
+    },
+
     emitChange: function() {
       this.emit(CHANGE_EVENT);
     },

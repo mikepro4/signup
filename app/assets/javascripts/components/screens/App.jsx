@@ -44,7 +44,7 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: true,
+        footerVisible: false,
         headerDark: true,
         loginButton: true,
         contacts: false,
@@ -94,7 +94,11 @@ define([
           contacts: true
         });
       } else {
-        var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
+        if(this.state.invite) {
+          var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
+        } else {
+          var marketLaunched = false;
+        }
         this.setState({
           headerDark: true,
           footerVisible: marketLaunched ? true : false,

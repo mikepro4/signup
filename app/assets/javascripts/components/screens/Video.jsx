@@ -34,6 +34,11 @@ define([
     },
 
     componentDidMount: function () {
+      if(this.getQuery().play) {
+        _.delay(function () {
+          this.vimeoPost('play');
+        }.bind(this), 1000)
+      }
 
       if (window.addEventListener){
         window.addEventListener('message', this.onMessageReceived, false);
