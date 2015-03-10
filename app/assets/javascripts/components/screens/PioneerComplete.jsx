@@ -14,6 +14,10 @@ define([
 
     mixins: [ Router.State ],
 
+    componentDidMount: function () {
+      this.props.clearData();
+    },
+
     render: function() {
       return (
         <div>

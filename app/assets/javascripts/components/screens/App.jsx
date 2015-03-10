@@ -44,7 +44,7 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: true,
+        footerVisible: false,
         headerDark: true,
         loginButton: true,
         contacts: false,
@@ -80,7 +80,7 @@ define([
 
     componentWillReceiveProps: function () {
       if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
-        this.clearInvite();
+        this.clearData();
         this.setState({
           footerVisible: true,
           headerDark: true,
@@ -130,7 +130,7 @@ define([
       this.updateInviteValues(this.nextScreen);
     },
 
-    clearInvite: function() {
+    clearData: function() {
       this.setState({ 
         invite: null, 
         pioneerData: null  
@@ -140,9 +140,7 @@ define([
 
     updatePioneerData: function (data) {
       var pioneerData = this.state.pioneerData
-      this.setState({
-        pioneerData: _.extend({}, pioneerData, data)
-      });
+      this.setState({ pioneerData: _.extend({}, pioneerData, data) });
     },
 
     nextScreen: function () {
@@ -225,7 +223,7 @@ define([
     errorHandler: function () {
       alert('Sorry there was an error');
       this.transitionTo('signup');
-      this.clearInvite();
+      this.clearData();
       this.setState({ loading: false });
     },
 
@@ -256,10 +254,9 @@ define([
                 allMarkets={this.state.allMarkets}
                 inviteValues={this.state.invite}
                 nextScreen={this.nextScreen}
-                getInvite={this.getInvite}
                 updateInvite={this.updateInvite}
                 updatePioneerData={this.updatePioneerData}
-                clearInvite={this.clearInvite}
+                clearData={this.clearData}
               />
             </div>
             

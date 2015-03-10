@@ -28,7 +28,7 @@ define([
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     componentDidMount: function () {
-      this.props.clearInvite();
+      this.props.clearData();
     },
 
     render: function() {
