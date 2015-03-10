@@ -10,20 +10,20 @@ define([
 
 ) {
 
-  var SignupThanks = React.createClass({
+  var PioneerComplete = React.createClass({
 
     mixins: [ Router.State ],
 
     render: function() {
       return (
         <div>
-          SignupThanks
+          PioneerComplete
         </div>
       )
       
     }
   });
 
-  return SignupThanks;
+  return PioneerComplete;
 
 });

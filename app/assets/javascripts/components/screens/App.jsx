@@ -44,13 +44,14 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: false,
+        footerVisible: true,
         headerDark: true,
         loginButton: true,
         contacts: false,
         allMarkets: null,
         invite: null,
-        loading: true
+        loading: true,
+        pioneerData: null
       }
     },
 
@@ -184,14 +185,27 @@ define([
         contacts: true
       });
 
-      InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
-        .done(function () {
-          this.transitionTo('pioneer_video');
-          this.setState({ loading: false });
-        }.bind(this))
-        .error(function (xhr) {
-          this.errorHandler();
-        }.bind(this));
+      if(_.isEmpty(this.state.invite.email) || _.isEmpty(this.state.invite.firstName) || _.isEmpty(this.state.invite.lastName)) {
+
+        InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
+          .done(function () {
+            this.transitionTo('pioneer_video');
+            this.setState({ loading: false });
+          }.bind(this))
+          .error(function (xhr) {
+            this.errorHandler();
+          }.bind(this));
+
+      } else {
+
+        InviteStore.postInvite()
+          .done(function() {
+            this.transitionTo('pioneer_complete_upload');
+            this.setState({ loading: false });
+          }.bind(this)).error(function (xhr) {
+            this.errorHandler();
+          }.bind(this));
+      }
     },
 
     errorHandler: function () {

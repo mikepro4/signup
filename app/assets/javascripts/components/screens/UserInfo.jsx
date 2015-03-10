@@ -3,6 +3,9 @@ define([
   // libraries
   'react', 'react-router', 'underscore',
 
+  // stores
+  'stores/MarketStore',
+
   // mixins,
   'jsx!mixins/InviteCheck',
 
@@ -14,6 +17,9 @@ define([
 
   // libraries
   React, Router, _,
+
+  // stores
+  MarketStore,
 
   // mixins
   InviteCheck,
@@ -31,9 +37,10 @@ define([
 
     getInitialState: function () {
       return {
-        mainHeadline: 'Complete Registration',
+        mainHeadline: null,
         subHeadline: null,
         promoCodeOpen: false,
+        promoCodeAvailable: false,
         continueButtonTitle: 'CONTINUE',
         firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
         lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
@@ -80,6 +87,34 @@ define([
       // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       //   this.refs.firstName.focus();
       // }
+
+      if(this.props.inviteValues) {
+        var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
+      } else {
+        var marketName = 'Phoenix';
+      }
+
+      if(this.getQuery().pioneer) {
+        if(this.getQuery().upload) {
+          this.setState({
+            mainHeadline: 'Complete Pioneer Registration',
+            subHeadline: 'Congratulations ' + marketName + ' Pioneer!',
+            promoCodeAvailable: false
+          })
+        } else {
+          this.setState({
+            mainHeadline: 'Complete Registration',
+            subHeadline: 'We will let you know when your market launches.',
+            promoCodeAvailable: false
+          })
+        }
+      } else {
+        this.setState({
+          mainHeadline: 'Complete Registration',
+          subHeadline: null,
+          promoCodeAvailable: true
+        })
+      }
     },
 
     saveAndContinue: function(e) {
@@ -104,7 +139,8 @@ define([
     render: function() {
       var promoClass = cx({
         'promocode_container':   true,
-        'promo_visible':         this.state.promoCodeOpen
+        'promo_visible':         this.state.promoCodeOpen,
+        'hidden':                !this.state.promoCodeAvailable
       });
 
       return (
@@ -116,7 +152,11 @@ define([
           <div className="user_info_form">
             <div className="throbber throbber_large"></div>
             <h1>{this.state.mainHeadline}</h1>
-            <p>{this.state.subHeadline}</p>
+            <p className={cx({
+            'hidden': !this.state.subHeadline
+            })}>
+              {this.state.subHeadline}
+            </p>
 
             <form onSubmit={this.saveAndContinue}>
 

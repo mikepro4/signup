@@ -18,8 +18,8 @@ define([
   'jsx!components/screens/Question1',
   'jsx!components/screens/Question2',
   'jsx!components/screens/Question3',
-  'jsx!components/screens/SignupThanks',
-  'jsx!components/screens/SignupThanksUpload'
+  'jsx!components/screens/PioneerComplete',
+  'jsx!components/screens/PioneerCompleteUpload'
 
 ], function (
 
@@ -40,8 +40,8 @@ define([
   Question1,
   Question2,
   Question3,
-  SignupThanks,
-  SignupThanksUpload
+  PioneerComplete,
+  PioneerCompleteUpload
 
 ) {
 
@@ -71,8 +71,8 @@ define([
       <Route name="pioneer_question_2" path="/pioneer/question/2/" handler={Question2} />
       <Route name="pioneer_question_3" path="/pioneer/question/3/" handler={Question3} a/>
       <Route name="pioneer_info" path="/pioneer/info/" handler={UserInfo} />
-      <Route name="pioneer_thanks" path="/pioneer/thanks/" handler={SignupThanks} />
-      <Route name="pioneer_thanks_upload" path="/pioneer/thanks_upload" handler={SignupThanksUpload} />
+      <Route name="pioneer_complete" path="/pioneer/complete/" handler={PioneerComplete} />
+      <Route name="pioneer_complete_upload" path="/pioneer/complete_upload_guide/" handler={PioneerCompleteUpload} />
 
       <NotFoundRoute handler={MainSignup} />
       <DefaultRoute handler={MainSignup} />
