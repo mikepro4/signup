@@ -18,7 +18,7 @@ define([
 
   var Question1Screen = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function () {
       return {
@@ -41,7 +41,10 @@ define([
     },
 
     saveAndContinue: function (answer) {
-      alert(answer)
+      this.props.updatePioneerData({
+        question3: answer
+      })
+      this.transitionTo('pioneer_complete');
     },
 
     render: function() {
@@ -56,7 +59,7 @@ define([
       }.bind(this));
 
       return (
-        <div className="questions_screen question_1">
+        <div className="questions_screen question_3">
           <div className="questions_content">
             <aside className="question_counter">
               3 of 3

@@ -44,7 +44,7 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: false,
+        footerVisible: true,
         headerDark: true,
         loginButton: true,
         contacts: false,

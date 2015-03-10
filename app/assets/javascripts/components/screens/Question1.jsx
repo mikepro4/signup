@@ -18,7 +18,7 @@ define([
 
   var Question1Screen = React.createClass({
 
-    mixins: [ Router.State ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function () {
       return {
@@ -41,7 +41,10 @@ define([
     },
 
     saveAndContinue: function (answer) {
-      alert(answer)
+      this.props.updatePioneerData({
+        question1: answer
+      })
+      this.transitionTo('pioneer_question_2');
     },
 
     render: function() {

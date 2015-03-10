@@ -27,9 +27,8 @@ define([
     },
 
     toggle: function () {
-      var itemState = this.state.faqItemOpen;
       this.setState({
-        faqItemOpen: !itemState
+        faqItemOpen: !this.state.faqItemOpen
       })
     },
 
