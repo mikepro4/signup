@@ -40,6 +40,10 @@ define([
         }.bind(this), 1000)
       }
 
+      this.props.updatePioneerData({
+        visitedVideoScreen: true
+      })
+
       if (window.addEventListener){
         window.addEventListener('message', this.onMessageReceived, false);
       } else {
@@ -93,6 +97,9 @@ define([
 
     onFinish: function () {
       console.log('finish');
+      this.props.updatePioneerData({
+        watchedVideo: true
+      })
       this.transitionTo('pioneer_upload_comps');
     },
 
@@ -107,6 +114,9 @@ define([
     },
 
     skipVideo: function () {
+      this.props.updatePioneerData({
+        skippedVideo: true
+      })
       this.transitionTo('pioneer_upload_comps');
     },
 

@@ -50,8 +50,8 @@ define([
         contacts: false,
         allMarkets: null,
         invite: null,
-        loading: true,
-        pioneerData: null
+        pioneerData: null,
+        loading: true
       }
     },
 
@@ -131,8 +131,18 @@ define([
     },
 
     clearInvite: function() {
-      this.setState({ invite: null });
+      this.setState({ 
+        invite: null, 
+        pioneerData: null  
+      });
       InviteStore.clearInvite();
+    },
+
+    updatePioneerData: function (data) {
+      var pioneerData = this.state.pioneerData
+      this.setState({
+        pioneerData: _.extend({}, pioneerData, data)
+      });
     },
 
     nextScreen: function () {
@@ -200,7 +210,11 @@ define([
 
         InviteStore.postInvite()
           .done(function() {
-            this.transitionTo('pioneer_complete_upload');
+            if(this.state.pioneerData.agreedToUpload) {
+              this.transitionTo('pioneer_complete_upload');
+            } else {
+              this.transitionTo('pioneer_complete');
+            }
             this.setState({ loading: false });
           }.bind(this)).error(function (xhr) {
             this.errorHandler();
@@ -244,6 +258,7 @@ define([
                 nextScreen={this.nextScreen}
                 getInvite={this.getInvite}
                 updateInvite={this.updateInvite}
+                updatePioneerData={this.updatePioneerData}
                 clearInvite={this.clearInvite}
               />
             </div>

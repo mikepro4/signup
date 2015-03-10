@@ -35,6 +35,20 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
+    noPioneer: function () {
+      this.transitionTo('pioneer_question_1');
+      this.props.updatePioneerData({
+        agreedToUpload: false
+      })
+    },
+
+    becomePioneer: function () {
+      this.transitionTo('user_info', {}, {pioneer: true, upload: true});
+       this.props.updatePioneerData({
+        agreedToUpload: true
+      })
+    },
+
     render: function() {
       if(this.props.inviteValues) {
         var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
@@ -52,38 +66,34 @@ define([
 
             <div className="upload_comps_options">
 
-              <Link to="pioneer_question_1">
-                <article className="upload_option no_option">
-                  <i className="error"> <Icon type="cross_error"/> </i>
-                  <hgroup className="option_description">
-                    <h3>
-                      No early access <br/>
-                      No bonus comps <br/>
-                      No gift card
-                    </h3>
-                  </hgroup>
-                  <a className="button button_gray">
-                    <span>I'M NO PIONEER</span>
-                  </a>
-                </article>
-              </Link>
+              <article className="upload_option no_option" onClick={this.noPioneer}>
+                <i className="error"> <Icon type="cross_error"/> </i>
+                <hgroup className="option_description">
+                  <h3>
+                    No early access <br/>
+                    No bonus comps <br/>
+                    No gift card
+                  </h3>
+                </hgroup>
+                <a className="button button_gray">
+                  <span>I'M NO PIONEER</span>
+                </a>
+              </article>
 
-              <Link to="user_info" query={{pioneer: true, upload: true}}>
-                <article className="upload_option yes_option">
-                  <i className="tick"> <Icon type="success_tick"/> </i>
-                  <hgroup className="option_description">
-                    <h3>
-                      Get <em>2 for 1</em> COMPS <br/>
-                      <em>$200</em> GIFT CARD
-                    </h3>
-                    <span className="comps_minimum">100 COMP MINIMUM</span>
-                  </hgroup>
+              <article className="upload_option yes_option" onClick={this.becomePioneer}>
+                <i className="tick"> <Icon type="success_tick"/> </i>
+                <hgroup className="option_description">
+                  <h3>
+                    Get <em>2 for 1</em> COMPS <br/>
+                    <em>$200</em> GIFT CARD
+                  </h3>
+                  <span className="comps_minimum">100 COMP MINIMUM</span>
+                </hgroup>
 
-                  <a className="button button_green">
-                    <span>BECOME A PIONEER</span>
-                  </a>
-                </article>
-              </Link>
+                <a className="button button_green">
+                  <span>BECOME A PIONEER</span>
+                </a>
+              </article>
               
             </div>
 
