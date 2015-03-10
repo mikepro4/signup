@@ -138,12 +138,6 @@ define([
     nextScreen: function () {
       var user = MarketStore.getMarketStateById(this.state.invite.marketId) ? true : false;
 
-      this.setState({
-        footerVisible: user,
-        loginButton: false,
-        contacts: true
-      });
-
       if(_.isEmpty(this.state.invite.firstName)) {
 
         InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)

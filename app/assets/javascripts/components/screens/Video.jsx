@@ -116,7 +116,7 @@ define([
     skipVideo: function () {
       this.props.updatePioneerData({
         skippedVideo: true
-      })
+      });
       this.transitionTo('pioneer_upload_comps');
     },
 
