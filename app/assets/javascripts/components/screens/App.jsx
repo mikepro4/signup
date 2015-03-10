@@ -44,7 +44,7 @@ define([
 
     getInitialState: function(){
       return {
-        footerVisible: false,
+        footerVisible: true,
         headerDark: true,
         loginButton: true,
         contacts: false,
@@ -57,15 +57,6 @@ define([
 
     componentWillMount: function () {
       Actions.loadMarkets();
-
-      if(this.isActive("pioneer_video")) {
-        this.setState({
-          headerDark: false,
-          footerVisible: false,
-          loginButton: false,
-          contacts: true
-        });
-      }
     },
 
     componentDidMount: function () {
@@ -79,6 +70,7 @@ define([
     },
 
     componentWillReceiveProps: function () {
+      // alter header and footer for different screens
       if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
         this.clearData();
         this.setState({
@@ -144,74 +136,41 @@ define([
     },
 
     nextScreen: function () {
-      var userType = MarketStore.getMarketStateById(this.state.invite.marketId) ? 'user' : 'pioneer';
+      var user = MarketStore.getMarketStateById(this.state.invite.marketId) ? true : false;
 
-      switch(userType) {
-        case 'user': 
-          this.routeRegularUser();
-          break
-        case 'pioneer':
-          this.routePioneerUser();
-          break
-      }
-    },
-
-    routeRegularUser: function () {
       this.setState({
-        footerVisible: true,
+        footerVisible: user,
         loginButton: false,
         contacts: true
       });
 
-      if(_.isEmpty(this.state.invite.email) || _.isEmpty(this.state.invite.firstName) || _.isEmpty(this.state.invite.lastName)) {
+      if(_.isEmpty(this.state.invite.firstName)) {
 
         InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
           .done(function () {
-            this.transitionTo('user_info');
-            this.setState({ loading: false });
-          }.bind(this))
-          .error(function (xhr) {
-            this.errorHandler();
-          }.bind(this));
-
-      } else {
-
-        InviteStore.postInvite()
-          .done(function() {
-            this.transitionTo('user_reviewing_request');
-            this.setState({ loading: false });
-          }.bind(this)).error(function (xhr) {
-            this.errorHandler();
-          }.bind(this));
-      }
-    },
-
-    routePioneerUser: function () {
-      this.setState({
-        footerVisible: false,
-        loginButton: false,
-        contacts: true
-      });
-
-      if(_.isEmpty(this.state.invite.email) || _.isEmpty(this.state.invite.firstName) || _.isEmpty(this.state.invite.lastName)) {
-
-        InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
-          .done(function () {
-            this.transitionTo('pioneer_video');
-            this.setState({ loading: false });
-          }.bind(this))
-          .error(function (xhr) {
-            this.errorHandler();
-          }.bind(this));
-
-      } else {
-
-        InviteStore.postInvite()
-          .done(function() {
-            if(this.state.pioneerData.agreedToUpload) {
-              this.transitionTo('pioneer_complete_upload');
+            if(user) {
+              this.transitionTo('user_info');
             } else {
-              this.transitionTo('pioneer_complete');
+              this.transitionTo('pioneer_video');
+            }
+            this.setState({ loading: false });
+          }.bind(this))
+          .error(function (xhr) {
+            this.errorHandler();
+          }.bind(this));
+
+      } else {
+
+        InviteStore.postInvite()
+          .done(function() {
+            if(user) {
+              this.transitionTo('user_reviewing_request');
+            } else {
+              if(this.state.pioneerData.agreedToUpload) {
+                this.transitionTo('pioneer_complete_upload');
+              } else {
+                this.transitionTo('pioneer_complete');
+              }
             }
             this.setState({ loading: false });
           }.bind(this)).error(function (xhr) {
