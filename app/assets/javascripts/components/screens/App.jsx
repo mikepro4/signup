@@ -132,7 +132,7 @@ define([
     },
 
     updatePioneerData: function (data) {
-      var pioneerData = this.state.pioneerData
+      var pioneerData = this.state.pioneerData;
       this.setState({ 
         pioneerData: _.extend({}, pioneerData, data) 
       }, function () {
@@ -142,7 +142,7 @@ define([
 
     syncData: function () {
       var marketName = MarketStore.getMarketName(this.state.invite.marketId);
-      var segmentIO = _.extend({}, 
+      var segmentIoData = _.extend({}, 
       {
         email: this.state.invite.email,
         market: marketName,
@@ -153,7 +153,7 @@ define([
         this.state.pioneerData
       );
 
-      analytics.identify(this.state.invite.id, segmentIO);
+      analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
     },
 
     nextScreen: function () {
