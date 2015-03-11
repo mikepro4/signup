@@ -20,14 +20,12 @@ define([
 
     mixins: [ Router.State ],
 
-    render: function () {
-      var footerClass = classNames({
-        'application_footer':   true,
-        'hidden':               !this.props.visible
-      });
-
+    render: function() {
       return (
-        <footer className={footerClass}>
+        <footer className={classNames({
+          'application_footer':   true,
+          'hidden':               !this.props.visible
+        })}>
           
           <ul className="compstak_description">
             <li className="single_point">

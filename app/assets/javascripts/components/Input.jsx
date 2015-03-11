@@ -23,7 +23,7 @@ define([
 
   var Input = React.createClass({
 
-    getInitialState: function(){
+    getInitialState: function() {
       var valid = (this.props.isValid && this.props.isValid()) || true;
 
       return {
@@ -51,7 +51,7 @@ define([
       };
     },
 
-    handleChange: function(event){
+    handleChange: function(event) {
       this.setState({
         value: event.target.value,
         empty: _.isEmpty(event.target.value)
@@ -72,7 +72,7 @@ define([
       }
     },
 
-    validateInput: function (value) {
+    validateInput: function(value) {
       // trigger custom validation method in the parent component
       if(this.props.validate && this.props.validate(value)){
         this.setState({
@@ -88,7 +88,7 @@ define([
 
     },
 
-    componentWillReceiveProps: function (newProps) {    
+    componentWillReceiveProps: function(newProps) {    
       // perform update only when new value exists and not empty  
       if(newProps.value) {
         if(!_.isUndefined(newProps.value) && newProps.value.length > 0) {
@@ -103,7 +103,7 @@ define([
       }
     },
 
-    isValid: function () {
+    isValid: function() {
       if(_.isEmpty(this.state.value) || !this.props.validate(this.state.value)) {
         this.setState({
           valid: false,
@@ -112,11 +112,11 @@ define([
       }
     },
 
-    getValidStatus: function () {
+    getValidStatus: function() {
       return this.state.valid;
     },
 
-    handleFocus: function () {
+    handleFocus: function() {
       this.setState({
         focus: true,
         validatorVisible: true
@@ -130,7 +130,7 @@ define([
       }
     },
 
-    handleBlur: function () {
+    handleBlur: function() {
       this.setState({
         focus: false,
         errorVisible: !this.state.valid,
@@ -138,7 +138,7 @@ define([
       });
     },
 
-    mouseEnterError: function () {
+    mouseEnterError: function() {
       this.setState({
         errorVisible: true
       });
@@ -193,22 +193,9 @@ define([
     },
 
 
-    render: function(){
-
-      var inputGroupClasses = classNames({
-        'input_group':     true,
-        'input_valid':     this.state.valid,
-        'input_error':     !this.state.valid,
-        'input_empty':     this.state.empty,
-        'input_hasValue':  !this.state.empty,
-        'input_focused':   this.state.focus,
-        'input_unfocused': !this.state.focus
-      });
-
-      var validator;
-
+    render: function() {
       if(this.state.validator) {
-        validator = 
+        var validator = 
           <PasswordValidator
             ref="passwordValidator"
             visible={this.state.validatorVisible}
@@ -224,7 +211,15 @@ define([
       }
 
       return (
-        <div className={inputGroupClasses}>
+        <div className={classNames({
+          'input_group':     true,
+          'input_valid':     this.state.valid,
+          'input_error':     !this.state.valid,
+          'input_empty':     this.state.empty,
+          'input_hasValue':  !this.state.empty,
+          'input_focused':   this.state.focus,
+          'input_unfocused': !this.state.focus
+        })}>
 
           <label className="input_label" htmlFor={this.props.text}>
             <span className="label_text">{this.props.text}</span>

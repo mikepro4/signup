@@ -35,14 +35,14 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    noPioneer: function () {
+    noPioneer: function() {
       this.transitionTo('pioneer_question_1');
       this.props.updatePioneerData({
         agreedToUpload: false
       })
     },
 
-    becomePioneer: function () {
+    becomePioneer: function() {
       this.transitionTo('user_info', {}, {pioneer: true, upload: true});
       this.props.updatePioneerData({
         agreedToUpload: true

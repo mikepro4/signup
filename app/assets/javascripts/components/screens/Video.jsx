@@ -35,7 +35,7 @@ define([
       }
     },
 
-    componentDidMount: function () {
+    componentDidMount: function() {
       if(this.isMounted()) {
         if(this.getQuery().play) {
           _.delay(function () {
@@ -57,7 +57,7 @@ define([
       }
     },
 
-    onMessageReceived: function (e) {
+    onMessageReceived: function(e) {
       var data = JSON.parse(e.data);
       
       switch (data.event) {
@@ -79,7 +79,7 @@ define([
       }
     },
 
-    vimeoPost: function (action, value) {
+    vimeoPost: function(action, value) {
       var f = $('iframe');
       var url = f.attr('src').split('?')[0];
       var data = { method: action };
@@ -91,17 +91,17 @@ define([
       f[0].contentWindow.postMessage(JSON.stringify(data), url);
     },
 
-    onVideoReady: function () {
+    onVideoReady: function() {
       this.vimeoPost('addEventListener', 'pause');
       this.vimeoPost('addEventListener', 'finish');
       this.vimeoPost('addEventListener', 'playProgress');
     },
 
-    onPause: function () {
+    onPause: function() {
       console.log('pause');
     },
 
-    onFinish: function () {
+    onFinish: function() {
       this.props.updatePioneerData({
         watchedVideo: true
       })

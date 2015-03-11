@@ -21,19 +21,19 @@ define([
 
   var FaqItem = React.createClass({
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         faqItemOpen: false
       }
     },
 
-    toggle: function () {
+    toggle: function() {
       this.setState({
         faqItemOpen: !this.state.faqItemOpen
       })
     },
 
-    render: function () {
+    render: function() {
       return (
         <article onClick={this.toggle} className={classNames({
           'faq_item': true,

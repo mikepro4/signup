@@ -26,7 +26,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         question: "Your main source of lease comps?",
         answers: [
@@ -46,7 +46,7 @@ define([
       }
     },
 
-    saveAndContinue: function (answer) {
+    saveAndContinue: function(answer) {
       this.props.updatePioneerData({
         question2: answer
       })

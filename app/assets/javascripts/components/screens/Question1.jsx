@@ -26,7 +26,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         question: "Your years of experience in CRE?",
         answers: [
@@ -46,7 +46,7 @@ define([
       }
     },
 
-    saveAndContinue: function (answer) {
+    saveAndContinue: function(answer) {
       this.props.updatePioneerData({
         question1: answer
       })
@@ -54,8 +54,7 @@ define([
     },
 
     render: function() {
-
-      var answers = this.state.answers.map(function (answer, i) {
+      var answers = this.state.answers.map(function(answer, i) {
         return (
           <AnswerItem
             key={i}

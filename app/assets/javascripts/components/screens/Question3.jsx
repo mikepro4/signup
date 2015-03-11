@@ -26,7 +26,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         question: "How do you manage your comp data?",
         answers: [
@@ -46,7 +46,7 @@ define([
       }
     },
 
-    saveAndContinue: function (answer) {
+    saveAndContinue: function(answer) {
       this.props.updatePioneerData({
         question3: answer
       })

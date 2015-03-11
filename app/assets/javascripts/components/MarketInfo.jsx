@@ -28,18 +28,18 @@ define([
 
     mixins: [ Router.State ],
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         visibility: false
       }
     },
 
-    getMarketDisplayName: function () {
+    getMarketDisplayName: function() {
       var matchedMarked = MarketStore.getMarketByName(this.props.market);
       return !_.isUndefined(matchedMarked) ? matchedMarked.value : 'Join CompStak'
     },
 
-    render: function () {
+    render: function() {
       var labelClass = classNames({
         'launching_soon_label':  true,
         'hidden':                !this.props.visibility

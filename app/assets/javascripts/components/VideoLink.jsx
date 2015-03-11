@@ -21,7 +21,7 @@ define([
   var Video = React.createClass({
     mixins: [ Router.State, Router.Navigation ],
 
-    render: function () {
+    render: function() {
 
       return (
         <Link to="pioneer_video" query={{play: true}}>

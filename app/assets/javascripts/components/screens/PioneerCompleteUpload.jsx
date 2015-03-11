@@ -37,8 +37,8 @@ define([
   var PioneerCompleteUpload = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
-    
-    getInitialState: function () {
+
+    getInitialState: function() {
       return {
         time: null,
         faqData: [
@@ -74,14 +74,14 @@ define([
       }
     },
 
-    componentDidMount: function () {
+    componentDidMount: function() {
       if(this.isMounted()) {
         this.countdown(0, count, count);
         this.props.syncData();
       }
     },
 
-    countdown: function (i, counter, idsRemaining) {
+    countdown: function(i, counter, idsRemaining) {
       while (idsRemaining >= 0) {
         var secondsRemaining = (idsRemaining * delay) / 1000;
         var hour = parseInt(secondsRemaining / 3600);
@@ -114,14 +114,11 @@ define([
     },
 
     render: function() {
-
       if(this.props.inviteValues) {
         var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
-      } else {
-        var marketName = 'PHOENIX';
       }
 
-      var faqNodes = this.state.faqData.map(function (faqItem, i) {
+      var faqNodes = this.state.faqData.map(function(faqItem, i) {
         return (
           <FaqItem
             key={i}

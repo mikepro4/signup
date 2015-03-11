@@ -36,7 +36,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         mainHeadline: null,
         subHeadline: null,
@@ -45,53 +45,55 @@ define([
         continueButtonTitle: 'CONTINUE',
         firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
         lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
-        companyName: this.props.inviteValues ? this.props.inviteValues.companyName : null,
+        companyName: this.props.inviteValues ? this.props.inviteValues.userInfo : null,
         promotionalCode: this.props.inviteValues ? this.props.inviteValues.promotionalCode : null
       }
     },
 
-    isEmpty: function (value) {
+    isEmpty: function(value) {
       return !_.isEmpty(value);
     },
 
-    handleFirstNameInput: function (event) {
+    handleFirstNameInput: function(event) {
       this.setState({
         firstName: event.target.value
       });
     },
 
-    handleLastNameInput: function (event) {
+    handleLastNameInput: function(event) {
       this.setState({
         lastName: event.target.value
       });
     },
 
-    handleCompanyNameInput: function (event) {
+    handleCompanyNameInput: function(event) {
       this.setState({
         companyName: event.target.value
       });
     },
 
-    handlePromoCodeInput: function (event) {
+    handlePromoCodeInput: function(event) {
       this.setState({
         promotionalCode: event.target.value
       });
     },
 
-    togglePromoCode: function () {
+    togglePromoCode: function() {
       this.setState({
         promoCodeOpen: true
       })
     },
 
-    componentDidMount: function () {
-      if (this.isMounted()) {
+    componentDidMount: function() {
+      if(this.isMounted()) {
 
         if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
           this.refs.firstName.focus();
         }
 
-        var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
+        if(this.props.inviteValues) {
+          var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
+        }
 
         if(this.getQuery().pioneer) {
           if(this.getQuery().upload) {
@@ -137,12 +139,6 @@ define([
     },
 
     render: function() {
-      var promoClass = classNames({
-        'promocode_container':   true,
-        'promo_visible':         this.state.promoCodeOpen,
-        'hidden':                !this.state.promoCodeAvailable
-      });
-
       return (
         <div className={classNames({
           'user_info_screen': true,
@@ -194,7 +190,11 @@ define([
                 emptyMessage="Company name can't be empty"
               /> 
 
-              <div className={promoClass}>
+              <div className={classNames({
+                'promocode_container': true,
+                'promo_visible': this.state.promoCodeOpen,
+                'hidden': !this.state.promoCodeAvailable
+              })}>
                 <a className="promocode_show" onClick={this.togglePromoCode}>
                   Have promotional code?
                 </a>

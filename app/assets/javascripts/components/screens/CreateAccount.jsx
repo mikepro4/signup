@@ -26,7 +26,7 @@ define([
 
     mixins: [ Router.State ],
 
-    getInitialState: function () {
+    getInitialState: function() {
       return {
         forbiddenWords: ["password", "user", "username"],
         password: null,
@@ -35,7 +35,7 @@ define([
       }
     },
 
-    handlePasswordInput: function (event) {
+    handlePasswordInput: function(event) {
       if(!_.isEmpty(this.state.confirmPassword)){
         this.refs.passwordConfirm.isValid();
       }
@@ -45,19 +45,19 @@ define([
       });
     },
 
-    handleConfirmPasswordInput: function (event) {
+    handleConfirmPasswordInput: function(event) {
       this.setState({
         confirmPassword: event.target.value
       });
     },
 
-    handleTermsCheckbox: function (event) {
+    handleTermsCheckbox: function(event) {
       this.setState({
         termsOfUse: this.refs.termsOfUse.getDOMNode().checked
       })
     },
 
-    saveAndContinue: function (e) {
+    saveAndContinue: function(e) {
       e.preventDefault();
 
       if(this.refs.password.getValidStatus() 
@@ -83,7 +83,7 @@ define([
       }
     },
 
-    isConfirmedPassword: function (event) {
+    isConfirmedPassword: function(event) {
       return (event == this.state.password)
     },
 

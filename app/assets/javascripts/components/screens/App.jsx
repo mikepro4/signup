@@ -43,7 +43,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation ],
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         footerVisible: true,
         headerDark: true,
@@ -56,23 +56,30 @@ define([
       }
     },
 
-    componentWillMount: function () {
+    componentWillMount: function() {
       Actions.loadMarkets();
     },
 
-    componentDidMount: function () {
+    componentDidMount: function() {
       MarketStore.addChangeListener(this.updateMarkets);
       InviteStore.addChangeListener(this.updateInviteValues);    
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount: function() {
       MarketStore.removeChangeListener(this.updateMarkets);
       InviteStore.removeChangeListener(this.updateInviteValues);
     },
 
-    componentWillReceiveProps: function () {
+    componentWillReceiveProps: function() {
+      if(this.state.invite) {
+        var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
+      } else {
+        var marketLaunched = false;
+      }
+
       // alter header and footer for different screens
       if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
+        // clear all data when open the main signup screens
         this.clearData();
         this.setState({
           footerVisible: true,
@@ -87,12 +94,7 @@ define([
           loginButton: false,
           contacts: true
         });
-      } else {
-        if(this.state.invite) {
-          var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
-        } else {
-          var marketLaunched = false;
-        }
+      } else { 
         this.setState({
           headerDark: true,
           footerVisible: marketLaunched ? true : false,
@@ -110,7 +112,7 @@ define([
       }.bind(this));
     },
 
-    updateMarkets: function () {
+    updateMarkets: function() {
       this.setState({
         allMarkets: MarketStore.getMarkets(),
         loading: false
@@ -131,7 +133,7 @@ define([
       InviteStore.clearInvite();
     },
 
-    updatePioneerData: function (data) {
+    updatePioneerData: function(data) {
       var pioneerData = this.state.pioneerData;
       this.setState({ 
         pioneerData: _.extend({}, pioneerData, data) 
@@ -140,12 +142,11 @@ define([
       }.bind(this));
     },
 
-    syncData: function () {
-      var marketName = MarketStore.getMarketName(this.state.invite.marketId);
+    syncData: function() {
       var segmentIoData = _.extend({}, 
       {
         email: this.state.invite.email,
-        market: marketName,
+        market: MarketStore.getMarketName(this.state.invite.marketId),
         firstName: this.state.invite.firstName,
         lastName: this.state.invite.lastName,
         companyName: this.state.invite.userInfo
@@ -156,7 +157,7 @@ define([
       analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
     },
 
-    nextScreen: function () {
+    nextScreen: function() {
       var user = MarketStore.getMarketStateById(this.state.invite.marketId) ? true : false;
 
       if(_.isEmpty(this.state.invite.firstName)) {
@@ -188,32 +189,31 @@ define([
               }
             }
             this.setState({ loading: false });
-          }.bind(this)).error(function (xhr) {
+          }.bind(this))
+          .error(function (xhr) {
             this.errorHandler();
           }.bind(this));
       }
     },
 
-    errorHandler: function () {
-      alert('Sorry there was an error');
+    errorHandler: function() {
+      alert("Sorry there was an error. You'll have to start over.");
       this.transitionTo('signup');
       this.clearData();
       this.setState({ loading: false });
     },
 
-    render: function () {
-      var appContentClasses = classNames({
-        'application_content':   true,
-        'footer_visible':        this.state.footerVisible,
-        'footer_invisible':      !this.state.footerVisible
-      });
-        
+    render: function() {
       return (
          <div className="application_wrapper">
 
           <Stats isActive={true} />
 
-          <section className={appContentClasses}>
+          <section className={classNames({
+            'application_content': true,
+            'footer_visible': this.state.footerVisible,
+            'footer_invisible': !this.state.footerVisible
+          })}>
 
             <AppHeader 
               headerDark={this.state.headerDark} 

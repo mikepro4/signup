@@ -37,7 +37,7 @@ define([
 
     mixins: [ Router.State, Router.Navigation ],
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         email: this.getParams().email,
         market: this.getParams().market,
@@ -47,13 +47,13 @@ define([
       }
     },
 
-    componentWillMount: function () {
+    componentWillMount: function() {
       if(this.getParams().market) {
         this.toggleUI(this.getParams().market);
       }
     },
 
-    componentWillReceiveProps: function (newProps) {
+    componentWillReceiveProps: function(newProps) {
       // update email from url if not undefined
       if(this.getParams().email) {
         this.setState({
@@ -65,14 +65,14 @@ define([
       this.toggleUI(this.getParams().market);
     },
 
-    selectMarketFromParams: function () {
+    selectMarketFromParams: function() {
       var matchedMarket = MarketStore.getMarketByName(this.getParams().market);
       this.setState({
         market: !_.isEmpty(matchedMarket) ? this.getParams().market : null
       });
     },
 
-    toggleUI: function (value) {
+    toggleUI: function(value) {
       var marketLaunched = MarketStore.getMarketState(value);
       this.setState({
         launchingSoon: !marketLaunched,
@@ -80,12 +80,12 @@ define([
       });
     },
 
-    onSelect: function (selectedMarket) {
+    onSelect: function(selectedMarket) {
       this.transitionTo('/' + encodeURIComponent(selectedMarket));
       this.toggleUI(selectedMarket);
     },
 
-    handleEmailInput: function(event){
+    handleEmailInput: function(event) {
       this.setState({
         email: event.target.value
       });
@@ -96,7 +96,7 @@ define([
       }
     },
 
-    validateEmail: function (event) {
+    validateEmail: function(event) {
       // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(event);
@@ -120,7 +120,7 @@ define([
       }
     },
 
-    render: function () {
+    render: function() {
       return (
         <div className={classNames({
           'main_signup_screen': true,

@@ -21,7 +21,7 @@ define([
 
   var PasswordValidator = React.createClass({
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         value: null,
         minCharacters: this.props.minCharacters,
@@ -32,13 +32,7 @@ define([
       };
     },
 
-    render: function(){ 
-      var validatorClass = classNames({
-        'password_validator':   true,
-        'visible':              this.props.visible,
-        'invisible':            !this.props.visible
-      });
-
+    render: function() { 
       var forbiddenWords = this.state.forbiddenWords.map(function(word, i) {
         return (
           <span key={i} className="bad_word">
@@ -62,7 +56,11 @@ define([
       }
 
       return (
-        <div className={validatorClass}>
+        <div className={classNames({
+          'password_validator': true,
+          'visible': this.props.visible,
+          'invisible': !this.props.visible
+        })}>
           <div className="validator_container">
 
             {validatorTitle}

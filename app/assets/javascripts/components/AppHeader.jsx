@@ -23,17 +23,17 @@ define([
 
     mixins: [ Router.State, Router.Navigation ],
 
-    handleLogoClick: function () {
+    handleLogoClick: function() {
       this.transitionTo('signup');
     },
 
-    render: function () {
+    render: function() {
       return (
         <header className={classNames({
           'application_header': true,
           'header_dark': this.props.headerDark,
           'header_white': !this.props.headerDark
-          })}>
+        })}>
 
           <aside className="cs_logo" onClick={this.handleLogoClick}> 
             <Icon type="cs_logo" /> 

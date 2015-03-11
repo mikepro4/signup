@@ -15,13 +15,13 @@ define([
 
   var InputError = React.createClass({
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         message: 'Input is invalid'
       };
     },
 
-    render: function(){ 
+    render: function() { 
       var errorClass = classNames({
         'error_container':   true,
         'visible':           this.props.visible,
