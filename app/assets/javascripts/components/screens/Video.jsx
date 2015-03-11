@@ -7,7 +7,10 @@ define([
   'jsx!mixins/InviteCheck',
 
   // components
-  'jsx!components/Icon'
+  'jsx!components/Icon',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -21,8 +24,6 @@ define([
   Icon
 
 ) {
-
-  var cx = React.addons.classSet;
 
   var Video = React.createClass({
     
@@ -141,7 +142,7 @@ define([
 
           <div className="video_content_container">
 
-            <div className={cx({
+            <div className={classNames({
               'video_content': true,
               'video_playing': this.state.videoPlaying
             })}>
@@ -158,7 +159,7 @@ define([
 
             </div>
 
-            <div className={cx({
+            <div className={classNames({
               'video_container': true,
               'video_playing': this.state.videoPlaying
             })}>

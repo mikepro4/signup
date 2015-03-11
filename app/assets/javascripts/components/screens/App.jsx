@@ -1,7 +1,7 @@
 define([
 
   // libraries
-  'react', 'react-router', 'underscore', 'jquery',
+  'react', 'react-router', 'underscore', 'jquery', 
 
   // components
   'jsx!components/AppHeader',
@@ -13,7 +13,10 @@ define([
   'stores/MarketStore',
 
   // flux
-  'actions/AppActions'
+  'actions/AppActions',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -35,8 +38,6 @@ define([
   var Route = Router.Route;
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
-
-  var cx = React.addons.classSet;
 
   var App = React.createClass({
 
@@ -181,7 +182,7 @@ define([
     },
 
     render: function () {
-      var appContentClasses = cx({
+      var appContentClasses = classNames({
         'application_content':   true,
         'footer_visible':        this.state.footerVisible,
         'footer_invisible':      !this.state.footerVisible

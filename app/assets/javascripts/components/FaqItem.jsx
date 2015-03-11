@@ -4,7 +4,10 @@ define([
   'react',
 
   // components
-  'jsx!components/Icon'
+  'jsx!components/Icon',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -15,8 +18,6 @@ define([
   Icon
 
 ) {
-
-  var cx = React.addons.classSet;
 
   var FaqItem = React.createClass({
 
@@ -34,7 +35,7 @@ define([
 
     render: function () {
       return (
-        <article onClick={this.toggle} className={cx({
+        <article onClick={this.toggle} className={classNames({
           'faq_item': true,
           'item_open': this.state.faqItemOpen
         })}>

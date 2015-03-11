@@ -11,7 +11,10 @@ define([
 
   // components
   'jsx!components/Input',
-  'jsx!components/AppFooter'
+  'jsx!components/AppFooter',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -28,8 +31,6 @@ define([
   Input, AppFooter
 
 ) {
-
-  var cx = React.addons.classSet;
 
   var UserInfoScreen = React.createClass({
 
@@ -136,26 +137,26 @@ define([
     },
 
     render: function() {
-      var promoClass = cx({
+      var promoClass = classNames({
         'promocode_container':   true,
         'promo_visible':         this.state.promoCodeOpen,
         'hidden':                !this.state.promoCodeAvailable
       });
 
       return (
-        <div className={cx({
+        <div className={classNames({
           'user_info_screen': true,
           'loading': this.props.loading
         })}>
 
-          <div className={cx({
+          <div className={classNames({
             'user_info_form': true,
             'footer_visible': this.props.footerVisible
           })}>
 
             <div className="throbber throbber_large"></div>
             <h1>{this.state.mainHeadline}</h1>
-            <p className={cx({
+            <p className={classNames({
               'hidden': !this.state.subHeadline
             })}>
               {this.state.subHeadline}

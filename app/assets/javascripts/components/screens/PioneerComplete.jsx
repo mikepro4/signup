@@ -7,8 +7,10 @@ define([
   'jsx!mixins/InviteCheck',
 
   // components
-  'jsx!components/Icon'
+  'jsx!components/Icon',
 
+  // utils
+  'classNames'
 
 ], function (
 
@@ -23,8 +25,6 @@ define([
 
 ) {
 
-  var cx = React.addons.classSet;
-
   var PioneerComplete = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
@@ -33,7 +33,7 @@ define([
       return (
         <div className="pioneer_complete_screen">
 
-          <div className={cx({
+          <div className={classNames({
             'pioneer_complete_content': true,
             'footer_visible': this.props.footerVisible
           })}>

@@ -12,7 +12,10 @@ define([
   'jsx!components/MarketInfo',
 
   // flux
-  'actions/AppActions'
+  'actions/AppActions',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -29,8 +32,6 @@ define([
   Actions
 
 ) { 
-
-  var cx = React.addons.classSet;
 
   var MainSignupScreen = React.createClass({
 
@@ -121,10 +122,10 @@ define([
 
     render: function () {
       return (
-        <div className={cx({
+        <div className={classNames({
           'main_signup_screen': true,
           'loading': this.props.loading
-          })}>
+        })}>
 
           <div className="main_singup_form">
 

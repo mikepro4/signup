@@ -12,7 +12,7 @@ define([
   //components
   'jsx!components/Icon',
   'jsx!components/VideoLink',
-  'jsx!components/FaqItem'
+  'jsx!components/FaqItem',
 
 ], function (
 

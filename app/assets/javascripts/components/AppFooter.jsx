@@ -5,6 +5,9 @@ define([
   // components
   'jsx!components/Icon',
 
+  // utils
+  'classNames'
+
 ], function (
 
   React, Router, $,
@@ -12,15 +15,13 @@ define([
   Icon
 
 ) { 
-
-  var cx = React.addons.classSet;
   
   var AppFooter = React.createClass({
 
     mixins: [ Router.State ],
 
     render: function () {
-      var footerClass = cx({
+      var footerClass = classNames({
         'application_footer':   true,
         'hidden':               !this.props.visible
       });

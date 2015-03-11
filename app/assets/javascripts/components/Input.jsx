@@ -6,7 +6,10 @@ define([
   // components
   'jsx!components/InputError',
   'jsx!components/Icon',
-  'jsx!components/PasswordValidator'
+  'jsx!components/PasswordValidator',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -17,8 +20,6 @@ define([
   InputError, Icon, PasswordValidator
 
 ) { 
-
-  var cx = React.addons.classSet;
 
   var Input = React.createClass({
 
@@ -194,7 +195,7 @@ define([
 
     render: function(){
 
-      var inputGroupClasses = cx({
+      var inputGroupClasses = classNames({
         'input_group':     true,
         'input_valid':     this.state.valid,
         'input_error':     !this.state.valid,

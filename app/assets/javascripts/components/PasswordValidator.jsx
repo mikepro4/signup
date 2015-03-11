@@ -4,7 +4,10 @@ define([
   'react', 'underscore', 'jquery',
 
   // components
-  'jsx!components/Icon'
+  'jsx!components/Icon',
+
+  // utils
+  'classNames'
   
 ], function (
 
@@ -15,8 +18,6 @@ define([
   Icon
 
 ) { 
-
-  var cx = React.addons.classSet;
 
   var PasswordValidator = React.createClass({
 
@@ -32,7 +33,7 @@ define([
     },
 
     render: function(){ 
-      var validatorClass = cx({
+      var validatorClass = classNames({
         'password_validator':   true,
         'visible':              this.props.visible,
         'invisible':            !this.props.visible
@@ -68,25 +69,25 @@ define([
 
             <ul className="rules_list">
           
-              <li className={cx({'valid': this.props.validData.minChars})}> 
+              <li className={classNames({'valid': this.props.validData.minChars})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
                 <span className="error_message">{this.props.minCharacters} characters minimum</span>
               </li>
 
-              <li className={cx({'valid': this.props.validData.capitalLetters})}> 
+              <li className={classNames({'valid': this.props.validData.capitalLetters})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
                 <span className="error_message">Contains at least {this.props.requireCapitals} capital letter</span>
               </li>
 
-              <li className={cx({'valid': this.props.validData.numbers})}> 
+              <li className={classNames({'valid': this.props.validData.numbers})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
                 <span className="error_message">Contains at least {this.props.requireNumbers} number</span>
               </li>
 
-              <li className={cx({'valid': this.props.validData.words})}> 
+              <li className={classNames({'valid': this.props.validData.words})}> 
                 <i className="icon_valid"> <Icon type="circle_tick_filled"/> </i>
                 <i className="icon_invalid"> <Icon type="circle_error"/> </i>
                 <span className="error_message">Can't be {forbiddenWords}</span>

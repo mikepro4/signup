@@ -8,6 +8,9 @@ define([
   // components
   'jsx!components/Icon',
 
+  // utils
+  'classNames'
+
 ], function (
 
   // libraries
@@ -20,8 +23,6 @@ define([
   Icon
 
 ) { 
-
-  var cx = React.addons.classSet;
   
   var MarketInfo = React.createClass({
 
@@ -39,7 +40,7 @@ define([
     },
 
     render: function () {
-      var labelClass = cx({
+      var labelClass = classNames({
         'launching_soon_label':  true,
         'hidden':                !this.props.visibility
       });

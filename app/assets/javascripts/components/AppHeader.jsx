@@ -4,7 +4,10 @@ define([
 
   // components
   'jsx!components/Icon',
-  'jsx!components/Button'
+  'jsx!components/Button',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -16,8 +19,6 @@ define([
 
 ) { 
 
-  var cx = React.addons.classSet;
-  
   var AppHeader = React.createClass({
 
     mixins: [ Router.State, Router.Navigation ],
@@ -28,7 +29,7 @@ define([
 
     render: function () {
       return (
-        <header className={cx({
+        <header className={classNames({
           'application_header': true,
           'header_dark': this.props.headerDark,
           'header_white': !this.props.headerDark
@@ -41,7 +42,7 @@ define([
           <aside className="login_contacts">
 
             <ul>
-              <li className={cx({
+              <li className={classNames({
                 'hidden': !this.props.contacts
               })}>
                 <p className="contact_info">
@@ -49,7 +50,7 @@ define([
                 </p>
               </li> 
 
-              <li className={cx({
+              <li className={classNames({
                 'hidden': !this.props.loginButton
               })}>
                 <Button 
