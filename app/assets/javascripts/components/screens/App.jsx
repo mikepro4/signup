@@ -210,7 +210,6 @@ define([
                 nextScreen={this.nextScreen}
                 updateInvite={this.updateInvite}
                 updatePioneerData={this.updatePioneerData}
-                clearData={this.clearData}
               />
             </div>
             

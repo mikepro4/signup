@@ -29,10 +29,6 @@ define([
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
-    componentDidMount: function () {
-      this.props.clearData();
-    },
-
     render: function() {
       return (
         <div className="pioneer_complete_screen">

@@ -75,8 +75,9 @@ define([
     },
 
     componentDidMount: function () {
-      this.props.clearData();
-      this.countdown(0, count, count);
+      if(this.isMounted()) {
+        this.countdown(0, count, count);
+      }
     },
 
     countdown: function (i, counter, idsRemaining) {
@@ -119,9 +120,10 @@ define([
         var marketName = 'PHOENIX';
       }
 
-      var faqNodes = this.state.faqData.map(function (faqItem) {
+      var faqNodes = this.state.faqData.map(function (faqItem, i) {
         return (
           <FaqItem
+            key={i}
             question={faqItem.question} 
             answer={faqItem.answer}
           />

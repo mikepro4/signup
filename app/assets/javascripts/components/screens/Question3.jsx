@@ -3,6 +3,9 @@ define([
   // libraries
   'react', 'react-router', 'underscore',
 
+  // mixins,
+  'jsx!mixins/InviteCheck',
+
   // components
   'jsx!components/AnswerItem'
 
@@ -11,6 +14,9 @@ define([
   // libraries
   React, Router, _,
 
+  // mixins
+  InviteCheck,
+
   // components
   AnswerItem
 
@@ -18,7 +24,7 @@ define([
 
   var Question1Screen = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     getInitialState: function () {
       return {
@@ -49,9 +55,10 @@ define([
 
     render: function() {
 
-      var answers = this.state.answers.map(function (answer) {
+      var answers = this.state.answers.map(function (answer, i) {
         return (
           <AnswerItem
+            key={i}
             answer={answer.answer}
             saveAndContinue={this.saveAndContinue} 
           />

@@ -84,40 +84,37 @@ define([
     },
 
     componentDidMount: function () {
-      // if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-      //   this.refs.firstName.focus();
-      // }
+      
 
-      if(this.refs.firstName) {
-        this.refs.firstName.focus();
-      }
+      if (this.isMounted()) {
 
-      if(this.props.inviteValues) {
+        if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          this.refs.firstName.focus();
+        }
+
         var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
-      } else {
-        var marketName = 'Phoenix';
-      }
 
-      if(this.getQuery().pioneer) {
-        if(this.getQuery().upload) {
-          this.setState({
-            mainHeadline: 'Complete Pioneer Registration',
-            subHeadline: 'Congratulations ' + marketName + ' Pioneer!',
-            promoCodeAvailable: false
-          })
+        if(this.getQuery().pioneer) {
+          if(this.getQuery().upload) {
+            this.setState({
+              mainHeadline: 'Complete Pioneer Registration',
+              subHeadline: 'Congratulations ' + marketName + ' Pioneer!',
+              promoCodeAvailable: false
+            })
+          } else {
+            this.setState({
+              mainHeadline: 'Complete Registration',
+              subHeadline: 'We will let you know when your market launches.',
+              promoCodeAvailable: false
+            })
+          }
         } else {
           this.setState({
             mainHeadline: 'Complete Registration',
-            subHeadline: 'We will let you know when your market launches.',
-            promoCodeAvailable: false
+            subHeadline: null,
+            promoCodeAvailable: true
           })
         }
-      } else {
-        this.setState({
-          mainHeadline: 'Complete Registration',
-          subHeadline: null,
-          promoCodeAvailable: true
-        })
       }
     },
 

@@ -44,7 +44,7 @@ define([
 
     becomePioneer: function () {
       this.transitionTo('user_info', {}, {pioneer: true, upload: true});
-       this.props.updatePioneerData({
+      this.props.updatePioneerData({
         agreedToUpload: true
       })
     },

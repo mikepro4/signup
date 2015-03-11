@@ -25,6 +25,7 @@ define([
   var cx = React.addons.classSet;
 
   var Video = React.createClass({
+    
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     getInitialState: function () {
@@ -34,20 +35,24 @@ define([
     },
 
     componentDidMount: function () {
-      if(this.getQuery().play) {
-        _.delay(function () {
-          this.vimeoPost('play');
-        }.bind(this), 1000)
-      }
+      if(this.isMounted()) {
+        if(this.getQuery().play) {
+          _.delay(function () {
+            if(this.isMounted()) { 
+              this.vimeoPost('play');
+            }
+          }.bind(this), 1000)
+        }
 
-      this.props.updatePioneerData({
-        visitedVideoScreen: true
-      })
+        this.props.updatePioneerData({
+          visitedVideoScreen: true
+        })
 
-      if (window.addEventListener){
-        window.addEventListener('message', this.onMessageReceived, false);
-      } else {
-        window.attachEvent('onmessage', this.onMessageReceived, false);
+        if (window.addEventListener){
+          window.addEventListener('message', this.onMessageReceived, false);
+        } else {
+          window.attachEvent('onmessage', this.onMessageReceived, false);
+        }
       }
     },
 
@@ -96,7 +101,6 @@ define([
     },
 
     onFinish: function () {
-      console.log('finish');
       this.props.updatePioneerData({
         watchedVideo: true
       })
@@ -132,6 +136,7 @@ define([
         <div className="video_screen">
           
           {backgroundVideo}
+
           <div className="video_cover"></div>
 
           <div className="video_content_container">
