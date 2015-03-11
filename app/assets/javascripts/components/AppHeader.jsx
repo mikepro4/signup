@@ -42,7 +42,7 @@ define([
 
             <ul>
               <li className={cx({
-              'hidden': !this.props.contacts
+                'hidden': !this.props.contacts
               })}>
                 <p className="contact_info">
                   Need help? – Call us at <a href="tel:1-646-926-6707">1-646-926-6707</a>
@@ -50,7 +50,7 @@ define([
               </li> 
 
               <li className={cx({
-              'hidden': !this.props.loginButton
+                'hidden': !this.props.loginButton
               })}>
                 <Button 
                   href="https://exchange.compstak.com/login"
