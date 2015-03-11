@@ -37,7 +37,7 @@ define([
   var PioneerCompleteUpload = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck ],
-
+    
     getInitialState: function () {
       return {
         time: null,
@@ -77,6 +77,7 @@ define([
     componentDidMount: function () {
       if(this.isMounted()) {
         this.countdown(0, count, count);
+        this.props.syncData();
       }
     },
 

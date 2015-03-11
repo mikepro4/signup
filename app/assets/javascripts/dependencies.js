@@ -11,7 +11,8 @@ require.config({
         flux: '../../bower_components/flux/dist/Flux',
         'es6-promise': '../../bower_components/es6-promise/promise',
         eventemitter: '../../bower_components/eventemitter2/lib/eventemitter2',
-        classNames: '../../bower_components/classnames/index'
+        classNames: '../../bower_components/classnames/index',
+        analytics: '../../bower_components/analytics/analytics'
     },
     shim: {
         underscore : {

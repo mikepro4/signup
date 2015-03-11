@@ -1,7 +1,7 @@
 define([
 
   // libraries
-  'react', 'react-router', 'underscore', 'jquery', 
+  'react', 'react-router', 'underscore', 'jquery',
 
   // components
   'jsx!components/AppHeader',
@@ -133,7 +133,27 @@ define([
 
     updatePioneerData: function (data) {
       var pioneerData = this.state.pioneerData
-      this.setState({ pioneerData: _.extend({}, pioneerData, data) });
+      this.setState({ 
+        pioneerData: _.extend({}, pioneerData, data) 
+      }, function () {
+        this.syncData();
+      }.bind(this));
+    },
+
+    syncData: function () {
+      var marketName = MarketStore.getMarketName(this.state.invite.marketId);
+      var segmentIO = _.extend({}, 
+      {
+        email: this.state.invite.email,
+        market: marketName,
+        firstName: this.state.invite.firstName,
+        lastName: this.state.invite.lastName,
+        companyName: this.state.invite.userInfo
+      }, 
+        this.state.pioneerData
+      );
+
+      analytics.identify(this.state.invite.id, segmentIO);
     },
 
     nextScreen: function () {
@@ -211,6 +231,7 @@ define([
                 nextScreen={this.nextScreen}
                 updateInvite={this.updateInvite}
                 updatePioneerData={this.updatePioneerData}
+                syncData={this.syncData}
               />
             </div>
             

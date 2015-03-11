@@ -70,7 +70,6 @@ define([
       <Route name="pioneer_question_1" path="/pioneer/question/1/" handler={Question1} />
       <Route name="pioneer_question_2" path="/pioneer/question/2/" handler={Question2} />
       <Route name="pioneer_question_3" path="/pioneer/question/3/" handler={Question3} a/>
-      <Route name="pioneer_info" path="/pioneer/info/" handler={UserInfo} />
       <Route name="pioneer_complete" path="/pioneer/complete/" handler={PioneerComplete} />
       <Route name="pioneer_complete_upload" path="/pioneer/complete_upload_guide/" handler={PioneerCompleteUpload} />
 
