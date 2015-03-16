@@ -131,7 +131,7 @@ define([
       if(!this.state.videoPlaying && !this.state.mobile) {
         var backgroundVideo = 
           <video preload="auto" autoPlay loop muted className="pioneer_video">
-            <source src="https://s3.amazonaws.com/www-assets.invisionapp.com/Homepage/enterprise-loop.mp4" type="video/mp4" />
+            <source src="https://pdlvimeocdn-a.akamaihd.net/37061/878/346597943.mp4?token2=1426526695_c4faac469bc89fbba1f05d3ef0eecb79&aksessionid=72f6954da5a94679" type="video/mp4" />
           </video>
       }
 
