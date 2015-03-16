@@ -46,7 +46,7 @@ define([
                 'hidden': !this.props.contacts
               })}>
                 <p className="contact_info">
-                  Need help? – Call us at <a href="tel:1-646-926-6707">1-646-926-6707</a>
+                  Need help? <span className="info_divider"></span> Call us at <a href="tel:1-646-926-6707">1-646-926-6707</a>
                 </p>
               </li> 
 

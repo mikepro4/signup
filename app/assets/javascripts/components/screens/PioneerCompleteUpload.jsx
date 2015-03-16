@@ -30,7 +30,7 @@ define([
 
 ) {
 
-  var count = 172800; // 48 hrs
+  var count = 172799; // 47:59:59 hrs
   var callsPerSecond = 1;
   var delay = 1000;
 
@@ -44,11 +44,11 @@ define([
         faqData: [
           {
             "question": "I need more time. I’m not organized.",
-            "answer": "A1"
+            "answer": "Don’t stress about it. We want this to be fast and easy. We don’t care what comps or what format you send. Please don’t spend any time worrying about this. Just grab a bunch of excel files, or do a simple export from your database. We’ll deal with all the other details."
           },
           {
             "question": "I’m not allowed to upload lease comps.",
-            "answer": "A2"
+            "answer": "We understand. You should upload lease comps that other brokers, appraisers or researchers have shared with you. Remember, you can send any comp, any format. "
           },
           {
             "question": "What lease comp details are needed?",
@@ -56,19 +56,19 @@ define([
           },
           {
             "question": "How will you use my comp data?",
-            "answer": "A4"
+            "answer": "Your comps will be stored in our database. They will always be available to you for free. Your comps are not public. They will only be available to other brokers, appraisers and researchers, who have themselves uploaded comps to CompStak – and specifically traded their data for yours."
           },
           {
             "question": "What are the risks? ",
-            "answer": "A5"
+            "answer": "None really. Every part of our platform is designed help you. We have members in every major brokerage and appraisal firm in the USA. If any problems arise from you uploading comps, we’re your allies, not your enimies. We’ll do whatever it take to help or fix the issue."
           },
           {
             "question": "Is my identity protected?",
-            "answer": "A6"
+            "answer": "Yes. CompStak is completely annoymous."
           },
           {
             "question": "What if I change my mind? ",
-            "answer": "A7"
+            "answer": "No problem. Just ask and we’ll send your comps back and not load them. Keep in mind, another CompStak member may upload the same comps. "
           }
         ]
       }
@@ -149,7 +149,7 @@ define([
             <VideoLink />
 
             <aside className="terms_of_use_note">
-              By sending us comps you agree to the <a href="" target="_blank">terms of use</a>.
+              By sending us comps you agree to the <a href="http://compstak.com/gateway/legal#terms-of-use" target="_blank">terms of use</a>.
             </aside>
           </div>
 

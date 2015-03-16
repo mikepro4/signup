@@ -59,7 +59,7 @@ define([
         InviteStore.emitChange();
       },
       error: function(xhr, status, err) {
-        console.error("Invite didn't invite");
+        console.error("Invite didn't update");
       }
     })
   }

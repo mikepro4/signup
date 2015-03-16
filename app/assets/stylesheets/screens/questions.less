@@ -26,6 +26,11 @@
     aside.question_counter {
       font-family: @font-gotham-light;
       letter-spacing: 1px;
+      opacity: .5;
+
+      @media @mobile {
+        font-size: 11px;
+      }
     }
 
     h1.question {
@@ -33,17 +38,37 @@
       margin: 5px 0 20px 0;
       font-size: 36px;
       letter-spacing: 1px;
+
+      @media @mobile {
+        font-size: 18px;
+        text-align: center;
+        max-width: 280px;
+        letter-spacing: .3px;
+        line-height: 24px;
+        font-family: @font-gotham-light;
+      }
     }
 
     .answers {
       .display(relative);
-      width: 340px;
+      width: 340px; 
+
+      @media @mobile { 
+        width: 280px;
+      }
 
       article {
         .display(relative);
         text-align: center;
         margin: 0 0 20px 0;
         width: 100%;
+        opacity: 0;
+
+        @media @mobile { 
+          margin: 0 0 15px 0;
+        }
+
+        .generate-animations(10);
 
         .button {
           .display(relative);
@@ -56,9 +81,23 @@
           text-transform: none;
           letter-spacing: .3px;
 
+          @media @mobile { 
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+          }
+
+          span {
+            opacity: .6;
+          }
+
           &:hover {
             background: @light-blue;
-            color: #fff
+            color: #fff;
+
+            span {
+              opacity: 1;
+            }
           }
 
           &:active{
@@ -68,4 +107,11 @@
       }
     }
   }
+}
+
+.generate-animations(@n, @i: 1) when (@i =< @n) {
+  &:nth-child(@{i}) {
+    .animation(fadeIn .25s @i*.12s linear forwards);
+  }
+  .generate-animations(@n, (@i + 1));
 }

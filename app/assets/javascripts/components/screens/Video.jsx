@@ -5,6 +5,7 @@ define([
 
   // mixins,
   'jsx!mixins/InviteCheck',
+  'jsx!mixins/MobileCheck',
 
   // components
   'jsx!components/Icon',
@@ -18,7 +19,7 @@ define([
   React, Router, _, $,
 
   // mixins
-  InviteCheck,
+  MobileCheck, InviteCheck,
 
   // components
   Icon
@@ -27,11 +28,12 @@ define([
 
   var Video = React.createClass({
     
-    mixins: [ Router.State, Router.Navigation, InviteCheck ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck, MobileCheck ],
 
     getInitialState: function () {
       return {
-        videoPlaying: this.getQuery().play ? true : false
+        videoPlaying: this.getQuery().play ? true : false,
+        mobile: this.checkMobile()
       }
     },
 
@@ -126,7 +128,7 @@ define([
     },
 
     render: function() {
-      if(!this.state.videoPlaying) {
+      if(!this.state.videoPlaying && !this.state.mobile) {
         var backgroundVideo = 
           <video preload="auto" autoPlay loop muted className="pioneer_video">
             <source src="https://s3.amazonaws.com/www-assets.invisionapp.com/Homepage/enterprise-loop.mp4" type="video/mp4" />
@@ -166,7 +168,6 @@ define([
 
               <iframe 
                 src="http://player.vimeo.com/video/22645550?api=1" 
-                width="840" height="470" 
                 className="vimeo_video"
                 frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
               </iframe>

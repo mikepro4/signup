@@ -8,6 +8,7 @@ define([
 
   // mixins,
   'jsx!mixins/InviteCheck',
+  'jsx!mixins/MobileCheck',
 
   // components
   'jsx!components/Input',
@@ -25,7 +26,7 @@ define([
   MarketStore,
 
   // mixins
-  InviteCheck,
+  MobileCheck, InviteCheck,
 
   // components
   Input, AppFooter
@@ -34,7 +35,7 @@ define([
 
   var UserInfoScreen = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation, InviteCheck ],
+    mixins: [ Router.State, Router.Navigation, InviteCheck, MobileCheck ],
 
     getInitialState: function() {
       return {
@@ -87,7 +88,7 @@ define([
     componentDidMount: function() {
       if(this.isMounted()) {
 
-        if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        if(!this.checkMobile()) {
           this.refs.firstName.focus();
         }
 

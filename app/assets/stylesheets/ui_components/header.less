@@ -13,20 +13,6 @@ header.application_header {
   z-index: @layer3;
   opacity: 0;
 
-  &.header_white {
-    color: #fff;
-
-    a {
-      color: #fff;
-    }
-
-    .cs_logo {
-      path {
-        fill: #fff;
-      }
-    }
-  }
-
   @media @mobile {
     padding: 0 10px;
     height: 70px;
@@ -40,6 +26,31 @@ header.application_header {
     font-size: 12px;
     letter-spacing: .3px;
     .transition(all 0.2s ease-out);
+    text-align: right;
+    color: @dark-blue;
+
+    a {
+      color: @dark-blue;
+    }
+
+    @media @mobile {
+      font-size: 10px;
+      position: relative;
+      top: 3px;
+      letter-spacing: .1px;
+    }
+
+    .info_divider {
+      &:after {
+        content: '–';
+
+        @media @mobile {
+          .display(relative);
+          content: '';
+          clear: both;
+        }
+      } 
+    }  
   }
 
   .cs_logo {
@@ -91,6 +102,24 @@ header.application_header {
     @media @mobile {
       width: 100px;
       font-size: 11px;
+    }
+  }
+
+  &.header_white {
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+
+    .cs_logo {
+      path {
+        fill: #fff;
+      }
+    }
+
+    .contact_info { 
+      color: #fff; 
     }
   }
 }

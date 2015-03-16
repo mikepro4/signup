@@ -2,6 +2,10 @@
   .display(relative);
   margin: 120px 0 0 0;
 
+  @media @mobile {
+    margin: 20px 0 0 0;
+  }
+
   .pioneer_complete_top_sections {
     text-align: center;
 
@@ -10,6 +14,10 @@
       color: @green;
       letter-spacing: 2.5px;
       text-transform: uppercase;
+
+      @media @mobile {
+        font-size: 10px;
+      }
     }
 
     h1.upload_email {
@@ -19,6 +27,13 @@
       font-size: 28px;
       line-height: 36px;
       letter-spacing: .7px;
+
+      @media @mobile {
+        font-size: 16px;
+        line-height: 20px;
+        font-family: @font-gotham-light;
+        margin: 10px 0 0 0;
+      }
 
       a {
         font-family: @font-gotham-medium;
@@ -42,6 +57,12 @@
       text-align: left;
       letter-spacing: 1px;
       color: @green;
+
+      @media @mobile { 
+        width: 130px;
+        font-size: 32px;
+        padding: 7px 30px 7px 30px;
+      }
     }
 
     .pioneer_description {
@@ -52,6 +73,13 @@
       p {
         font-family: @font-gotham-light;
         margin: 0;
+
+        @media @mobile { 
+          max-width: 280px;
+          font-size: 12px;
+          margin: 0 auto 10px auto;
+          opacity: .5;
+        }
       }
     }
 
@@ -74,6 +102,13 @@
       font-size: 26px;
       text-align: center;
       letter-spacing: .7px;
+
+      @media @mobile {
+        font-size: 14px;
+        letter-spacing: .3px;
+        font-family: @font-gotham-book;
+        padding: 20px 0 20px 0;
+      }
     }
 
     .faq_content {
@@ -81,6 +116,11 @@
       width: 750px;
       margin: 0 auto;
       padding: 0 0 60px 0;
+
+      @media @mobile {
+        width: 250px;
+        left: 15px;
+      }
     }
   }
 
@@ -99,6 +139,12 @@
       font-family: @font-gotham-light;
       font-size: 12px;
       margin: 0;
+    }
+  }
+
+  .video_link {
+    @media @mobile {
+      margin-bottom: 80px;
     }
   }
 }

@@ -201,6 +201,8 @@
 
       @media @mobile {
         font-size: 14px;
+        font-family: @font-gotham-book;
+        letter-spacing: .2px;
       }
     }
   }
@@ -254,6 +256,8 @@
       @media @mobile {
         height: @input-height-mobile;
         font-size: 14px;
+        font-family: @font-gotham-book;
+        letter-spacing: .2px;
       }
 
       .is-focused & {
@@ -349,6 +353,11 @@
     padding: @select-padding-vertical 15px;
     font-family: @font-gotham-light;
     letter-spacing: .4px;
+
+    @media @mobile {
+      font-family: @font-gotham-book;
+      letter-spacing: .2px;
+    }
 
     &:last-child {
       .border-bottom-radius( @select-input-border-radius );

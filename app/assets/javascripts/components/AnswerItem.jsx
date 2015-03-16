@@ -19,7 +19,9 @@ define([
     render: function() {
       return (
         <article onClick={this.saveAndContinue} className="answer_item">
-          <a className="button button_white answer">{this.props.answer}</a>
+          <a className="button button_white answer">
+            <span>{this.props.answer}</span>
+          </a>
         </article>
       )
     }

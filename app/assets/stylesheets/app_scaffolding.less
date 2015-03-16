@@ -9,6 +9,7 @@
 // vars
 @vertical_breakpoint: 820px;
 @textColor: #545a6a;
+@throbberSize: 70px;
 
 html {
   .size(100%, 100%);
@@ -43,7 +44,6 @@ body {
     // wrap Routehandler in fixed height div for better transitions
     &.footer_visible {
       .application_routeHandler {
-
         @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) and (min-width: 870px) {
           .display(relative);
           height: 490px;
@@ -58,8 +58,8 @@ body {
 
     // trigger scrollbars on smaller screens
     @media only screen and (max-height: @vertical_breakpoint) and (min-width : 870px) {
-      overflow-y: scroll;
       .webkit-scrollbar-light(); 
+      overflow-y: scroll;
     }
 
     // Components
@@ -84,9 +84,10 @@ body {
   }
 }
 
+// loader for all screens.
 .throbber.throbber_large {
   &:after {
-    .size(70px, 70px);
-    margin: -35px 0 0 -35px;
+    .size(@throbberSize, @throbberSize);
+    margin: -(@throbberSize/2) 0 0 -(@throbberSize/2);
   }
 }

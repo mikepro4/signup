@@ -55,9 +55,9 @@ define([
     <Route name="app" handler={App} path="/" >
 
       // Main sign up routes
-      <Route name="signup" path="/" handler={MainSignup} />
-      <Route name="signup_market" path="/:market" handler={MainSignup} />
-      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} />
+      <Route name="signup" path="/" handler={MainSignup} ignoreScrollBehavior="true" />
+      <Route name="signup_market" path="/:market" handler={MainSignup} ignoreScrollBehavior="true" />
+      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} ignoreScrollBehavior="true"  />
 
       // User routes
       <Route name="user_info" path="/user/info/" handler={UserInfo} />

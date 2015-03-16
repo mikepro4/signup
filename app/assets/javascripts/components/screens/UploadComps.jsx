@@ -50,7 +50,9 @@ define([
     },
 
     render: function() {
-      var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
+      if(this.props.inviteValues) {
+        var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
+      }
 
       return (
         <div className="upload_comps_splitter_screen">
