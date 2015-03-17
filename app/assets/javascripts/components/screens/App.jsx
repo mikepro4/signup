@@ -143,8 +143,8 @@ define([
     },
 
     syncData: function() {
-      var knownMarket = !this.state.invite.madeNoMarket;
       if(this.state.invite) {
+        var knownMarket = !this.state.invite.madeNoMarket;
         var segmentIoData = _.extend({}, 
         {
           email: this.state.invite.email,
@@ -212,7 +212,7 @@ define([
         }
       }
     },
-    
+
     errorHandler: function() {
       alert("Sorry there was an error. You'll have to start over.");
       this.transitionTo('signup');
