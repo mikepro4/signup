@@ -143,18 +143,21 @@ define([
     },
 
     syncData: function() {
-      var segmentIoData = _.extend({}, 
-      {
-        email: this.state.invite.email,
-        market: MarketStore.getMarketName(this.state.invite.marketId),
-        firstName: this.state.invite.firstName,
-        lastName: this.state.invite.lastName,
-        companyName: this.state.invite.userInfo
-      }, 
-        this.state.pioneerData
-      );
+      var knownMarket = !this.state.invite.madeNoMarket;
+      if(this.state.invite) {
+        var segmentIoData = _.extend({}, 
+        {
+          email: this.state.invite.email,
+          market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
+          firstName: this.state.invite.firstName,
+          lastName: this.state.invite.lastName,
+          companyName: this.state.invite.userInfo
+        }, 
+          this.state.pioneerData
+        );
 
-      analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
+        analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
+      }    
     },
 
     nextScreen: function() {
@@ -162,13 +165,9 @@ define([
 
       if(_.isEmpty(this.state.invite.firstName)) {
 
-        InviteStore.loadInvite(this.state.invite.email, this.state.invite.marketId)
+        InviteStore.loadInvite()
           .done(function () {
-            if(user) {
-              this.transitionTo('user_info');
-            } else {
-              this.transitionTo('pioneer_video');
-            }
+            this.routeUserOnInviteLoad(user);
             this.setState({ loading: false });
           }.bind(this))
           .error(function (xhr) {
@@ -179,15 +178,7 @@ define([
 
         InviteStore.postInvite()
           .done(function() {
-            if(user) {
-              this.transitionTo('user_reviewing_request');
-            } else {
-              if(this.state.pioneerData.agreedToUpload) {
-                this.transitionTo('pioneer_complete_upload');
-              } else {
-                this.transitionTo('pioneer_complete');
-              }
-            }
+            this.routeUserOnInviteUpdate(user);
             this.setState({ loading: false });
           }.bind(this))
           .error(function (xhr) {
@@ -196,6 +187,32 @@ define([
       }
     },
 
+    routeUserOnInviteLoad: function(user) {
+      var knownMarket = !this.state.invite.madeNoMarket;
+
+      if(knownMarket) {
+        if(user) {
+          this.transitionTo('user_info');
+        } else {
+          this.transitionTo('pioneer_video');
+        }
+      } else {
+        this.transitionTo('pioneer_complete');
+      }
+    },
+
+    routeUserOnInviteUpdate: function(user) {
+      if(user) {
+        this.transitionTo('user_reviewing_request');
+      } else {
+        if(this.state.pioneerData.agreedToUpload) {
+          this.transitionTo('pioneer_complete_upload');
+        } else {
+          this.transitionTo('pioneer_complete');
+        }
+      }
+    },
+    
     errorHandler: function() {
       alert("Sorry there was an error. You'll have to start over.");
       this.transitionTo('signup');

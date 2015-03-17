@@ -21,16 +21,10 @@ define([
 
   var Invite = {};
 
-  function loadInvite(email, marketId) {
-    inviteObj = {
-      "email": email,
-      "marketId": marketId,
-      "madeNoMarket": false
-    }
-
+  function loadInvite() {
     return $.ajax({
       url: API,
-      data: JSON.stringify(inviteObj),
+      data: JSON.stringify(Invite),
       type: 'POST',
       contentType: 'application/json',
       success: function(data) {

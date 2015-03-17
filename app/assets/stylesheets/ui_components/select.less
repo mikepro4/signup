@@ -325,8 +325,8 @@
     .border-bottom-radius( @select-input-border-radius );
     background-color: white;
     margin-top: 0px;
-    margin-left: -2px;
-    border: 2px solid @gray;
+    margin-left: -1px;
+    border: 1px solid @gray;
     max-height: 210px;
     overflow-y: auto;
     position: absolute;
@@ -364,7 +364,7 @@
     }
     
     &.is-focused {
-      background-color: #82d2f0;
+      background-color: @light-blue;
       color: #fff;
     }
   }
@@ -376,7 +376,7 @@
     color: @select-noresults-color;
     cursor: default;
     display: block;
-    padding: @select-padding-vertical @select-padding-horizontal;
+    padding: 15px;
   }
 
   // 
@@ -392,6 +392,54 @@
     border-right-color: @satellite;
     display: inline-block;
     position: relative;
+  }
+}
+
+.noMarketOption {
+  .display(relative);
+  color: #fff;
+
+  .noMarketTrigger {
+    .display(relative);
+    .box-sizing(border-box);
+    border-top: 1px solid @gray;
+    padding: 5px;
+    color: @dark-blue;
+    height: 50px;
+    cursor: pointer;
+
+    svg {
+      .size(15px, 16px);
+      .display(absolute);
+      .topLeft(17px, 16px);
+
+      path {
+        fill: @light-blue;
+      }
+    }
+
+    span {
+      .display(relative);
+      margin: 9px 0 0 34px;
+      font-family: @font-gotham-light;
+      letter-spacing: .1px;
+      color: @light-blue;
+      font-size: 13px;
+    }
+
+    &:hover {
+      background: @light-blue;
+
+      svg {
+        path {
+          fill: #fff
+        }
+      }
+
+      span {
+        color: #fff;
+      }
+    }
   }
 }
 

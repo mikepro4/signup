@@ -27,7 +27,7 @@ define([
 
   var PioneerComplete = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation, InviteCheck ],
+    mixins: [ Router.State, Router.Navigation ],
 
     componentDidMount: function() {
       this.props.syncData();
