@@ -14,6 +14,9 @@ define([
   'jsx!components/VideoLink',
   'jsx!components/FaqItem',
 
+  // utils
+  'classNames'
+
 ], function (
 
   // libraries
@@ -36,19 +39,20 @@ define([
 
   var PioneerCompleteUpload = React.createClass({
 
-    mixins: [ Router.State, Router.Navigation, InviteCheck ],
+    mixins: [ Router.State, Router.Navigation ],
 
     getInitialState: function() {
       return {
         time: null,
+        videoPlaying: false,
         faqData: [
           {
             "question": "I need more time. I’m not organized.",
-            "answer": "Don’t stress about it. We want this to be fast and easy. We don’t care what comps or what format you send. Please don’t spend any time worrying about this. Just grab a bunch of excel files, or do a simple export from your database. We’ll deal with all the other details."
+            "answer": "Don’t stress. CompStak will accept your lease comps in any file format (Excel, PDF, Word, etc.). You don’t need to clean them up. Just email your files to membership@compstak.com."
           },
           {
             "question": "I’m not allowed to upload lease comps.",
-            "answer": "We understand. You should upload lease comps that other brokers, appraisers or researchers have shared with you. Remember, you can send any comp, any format. "
+            "answer": "We will accept any lease comps for any deal. If you can’t share your own deals, feel free to share the deals that you’ve heard about from other brokers."
           },
           {
             "question": "What lease comp details are needed?",
@@ -56,11 +60,7 @@ define([
           },
           {
             "question": "How will you use my comp data?",
-            "answer": "Your comps will be stored in our database. They will always be available to you for free. Your comps are not public. They will only be available to other brokers, appraisers and researchers, who have themselves uploaded comps to CompStak – and specifically traded their data for yours."
-          },
-          {
-            "question": "What are the risks? ",
-            "answer": "None really. Every part of our platform is designed help you. We have members in every major brokerage and appraisal firm in the USA. If any problems arise from you uploading comps, we’re your allies, not your enimies. We’ll do whatever it take to help or fix the issue."
+            "answer": "Your comps will be stored in our database. They will not be made public, and they will always be available to you for free. However, if another user uploads a comp and earns credits, that user may unlock a comp that you have shared."
           },
           {
             "question": "Is my identity protected?",
@@ -68,7 +68,7 @@ define([
           },
           {
             "question": "What if I change my mind? ",
-            "answer": "No problem. Just ask and we’ll send your comps back and not load them. Keep in mind, another CompStak member may upload the same comps. "
+            "answer": "No problem. Just ask and we’ll send your comps back (and remove your versions from the database)."
           }
         ]
       }
@@ -79,6 +79,12 @@ define([
         this.countdown(0, count, count);
         this.props.syncData();
       }
+    },
+
+    toggleVideo: function() {
+      this.setState({
+        videoPlaying: true
+      })
     },
 
     countdown: function(i, counter, idsRemaining) {
@@ -146,7 +152,29 @@ define([
               <p>Have Questions? Check out our FAQs Below</p>
             </div>
             
-            <VideoLink />
+            <a onClick={this.toggleVideo} className={classNames({
+              'video_link': true,
+              'hidden': this.state.videoPlaying
+            })}>
+              <figure className="video_preview">
+                <img src="/assets/images/video_preview.jpg"/>
+                <i><Icon type="play_video"/></i>
+              </figure>
+              <span> Pioneer status and the rewards in 60 seconds...</span>
+            </a>
+
+            <div className={classNames({
+              'video_container': true,
+              'hidden': !this.state.videoPlaying
+            })}>
+
+              <iframe 
+                src="http://player.vimeo.com/video/120016796?api=1" 
+                className="vimeo_video"
+                frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
+              </iframe>
+
+            </div>
 
             <aside className="terms_of_use_note">
               By sending us comps you agree to the <a href="http://compstak.com/gateway/legal#terms-of-use" target="_blank">terms of use</a>.

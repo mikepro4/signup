@@ -129,18 +129,21 @@ define([
 
     render: function() {
       if(!this.state.videoPlaying && !this.state.mobile) {
-        var backgroundVideo = 
-          <video preload="auto" autoPlay loop muted className="pioneer_video">
-            <source src="https://s3.amazonaws.com/compstak/static/signup/michael_video.mp4" type="video/mp4" />
-          </video>
+        var backgroundVideo =
+            <div>
+              <video preload="auto" autoPlay loop muted className="pioneer_video">
+                <source src="https://s3.amazonaws.com/compstak/static/signup/michael_video.mp4" type="video/mp4" />
+              </video> 
+              <div className="video_cover"></div>    
+            </div>
       }
 
       return (
         <div className="video_screen">
-          
-          {backgroundVideo}
 
-          <div className="video_cover"></div>
+          <div className="video_page_background"> 
+            {backgroundVideo}
+          </div>   
 
           <div className="video_content_container">
 
@@ -153,7 +156,7 @@ define([
                 <Icon type="play_video" />
               </i>
 
-              <h4><span>PIONEER STATUS & THE REWARDS IN 60 SECONDS...</span></h4>
+              <h4><span>LEARN MORE IN 60 SECONDS…</span></h4>
               <h1>Join early to get exclusive <br/> access and rewards.</h1>
               <a className="button button_green button_large" onClick={this.watchVideo}>
                 <span>JOIN EARLY</span>

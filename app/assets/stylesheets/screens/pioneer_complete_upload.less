@@ -2,7 +2,23 @@
   .display(relative);
   margin: 120px 0 0 0;
 
+  @media @screen1280 {
+    margin: 20px 0 0 0;
+  }
+
+  @media @screen1366 {
+    margin: 20px 0 0 0;
+  }
+
+  @media @screen1024 {
+    margin: 20px 0 0 0;
+  }
+
   @media @mobile {
+    margin: 20px 0 0 0;
+  }
+
+  @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) {
     margin: 20px 0 0 0;
   }
 
@@ -145,6 +161,16 @@
   .video_link {
     @media @mobile {
       margin-bottom: 80px;
+    }
+  }
+
+  .video_container {
+    .display(relative);
+    .size(800px, 450px);
+    margin: 30px auto 110px auto;
+
+    iframe {
+      .size(100%, 100%);
     }
   }
 }

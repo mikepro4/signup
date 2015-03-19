@@ -82,7 +82,7 @@ define([
     },
 
     toggleUI: function(value) {
-      if(this.state.noMarket) {
+      if(this.state.madeNoMarket) {
         this.setState({
           launchingSoon: false,
           buttonTitle: 'NOTIFY ME AT LAUNCH'
@@ -217,7 +217,7 @@ define([
               noMarket={this.state.madeNoMarket}
             />
 
-            <p className="signup_description">Free platform for CRE brokers, appraisers and researchers.</p>
+            <p className="signup_description">A free lease comp exchange for CRE brokers, appraisers and researchers.</p>
 
             <a className="signup_landlord_link" href="http://compstak.com/landing/pageSplitProNew" target="_blank">
               Are you a Landlord, Lendor or Investor?

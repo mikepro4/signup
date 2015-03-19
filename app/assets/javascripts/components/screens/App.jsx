@@ -58,6 +58,7 @@ define([
 
     componentWillMount: function() {
       Actions.loadMarkets();
+      this.toggleUiElements();
     },
 
     componentDidMount: function() {
@@ -71,7 +72,11 @@ define([
     },
 
     componentWillReceiveProps: function() {
-      if(this.state.invite) {
+      this.toggleUiElements();
+    },
+
+    toggleUiElements: function () {
+       if(this.state.invite) {
         var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
       } else {
         var marketLaunched = false;
@@ -90,6 +95,13 @@ define([
       } else if(this.isActive("pioneer_video")) {
         this.setState({
           headerDark: false,
+          footerVisible: false,
+          loginButton: false,
+          contacts: true
+        });
+      } else if(this.isActive("pioneer_complete_upload")) {
+        this.setState({
+          headerDark: true,
           footerVisible: false,
           loginButton: false,
           contacts: true
@@ -224,7 +236,7 @@ define([
       return (
          <div className="application_wrapper">
 
-          <Stats isActive={true} />
+          <Stats isActive={false} />
 
           <section className={classNames({
             'application_content': true,

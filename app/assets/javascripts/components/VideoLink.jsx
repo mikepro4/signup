@@ -27,7 +27,7 @@ define([
         <Link to="pioneer_video" query={{play: true}}>
           <a className="video_link">
             <figure className="video_preview">
-              <img src="https://i.vimeocdn.com/video/507670267.webp?mw=1920&mh=1080&q=70"/>
+              <img src="/assets/images/video_preview.jpg"/>
               <i><Icon type="play_video"/></i>
             </figure>
             <span> Pioneer status and the rewards in 60 seconds...</span>

@@ -3,13 +3,13 @@
   .box-sizing(border-box);
   border-top: 1px solid #eef1f2;
   padding: 20px 0 20px;
-  cursor: pointer;
   .user-select(none);
 
   i.icon_toggle {
     .display(absolute);
     .size(18px, 18px);
     .topLeft(27px, -36px);
+    cursor: pointer;
 
     svg {
       .size(18px, 18px);
@@ -21,20 +21,24 @@
   }
 
   h2.faq_title {
+    .display(relative);
     font-family: @font-gotham-light;
     font-size: 20px;
     .transition(all 0.2s ease-out);
+    cursor: pointer;
   }
 
   p.faq_answer {
     .transition(all 0.3s ease-out);
     display: none;
     margin: 10px 0 10px 0;
-    opacity: .7;
+    opacity: 1;
+    font-family: @font-gotham-light;
     letter-spacing: .2px;
+    color: @dark-blue;
   }
 
-  &:hover {
+  hgroup:hover {
     h2.faq_title {
       color: @light-blue;
     }

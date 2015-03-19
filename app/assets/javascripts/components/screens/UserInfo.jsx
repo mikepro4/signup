@@ -43,7 +43,7 @@ define([
         subHeadline: null,
         promoCodeOpen: false,
         promoCodeAvailable: false,
-        continueButtonTitle: 'CONTINUE',
+        continueButtonTitle: 'COMPLETE',
         firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
         lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
         companyName: this.props.inviteValues ? this.props.inviteValues.userInfo : null,

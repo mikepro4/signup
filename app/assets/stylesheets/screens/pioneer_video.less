@@ -2,25 +2,39 @@
   .display(absolute);
   .topLeft(0, 0);
   .bottomRight(0, 0);
-  .animation(fadeIn .4s linear forwards);
-  background: @dark-blue;
-  overflow: hidden;
 
   .pioneer_video {
     .display(absolute);
     .topLeft(-50px, 0);
     .bottomRight(-50px, 0);
-    z-index: @layer1;
+    z-index: @layer2;
     .size(auto, 110%);
   }
 
+  .video_page_background {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    .animation(fadeIn .2s ease-in-out forwards);
+    background : -moz-linear-gradient(50% 0% -90deg,rgba(44, 48, 56, 1) 0%,rgba(71, 76, 89, 1) 100%);
+    background : -webkit-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    background : -webkit-gradient(linear,50% 0% ,50% 100% ,color-stop(0,rgba(44, 48, 56, 1) ),color-stop(1,rgba(71, 76, 89, 1) ));
+    background : -o-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    background : -ms-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#2C3038', endColorstr='#474C59' ,GradientType=0)";
+    background : linear-gradient(180deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    opacity: 0;
+    z-index: @layer1;
+    overflow: hidden;
+  }
+ 
   .video_cover {
     .display(absolute);
     .topLeft(0, 0);
     .bottomRight(0, 0);
     background: @dark-blue;
     opacity: .9;
-    z-index: @layer2;
+    z-index: @layer3;
   }
 
   .video_content_container {
@@ -39,6 +53,7 @@
     }
 
     .video_content {
+      .display(relative);
       .transition(all 0.3s ease-out);
       text-align: center;
 
@@ -50,7 +65,7 @@
       i.play_video {
         .display(relative);
         .size(66px, 66px);
-        .animation(fadeIn .4s .2s linear forwards);
+        .animation(fadeIn .4s .1s linear forwards);
         .transition(all 0.2s ease-out);
         .user-select(none);
         margin: 0 auto;
@@ -92,7 +107,7 @@
 
       h4 {
         .display(relative);
-        .animation(fadeIn .4s .3s linear forwards);
+        .animation(fadeIn .4s .2s linear forwards);
         margin: 34px 0 0 0;
         color: #fff;
         font-size: 13px;
@@ -114,7 +129,7 @@
 
       h1 {
         .display(relative);
-        .animation(fadeIn .4s .4s linear forwards);
+        .animation(fadeIn .4s .3s linear forwards);
         margin: 10px 0 35px 0;
         color: #fff;
         line-height: 64px;
@@ -131,7 +146,7 @@
       }
 
       .button {
-        .animation(fadeIn .4s .5s linear forwards);
+        .animation(fadeIn .4s .4s linear forwards);
         opacity: 0;
         width: 250px;
         margin: 0 auto;
@@ -144,7 +159,7 @@
 
 
       .vimeo_video {
-        .size(860px, 470px);
+        .size(840px, 470px);
         opacity: 0;
 
         @media @mobile { 
@@ -157,8 +172,10 @@
       &.video_playing {
         display: block;
         opacity: 1;
+        z-index: @layer-top;
 
         .vimeo_video {
+          .display(relative);
           .animation(fadeIn 1s linear forwards);
         }
 
@@ -169,7 +186,6 @@
 
       .skip_video {
         .display(relative);
-        
         margin: 40px 0 0 0;
         text-align: center;
         font-family: @font-gotham-light;

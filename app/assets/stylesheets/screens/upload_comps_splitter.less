@@ -15,7 +15,7 @@
   .upload_comps_content {
     .display(relative);
     margin: 120px 0 0 0;
-    max-width: 800px;
+    width: 696px;
     min-height: 380px;
     text-align: center;
 
@@ -28,7 +28,6 @@
       font-size: 32px;
       line-height: 40px;
       margin: 0 0 20px 0;
-      max-width: 700px;
 
       em {
         font-style: normal;
@@ -71,7 +70,6 @@
       .flex-display();
       .flex-direction(row);
       .justify-content(space-between);
-      max-width: 696px;
       margin: 30px auto 0 auto;
 
       @media @mobile {
@@ -144,9 +142,9 @@
           span.comps_minimum {
             font-family: @font-gotham-medium;
             font-size: 12px;
-            opacity: .25;
             letter-spacing: 1.4px;
             position: relative;
+            color: @green;
             top: 7px;
 
             @media @mobile { 
@@ -167,6 +165,12 @@
             .topLeft(90px, 60px);
             width: 176px;
             text-align: center;
+          }
+        }
+
+        &.yes_option {
+          .button {
+            .animation(buttonPulsate 1.4s ease-in-out infinite);
           }
         }
       }

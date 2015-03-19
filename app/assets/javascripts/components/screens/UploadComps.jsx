@@ -59,7 +59,7 @@ define([
 
           <div className="upload_comps_content">
 
-            <h1>Upload comps before launch and gain exclusive <em>Pioneer</em> status.</h1>
+            <h1>Upload minimum 100 comps before launch <br/> to gain exclusive <em>Pioneer</em> status.</h1>
             <aside className="pioneer_slots_label">2 {marketName} pioneer spots left</aside>
 
             <div className="upload_comps_options">
@@ -85,7 +85,7 @@ define([
                     Get <em>2 for 1</em> COMPS <br/>
                     <em>$200</em> GIFT CARD
                   </h3>
-                  <span className="comps_minimum">100 COMP MINIMUM</span>
+                  <span className="comps_minimum">100 COMPS MINIMUM</span>
                 </hgroup>
 
                 <a className="button button_green">

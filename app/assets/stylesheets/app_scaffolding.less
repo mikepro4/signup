@@ -40,6 +40,7 @@ body {
     .bottomRight(0, 0);
     z-index: @layer2;  
     overflow-x: hidden;  
+    .webkit-scrollbar-light();
 
     // wrap Routehandler in fixed height div for better transitions
     &.footer_visible {
@@ -58,7 +59,7 @@ body {
 
     // trigger scrollbars on smaller screens
     @media only screen and (max-height: @vertical_breakpoint) and (min-width : 870px) {
-      .webkit-scrollbar-light(); 
+      
       overflow-y: scroll;
     }
 
