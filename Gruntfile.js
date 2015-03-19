@@ -161,7 +161,7 @@ module.exports = function (grunt) {
             tmp: {
                 expand: true,
                 cwd: 'app',
-                src: ['**/*.js', '**/*.ttf', '*.json'],
+                src: ['**/*.js', '**/*.ttf', '*.json', 'assets/images/*'],
                 dest: 'tmp'
             },
             build: {
