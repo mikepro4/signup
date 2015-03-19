@@ -155,21 +155,23 @@ define([
     },
 
     syncData: function() {
-      if(this.state.invite) {
-        var knownMarket = !this.state.invite.madeNoMarket;
-        var segmentIoData = _.extend({}, 
-        {
-          email: this.state.invite.email,
-          market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
-          firstName: this.state.invite.firstName,
-          lastName: this.state.invite.lastName,
-          companyName: this.state.invite.userInfo
-        }, 
-          this.state.pioneerData
-        );
+      // disable Segment.io syncing till they fix the bug
+      //
+      // if(this.state.invite) {
+      //   var knownMarket = !this.state.invite.madeNoMarket;
+      //   var segmentIoData = _.extend({}, 
+      //   {
+      //     email: this.state.invite.email,
+      //     market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
+      //     firstName: this.state.invite.firstName,
+      //     lastName: this.state.invite.lastName,
+      //     companyName: this.state.invite.userInfo
+      //   }, 
+      //     this.state.pioneerData
+      //   );
 
-        analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
-      }    
+      //   analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
+      // }    
     },
 
     nextScreen: function() {
