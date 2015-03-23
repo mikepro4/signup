@@ -79,7 +79,17 @@ define([
     </Route>
   );
 
-  Router.run(routes, Router.HistoryLocation, function (Handler) {
-    React.render(<Handler/>, document.body);
-  });
+  function browserSupportsPushState() {
+    return (true && window.history && window.history.pushState);
+  }
+
+  if (browserSupportsPushState()) {
+    Router.run(routes, Router.HistoryLocation, function (Handler) {
+      React.render(<Handler/>, document.body);
+    });
+  } else {
+    Router.run(routes, function (Handler) {
+      React.render(<Handler/>, document.body);
+    });
+  }
 });

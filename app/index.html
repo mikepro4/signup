@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]><html class="ie ielt9 ielt8 ielt7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie ielt9 ielt8 ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie ielt9 ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie ie9" lang="en"><![endif]-->
+<!-- [if gt IE 9] <!-->
+<html lang="en">
+<!-- <![endif]-->
+
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <!--[if lt IE 9]>
+    <script src="/assets/javascripts/es5.js"></script>
+    <![endif]-->
     <script src="/bower_components/requirejs/require.js"></script>
     <script src="/assets/javascripts/dependencies.js"></script>
     <script type="text/javascript">requirejs(['jsx!application'])</script>
-
     <link type="text/css" href="/assets/stylesheets/application.css" rel="stylesheet" media="all">
 </head>
 <body>
