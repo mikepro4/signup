@@ -52,7 +52,7 @@ define([
     },
 
     isEmpty: function(value) {
-      return !_.isEmpty(value);
+      return !_.isEmpty(value.trim());
     },
 
     handleFirstNameInput: function(event) {

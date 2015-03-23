@@ -82,7 +82,7 @@ define([
       } else {
         this.setState({
           valid: false,
-          errorMessage: !_.isEmpty(value) ? this.props.errorMessage : this.props.emptyMessage
+          errorMessage: !_.isEmpty(value.trim()) ? this.props.errorMessage : this.props.emptyMessage
         });  
       }
 
