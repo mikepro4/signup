@@ -51,7 +51,7 @@ define([
       }
     },
 
-    isEmpty: function(value) {
+    isNotEmpty: function(value) {
       return !_.isEmpty(value.trim());
     },
 
@@ -122,7 +122,7 @@ define([
 
     saveAndContinue: function(e) {
       e.preventDefault();
-      var canProceed = !_.isEmpty(this.state.firstName) && !_.isEmpty(this.state.lastName) && !_.isEmpty(this.state.companyName);
+      var canProceed = this.isNotEmpty(this.state.firstName) && this.isNotEmpty(this.state.lastName) && this.isNotEmpty(this.state.companyName);
       
       if(canProceed) {
         // update invite data, wait for success and continue to next screen
@@ -165,7 +165,7 @@ define([
                 text="First Name" 
                 ref="firstName"
                 defaultValue={this.state.firstName} 
-                validate={this.isEmpty}
+                validate={this.isNotEmpty}
                 value={this.state.firstName}
                 onChange={this.handleFirstNameInput} 
                 emptyMessage="First name can't be empty"
@@ -175,7 +175,7 @@ define([
                 text="Last Name" 
                 ref="lastName"
                 defaultValue={this.state.lastName} 
-                validate={this.isEmpty}
+                validate={this.isNotEmpty}
                 value={this.state.lastName}
                 onChange={this.handleLastNameInput} 
                 emptyMessage="Last name can't be empty"
@@ -185,7 +185,7 @@ define([
                 text="Company Name" 
                 ref="companyName"
                 defaultValue={this.state.companyName} 
-                validate={this.isEmpty}
+                validate={this.isNotEmpty}
                 value={this.state.companyName}
                 onChange={this.handleCompanyNameInput} 
                 emptyMessage="Company name can't be empty"
