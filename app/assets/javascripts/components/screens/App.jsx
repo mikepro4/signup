@@ -10,6 +10,7 @@ define([
 
   // stores
   'stores/InviteStore',
+  'stores/InviteSyncStore',
   'stores/MarketStore',
 
   // flux
@@ -27,7 +28,7 @@ define([
   AppHeader, AppFooter, Stats,
 
   // stores
-  InviteStore, MarketStore,
+  InviteStore, InviteSyncStore, MarketStore,
 
   // flux
   Actions
@@ -150,28 +151,27 @@ define([
       this.setState({ 
         pioneerData: _.extend({}, pioneerData, data) 
       }, function () {
-        this.syncData();
+        this.syncInviteData();
       }.bind(this));
     },
 
-    syncData: function() {
-      // disable Segment.io syncing till they fix the bug
-      //
-      // if(this.state.invite) {
-      //   var knownMarket = !this.state.invite.madeNoMarket;
-      //   var segmentIoData = _.extend({}, 
-      //   {
-      //     email: this.state.invite.email,
-      //     market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
-      //     firstName: this.state.invite.firstName,
-      //     lastName: this.state.invite.lastName,
-      //     companyName: this.state.invite.userInfo
-      //   }, 
-      //     this.state.pioneerData
-      //   );
+    syncInviteData: function() {
+      if(this.state.invite) {
+        var knownMarket = !this.state.invite.madeNoMarket;
+        var salesFroceSyncData = _.extend({}, 
+        {
+          inviteId: this.state.invite.id,
+          email: this.state.invite.email,
+          market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
+          firstName: this.state.invite.firstName,
+          lastName: this.state.invite.lastName,
+          company: this.state.invite.userInfo
+        }, 
+          this.state.pioneerData
+        );
 
-      //   analytics.identify(this.state.invite.id, segmentIoData, { 'Salesforce': true });
-      // }    
+        InviteSyncStore.syncInvite(salesFroceSyncData);
+      }    
     },
 
     nextScreen: function() {
@@ -262,7 +262,7 @@ define([
                 nextScreen={this.nextScreen}
                 updateInvite={this.updateInvite}
                 updatePioneerData={this.updatePioneerData}
-                syncData={this.syncData}
+                syncData={this.syncInviteData}
               />
             </div>
             

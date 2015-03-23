@@ -15,29 +15,29 @@ define([
 
 ) { 
 
-  var API = '/api/users/createAccount';
+  var API = '/api/invites/pioneers';
   var CHANGE_EVENT = 'change';
 
-  function createAccount(accountObject) {
+  function syncInvite(inviteObject) {
     return $.ajax({
       url: API,
-      type: 'POST',
-      data: JSON.stringify(accountObject),
+      type: 'PUT',
+      data: JSON.stringify(inviteObject),
       contentType: 'application/json',
       success: function(data) {
-        AccountStore.emitChange();
+        InviteSyncStore.emitChange();
       }
     });
   }
 
-  var AccountStore = _.extend({}, EventEmitter.prototype, {
+  var InviteSyncStore = _.extend({}, EventEmitter.prototype, {
+
+    syncInvite: function (inviteObject) {
+      return syncInvite(inviteObject);
+    },
 
     emitChange: function() {
       this.emit(CHANGE_EVENT);
-    },
-
-    createAccount: function (accountObject) {
-      return createAccount(accountObject);
     },
 
     addChangeListener: function(callback) {
@@ -50,5 +50,5 @@ define([
 
   });
 
-  return AccountStore;
+  return InviteSyncStore;
 })
