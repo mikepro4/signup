@@ -102,6 +102,7 @@ define([
       if (!window.location.origin) {
           window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
       }
+      // If the location is not the root, rewrite the URL to work with #, that will trigger a page reload but will work with email URL's
       if (window.location.pathname !== '/') {
           window.location.href = window.location.origin + '/#' + window.location.pathname;
       }
