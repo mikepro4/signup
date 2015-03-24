@@ -57,21 +57,31 @@ define([
       // Main sign up routes
       <Route name="signup" path="/" handler={MainSignup} ignoreScrollBehavior="true" />
       <Route name="signup_market" path="/:market" handler={MainSignup} ignoreScrollBehavior="true" />
-      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} ignoreScrollBehavior="true"  />
+      <Route name="signup_email_market" path="/:email/:market" handler={MainSignup} ignoreScrollBehavior="true" />
 
-      // User routes
-      <Route name="user_info" path="/user/info/" handler={UserInfo} />
-      <Route name="user_reviewing_request" path="/user/reviewing_request/" handler={ReviewingRequest} />
-      <Route name="user_create_account" path="/user/create_account/:token" handler={CreateAccount} />
+      // Launched market – regular users
+      <Route name="user_info" path="/active-market/info/" handler={UserInfo} />
+      <Route name="user_reviewing_request" path="/active-market/reviewing-request/" handler={ReviewingRequest} />
+      <Route name="user_create_account" path="/active-market/create-account/:token" handler={CreateAccount} />
 
-      // Pioneer routes
-      <Route name="pioneer_video" path="/pioneer/video/" handler={Video} />
-      <Route name="pioneer_upload_comps" path="/pioneer/upload_comps/" handler={UploadComps} />
-      <Route name="pioneer_question_1" path="/pioneer/question/1/" handler={Question1} />
-      <Route name="pioneer_question_2" path="/pioneer/question/2/" handler={Question2} />
-      <Route name="pioneer_question_3" path="/pioneer/question/3/" handler={Question3} a/>
-      <Route name="pioneer_complete" path="/pioneer/complete/" handler={PioneerComplete} />
-      <Route name="pioneer_complete_upload" path="/pioneer/complete_upload_guide/" handler={PioneerCompleteUpload} />
+      // Unlaunched market - before choice to become pioneer
+      <Route name="video" path="/launching-market/video/" handler={Video} />
+      <Route name="upload_comps" path="/launching-market/upload-comps/" handler={UploadComps} />
+
+      // Unlaunched market - became pioneers
+      <Route name="pioneer_info" path="/launching-market/pioneer/info/" handler={UserInfo} />
+      <Route name="pioneer_complete_upload" path="/launching-market/pioneer/complete/" handler={PioneerCompleteUpload} />
+
+      // Unlaunched market - did NOT become pioneers
+      <Route name="no_pioneer_question_1" path="/launching-market/no-pioneer/question/1/" handler={Question1} />
+      <Route name="no_pioneer_question_2" path="/launching-market/no-pioneer/question/2/" handler={Question2} />
+      <Route name="no_pioneer_question_3" path="/launching-market/no-pioneer/question/3/" handler={Question3} />
+      <Route name="no_pioneer_info" path="/launching-market/no-pioneer/info/" handler={UserInfo} />
+      <Route name="no_pioneer_complete" path="/launching-market/no-pioneer/complete/" handler={PioneerComplete} /> 
+
+      // No market
+      <Route name="no_market_info" path="/no-market/info/" handler={UserInfo} />
+      <Route name="no_market_complete" path="/no-market/complete/" handler={PioneerComplete} />
 
       <NotFoundRoute handler={MainSignup} />
       <DefaultRoute handler={MainSignup} />

@@ -24,7 +24,7 @@ define([
     render: function() {
 
       return (
-        <Link to="pioneer_video" query={{play: true}}>
+        <Link to="video" query={{play: true}}>
           <a className="video_link">
             <figure className="video_preview">
               <img src="/assets/images/video_preview.jpg"/>

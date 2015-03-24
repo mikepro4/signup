@@ -42,7 +42,7 @@ define([
         mainHeadline: null,
         subHeadline: null,
         promoCodeOpen: false,
-        promoCodeAvailable: false,
+        promoCodeAvailable: this.isActive("user_info") ? true : false,
         continueButtonTitle: 'COMPLETE',
         firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
         lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
@@ -87,35 +87,25 @@ define([
 
     componentDidMount: function() {
       if(this.isMounted()) {
-
         if(!this.checkMobile()) {
           this.refs.firstName.focus();
         }
 
-        if(this.props.inviteValues) {
-          var marketName = MarketStore.getMarketName(this.props.inviteValues.marketId);
-        }
-
-        if(this.getQuery().pioneer) {
-          if(this.getQuery().upload) {
-            this.setState({
-              mainHeadline: 'Complete Pioneer Registration',
-              subHeadline: 'Congratulations ' + marketName + ' Pioneer!',
-              promoCodeAvailable: false
-            })
-          } else {
-            this.setState({
-              mainHeadline: 'Complete Registration',
-              subHeadline: 'We will let you know when your market launches.',
-              promoCodeAvailable: false
-            })
-          }
+        if(this.isActive("pioneer_info")) {
+          this.setState({
+            mainHeadline: 'Complete Pioneer Registration',
+            subHeadline: 'Congratulations ' + MarketStore.getMarketName(this.props.inviteValues.marketId) + ' Pioneer!'
+          });
+        } else if(this.isActive("no_pioneer_info")) {
+          this.setState({
+            mainHeadline: 'Complete Registration',
+            subHeadline: 'We will let you know when your market launches.'
+          });
         } else {
           this.setState({
             mainHeadline: 'Complete Registration',
-            subHeadline: null,
-            promoCodeAvailable: true
-          })
+            subHeadline: null
+          });
         }
       }
     },

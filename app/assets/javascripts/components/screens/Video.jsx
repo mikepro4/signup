@@ -107,7 +107,7 @@ define([
       this.props.updatePioneerData({
         watchedVideo: true
       })
-      this.transitionTo('pioneer_upload_comps');
+      this.transitionTo('upload_comps');
     },
 
     onPlayProgress: function (data) {
@@ -115,7 +115,7 @@ define([
     },
 
     watchVideo: function () {
-      this.replaceWith('pioneer_video', {}, {play: true});
+      this.replaceWith('video', {}, {play: true});
       this.setState({ videoPlaying: true });
       this.vimeoPost('play');
     },
@@ -124,7 +124,7 @@ define([
       this.props.updatePioneerData({
         skippedVideo: true
       });
-      this.transitionTo('pioneer_upload_comps');
+      this.transitionTo('upload_comps');
     },
 
     render: function() {

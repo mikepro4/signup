@@ -83,9 +83,7 @@ define([
         var marketLaunched = false;
       }
 
-      // alter header and footer for different screens
       if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
-        // clear all data when open the main signup screens
         this.clearData();
         this.setState({
           footerVisible: true,
@@ -93,7 +91,7 @@ define([
           loginButton: true,
           contacts: false
         });
-      } else if(this.isActive("pioneer_video")) {
+      } else if(this.isActive("video")) {
         this.setState({
           headerDark: false,
           footerVisible: false,
@@ -170,7 +168,10 @@ define([
           this.state.pioneerData
         );
 
-        InviteSyncStore.syncInvite(salesFroceSyncData);
+        InviteSyncStore.syncInvite(salesFroceSyncData)
+          .error(function () {
+            this.errorHandler();
+          }.bind(this));
       }    
     },
 
@@ -208,22 +209,28 @@ define([
         if(user) {
           this.transitionTo('user_info');
         } else {
-          this.transitionTo('pioneer_video');
+          this.transitionTo('video');
         }
       } else {
-        this.transitionTo('pioneer_complete');
+          this.transitionTo('no_market_info');
       }
     },
 
     routeUserOnInviteUpdate: function(user) {
-      if(user) {
-        this.transitionTo('user_reviewing_request');
-      } else {
-        if(this.state.pioneerData.agreedToUpload) {
-          this.transitionTo('pioneer_complete_upload');
+      var knownMarket = !this.state.invite.madeNoMarket;
+
+      if(knownMarket) {
+        if(user) {
+          this.transitionTo('user_reviewing_request');
         } else {
-          this.transitionTo('pioneer_complete');
+          if(this.state.pioneerData.agreedToUpload) {
+            this.transitionTo('pioneer_complete_upload');
+          } else {
+            this.transitionTo('no_pioneer_complete');
+          }
         }
+      } else {
+          this.transitionTo('no_market_complete');
       }
     },
 

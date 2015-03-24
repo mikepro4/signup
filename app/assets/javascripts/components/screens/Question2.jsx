@@ -50,7 +50,7 @@ define([
       this.props.updatePioneerData({
         question2: answer
       })
-      this.transitionTo('pioneer_question_3');
+      this.transitionTo('no_pioneer_question_3');
     },
 
     render: function() {
