@@ -90,7 +90,7 @@ define([
   );
 
   function browserSupportsPushState() {
-    return false; //(true && window.history && window.history.pushState);
+    return (true && window.history && window.history.pushState);
   }
 
   if (browserSupportsPushState()) {
