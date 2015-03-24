@@ -31,7 +31,8 @@ define([
           'header_white': !this.props.headerDark
         })}>
 
-          <a href="http://compstak.com/" target="_blank" className="cs_logo"> 
+          <a href="http://compstak.com/" target="_blank" className="cs_logo" 
+            title="CompStak – Free lease comp exchange for CRE brokers, appraisers and researchers"> 
             <Icon type="cs_logo" /> 
           </a>
 
