@@ -59,7 +59,6 @@ body {
 
     // trigger scrollbars on smaller screens
     @media only screen and (max-height: @vertical_breakpoint) and (min-width : 870px) {
-      
       overflow-y: scroll;
     }
 
@@ -68,6 +67,7 @@ body {
     @import "ui_components/footer.less";
     @import "ui_components/video_link.less";
     @import "ui_components/faq_item.less";
+    @import "ui_components/throbber.less";
 
     // Main Screen
     @import "screens/main_signup.less";
@@ -85,10 +85,23 @@ body {
   }
 }
 
-// loader for all screens.
-.throbber.throbber_large {
-  &:after {
-    .size(@throbberSize, @throbberSize);
-    margin: -(@throbberSize/2) 0 0 -(@throbberSize/2);
-  }
+//------------------------------------
+// Internet Explorer Fixes
+//------------------------------------
+
+.ie8 {
+  @import "ie/ie8.less";
 }
+
+.ie9 {
+  @import "ie/ie9.less";
+}
+
+.ie10 {
+  @import "ie/ie10.less";
+}
+
+.ie11 {
+  @import "ie/ie11.less";
+}
+
