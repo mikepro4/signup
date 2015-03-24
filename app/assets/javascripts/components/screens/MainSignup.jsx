@@ -108,7 +108,8 @@ define([
 
       // reset router params if manually typing email
       if(this.getParams().email) {
-        this.replaceWith('/' +  this.state.market);
+        var marketName = this.state.market ? this.state.market : '';
+        this.replaceWith('/' +  marketName);
       }
     },
 
