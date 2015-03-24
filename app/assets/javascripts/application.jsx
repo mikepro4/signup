@@ -90,7 +90,7 @@ define([
   );
 
   function browserSupportsPushState() {
-    return (true && window.history && window.history.pushState);
+    return false; //(true && window.history && window.history.pushState);
   }
 
   if (browserSupportsPushState()) {
@@ -98,6 +98,9 @@ define([
       React.render(<Handler/>, document.body);
     });
   } else {
+      if (window.location.pathname !== '/') {
+          window.location.href = window.location.origin + '/#' + window.location.pathname;
+      }
     Router.run(routes, function (Handler) {
       React.render(<Handler/>, document.body);
     });
