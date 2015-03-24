@@ -23,10 +23,6 @@ define([
 
     mixins: [ Router.State, Router.Navigation ],
 
-    handleLogoClick: function() {
-      this.transitionTo('signup');
-    },
-
     render: function() {
       return (
         <header className={classNames({
@@ -35,9 +31,9 @@ define([
           'header_white': !this.props.headerDark
         })}>
 
-          <aside className="cs_logo" onClick={this.handleLogoClick}> 
+          <a href="http://compstak.com/" target="_blank" className="cs_logo"> 
             <Icon type="cs_logo" /> 
-          </aside>
+          </a>
 
           <aside className="login_contacts">
 

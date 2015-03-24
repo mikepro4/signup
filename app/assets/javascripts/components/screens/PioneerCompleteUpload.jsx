@@ -64,7 +64,7 @@ define([
           },
           {
             "question": "Is my identity protected?",
-            "answer": "Yes. CompStak is completely annoymous."
+            "answer": "Yes. CompStak is completely anonymous."
           },
           {
             "question": "What if I change my mind? ",
@@ -140,7 +140,7 @@ define([
           <div className="pioneer_complete_top_sections">
             <h4 className="complete_title">CONGRATS {marketName} PIONEER!</h4>
             <h1 className="upload_email">
-              Please email your comps: <a className="help_email" href="mailto:membership@compstak.com" target="_blank">
+              Please email at least 100 comps: <a className="help_email" href="mailto:membership@compstak.com" target="_blank">
                 membership@compstak.com
               </a>
             </h1>
@@ -148,7 +148,7 @@ define([
 
             <div className="pioneer_description">
               <h5>We hold Pioneer slots for 48 hours. </h5>
-              <p>If we have not recieved comps from you, you may loose your Pioneer status. </p>
+              <p>If we have not recieved minimum 100 comps from you, you may loose your Pioneer status.</p>
               <p>Have Questions? Check out our FAQs Below</p>
             </div>
             
