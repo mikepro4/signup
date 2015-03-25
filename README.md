@@ -15,6 +15,7 @@ $ git checkout <branchName>
 $ git pull --rebase
 $ grunt build deploy:<env>
 ```
+
 As env specify one of the environments: staging, prod, uat
 
 Then ssh to salt (ec2-user@salt-master.cs-int-592.com) and run one of the following formulas:
