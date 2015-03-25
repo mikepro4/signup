@@ -127,9 +127,6 @@ module.exports = function (grunt) {
                     from: 'jsx!',
                     to: ''
                 }, {
-                    from: 'config.js',
-                    to: 'config-prod.js'
-                }, {
                     from: /data-main="[^"]+"/, // javascripts
                     to: function (matchedWord, index, fullText, regexMatches) {
                         var javascript = grunt.config.get('fingerprint').javascripts.files[0];
