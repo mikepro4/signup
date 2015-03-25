@@ -26,7 +26,7 @@ define([
   MarketStore,
 
   // mixins
-  MobileCheck, InviteCheck,
+  InviteCheck, MobileCheck,
 
   // components
   Input, AppFooter
@@ -36,6 +36,12 @@ define([
   var UserInfoScreen = React.createClass({
 
     mixins: [ Router.State, Router.Navigation, InviteCheck, MobileCheck ],
+
+    componentWillMount: function() {
+      this.delayedCallback = _.debounce(function (event) {
+         this.checkPromoCode(event)
+      }.bind(this), 300);
+    },
 
     getInitialState: function() {
       return {
@@ -47,13 +53,17 @@ define([
         firstName: this.props.inviteValues ? this.props.inviteValues.firstName : null,
         lastName: this.props.inviteValues ? this.props.inviteValues.lastName : null,
         companyName: this.props.inviteValues ? this.props.inviteValues.userInfo : null,
-        promotionalCode: this.props.inviteValues ? this.props.inviteValues.promotionalCode : null
+        promoCodeId: null
       }
     },
 
     isNotEmpty: function(value) {
       if(typeof value === 'string') value = value.trim();
       return value
+    },
+
+    isPromoCode: function(value) {
+      return this.checkPromoCode();
     },
 
     handleFirstNameInput: function(event) {
@@ -75,9 +85,33 @@ define([
     },
 
     handlePromoCodeInput: function(event) {
-      this.setState({
-        promotionalCode: event.target.value
+      event.persist();
+      this.delayedCallback(event);
+    },
+
+    checkPromoCode: function (event) {
+      $.ajax({
+        url: '/api/promoCodes?name=' + event.target.value,
+        type: 'GET',
+        success: function(data) {
+          this.setState({
+            promoCodeId: data.id
+          }, function() {
+            this.refs.promoCode.isValid();
+          }.bind(this))
+        }.bind(this),
+        error: function (err) {
+          this.setState({
+            promoCodeId: null
+          }, function() {
+            this.refs.promoCode.isValid();
+          }.bind(this))
+        }.bind(this)
       });
+    },
+
+    isValidCode: function(value) {
+      return this.state.promoCodeId
     },
 
     togglePromoCode: function() {
@@ -120,7 +154,8 @@ define([
         this.props.updateInvite({
           firstName: this.state.firstName,
           lastName: this.state.lastName,
-          userInfo: this.state.companyName
+          userInfo: this.state.companyName,
+          promoCodeId: this.state.promoCodeId
         });
       } else {
         // trigger validation and show errors
@@ -193,9 +228,12 @@ define([
                 <Input 
                   text="Promotional Code" 
                   ref="promoCode"
-                  defaultValue={this.state.promotionalCode} 
-                  value={this.state.promotionalCode}
-                  onChange={this.handlePromoCodeInput} 
+                  defaultValue={this.state.promoCodeId}
+                  validate={this.isValidCode}
+                  value={this.state.promoCodeId}
+                  onChange={this.handlePromoCodeInput}
+                  errorMessage="Promotional code invalid"
+                  emptyMessage="Please provide valid promotional code"
                 /> 
               </div>
 

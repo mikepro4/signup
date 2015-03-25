@@ -109,6 +109,11 @@ define([
           valid: false,
           errorVisible: true
         });
+      } else {
+        this.setState({
+          valid: true,
+          errorVisible: false
+        });
       }
     },
 
@@ -191,7 +196,6 @@ define([
     select: function() {
       this.refs.input.getDOMNode().select();
     },
-
 
     render: function() {
       if(this.state.validator) {
