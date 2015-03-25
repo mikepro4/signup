@@ -52,7 +52,8 @@ define([
     },
 
     isNotEmpty: function(value) {
-      return !_.isEmpty(value.trim());
+      if(typeof value === 'string') value = value.trim();
+      return value
     },
 
     handleFirstNameInput: function(event) {
