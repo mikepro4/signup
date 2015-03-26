@@ -9,7 +9,6 @@
 // vars
 @vertical_breakpoint: 820px;
 @textColor: #545a6a;
-@throbberSize: 70px;
 
 html {
   .size(100%, 100%);
@@ -38,36 +37,17 @@ body {
     .display(absolute);
     .topLeft(0, 0);
     .bottomRight(0, 0);
-    z-index: @layer2;  
-    overflow-x: hidden;  
     .webkit-scrollbar-light();
-
-    // wrap Routehandler in fixed height div for better transitions
-    &.footer_visible {
-      .application_routeHandler {
-        @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) and (min-width: 870px) {
-          .display(relative);
-          height: 490px;
-        }
-
-        @media @mobile {
-          .display(relative);
-          min-height: 430px
-        }
-      }
-    }
+    z-index: @layer2;  
+    overflow-x: hidden; 
 
     // trigger scrollbars on smaller screens
     @media only screen and (max-height: @vertical_breakpoint) and (min-width : 870px) {
       overflow-y: scroll;
-    }
+    } 
 
-    // Components
-    @import "ui_components/header.less";
-    @import "ui_components/footer.less";
-    @import "ui_components/video_link.less";
-    @import "ui_components/faq_item.less";
-    @import "ui_components/throbber.less";
+    // Conatainer for all app's content
+    @import "screens/route_handler.less";
 
     // Main Screen
     @import "screens/main_signup.less";
@@ -82,6 +62,13 @@ body {
     @import "screens/upload_comps_splitter.less";
     @import "screens/questions.less";
     @import "screens/pioneer_complete_upload.less";
+
+    // Components
+    @import "ui_components/header.less";
+    @import "ui_components/footer.less";
+    @import "ui_components/video_link.less";
+    @import "ui_components/faq_item.less";
+    @import "ui_components/throbber.less";
   }
 }
 
@@ -97,11 +84,8 @@ body {
   @import "ie/ie9.less";
 }
 
-.ie10 {
+// IE 10
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   @import "ie/ie10.less";
-}
-
-.ie11 {
-  @import "ie/ie11.less";
 }
 

@@ -9,6 +9,12 @@
     .bottomRight(-50px, 0);
     z-index: @layer2;
     .size(auto, 110%);
+    margin: 0 auto;
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+      background: url("/assets/images/michael_video_preview_bg.jpg") top left no-repeat;
+      background-size: 100% auto;
+    }
   }
 
   .video_page_background {

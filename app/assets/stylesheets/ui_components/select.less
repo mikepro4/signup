@@ -253,6 +253,10 @@
       font-family: @font-gotham-light;
       font-size: 16px;
 
+      &::-ms-clear {
+        display: none;
+      }
+
       @media @mobile {
         height: @input-height-mobile;
         font-size: 14px;

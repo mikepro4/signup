@@ -18,6 +18,7 @@ body {
 
     section.application_content {
       header.application_header {
+        position: relative !important;
         opacity: 1;
 
         .cs_logo {
@@ -59,6 +60,10 @@ body {
           width: 430px;
           margin: 0 auto;
         }
+      }
+
+      .user_info_screen {
+        .display(relative);
       }
 
       .user_info_form {
@@ -132,10 +137,19 @@ body {
 
       .video_screen {
 
+        .pioneer_video {
+          .display(absolute);
+           background: url("/assets/images/michael_video_preview_bg.jpg") top left no-repeat;
+           background-size: 100% auto;
+        }
+
         .video_page_background {
           opacity: 1;
-          top: -800px;
-          bottom: -800px;
+
+          @media only screen and  (min-height: @vertical_breakpoint) {
+            top: -100px;
+            bottom: -400px;
+          }
         }
 
         .video_content_container {
