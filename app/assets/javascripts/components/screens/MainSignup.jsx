@@ -221,7 +221,7 @@ define([
             <p className="signup_description">A free lease comp exchange for CRE brokers, appraisers and researchers.</p>
 
             <a className="signup_landlord_link" href="http://compstak.com/landing/pageSplitProNew" target="_blank">
-              Are you a Landlord, Lendor or Investor?
+              Are you a Landlord, Lender or Investor?
             </a>
 
             <form onSubmit={this.saveAndContinue}>
