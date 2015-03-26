@@ -33,7 +33,7 @@ body {
   z-index: @layer1;
 
   // ALl the content goes here
-  section.application_content {
+  .application_content {
     .display(absolute);
     .topLeft(0, 0);
     .bottomRight(0, 0);
@@ -75,8 +75,9 @@ body {
 //------------------------------------
 // Internet Explorer Fixes
 //------------------------------------
+@import "screens/ie_bumper.less";
 
-.ie8 {
+.ie8, .ie7 {
   @import "ie/ie8.less";
 }
 

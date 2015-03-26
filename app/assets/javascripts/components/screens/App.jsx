@@ -6,6 +6,7 @@ define([
   // components
   'jsx!components/AppHeader',
   'jsx!components/AppFooter',
+  'jsx!./ie_bumper',
   './Stats',
 
   // stores
@@ -25,7 +26,7 @@ define([
   React, Router, _, $,
 
   // components
-  AppHeader, AppFooter, Stats,
+  AppHeader, AppFooter, IeBumper, Stats,
 
   // stores
   InviteStore, InviteSyncStore, MarketStore,
@@ -247,7 +248,7 @@ define([
 
           <Stats isActive={false} />
 
-          <section className={classNames({
+          <div className={classNames({
             'application_content': true,
             'footer_visible': this.state.footerVisible,
             'footer_invisible': !this.state.footerVisible
@@ -275,7 +276,10 @@ define([
             
             <AppFooter visible={this.state.footerVisible} />   
 
-          </section>
+          </div>
+
+          <IeBumper />
+
 
         </div>
       );
