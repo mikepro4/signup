@@ -1,0 +1,57 @@
+.ie_message {
+  display: none;
+  text-align: center;
+  width: 900px;
+  margin: 100px auto;
+
+  h1 {
+    font-size: 30px;
+    font-family: @font-gotham-light;
+    .display(relative);
+    margin: 0 0 15px 0;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-family: @font-gotham-light;
+    .display(relative);
+    margin: 0 0 30px 0;
+    color: @dark-blue;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    .display(relative);
+    margin: 50px auto 40px auto;
+  }
+
+  p {
+    color: lighten(@dark-blue, 30%);
+    letter-spacing: .4px;
+
+    &.contact_information {
+      font-size: 30px;
+      font-family: @font-gotham-light;
+
+      .ie_divider {
+        margin: 0 20px 0 20px;
+        opacity: .3;
+      }
+    }
+  }
+
+  .cs_logo {
+    .display(relative);
+    margin: 0 0 35px 0;
+    svg {
+      margin: 0 auto;
+
+      path {
+        fill: @dark-blue;
+      }
+    }
+  }
+}

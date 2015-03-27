@@ -3,8 +3,6 @@ define([
   'underscore', 'jquery',
 
   // flux
-  'dispatcher/AppDispatcher',
-  'constants/AppConstants',
   'eventemitter'
 
 ], function (
@@ -13,14 +11,12 @@ define([
   _, $,
 
   // flux
-  AppDispatcher, Constants, EventEmitter
+  EventEmitter
 
 ) { 
 
   var API = '/api/users/createAccount';
   var CHANGE_EVENT = 'change';
-
-  var Markets = [];
 
   function createAccount(accountObject) {
     return $.ajax({

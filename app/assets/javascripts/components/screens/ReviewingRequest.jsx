@@ -3,14 +3,22 @@ define([
   // libraries
   'react', 'react-router', 'underscore',
 
-  // components
-  'jsx!components/Icon'
+  // mixins,
+  'jsx!mixins/InviteCheck',
 
+  // components
+  'jsx!components/Icon',
+
+  // utils
+  'classNames'
 
 ], function (
 
   // libraries
   React, Router, _,
+
+  // mixins
+  InviteCheck,
 
   // components
   Icon
@@ -19,17 +27,16 @@ define([
 
   var ReviewingRequestScreen = React.createClass({
 
-    mixins: [ Router.State ],
-
-    componentDidMount: function () {
-      this.props.clearInvite();
-    },
+    mixins: [ Router.State, Router.Navigation, InviteCheck ],
 
     render: function() {
       return (
         <div className="reviewing_request_screen">
 
-          <div className="reviewing_request_content">
+          <div className={classNames({
+            'reviewing_request_content': true,
+            'footer_visible': this.props.footerVisible
+          })}>
             <i className="success_icon"> <Icon type="success_tick"/> </i>
 
             <h1>Reviewing Your Request</h1>

@@ -1,0 +1,248 @@
+body {
+  &:before {
+    content: "Your browser (IE9) is outdated and insecure! Please call CompStak at 1-646-926-6707, we're ready to help you.";
+    .display(fixed);
+    width: 100%;
+    background: @red;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0 17px 0;
+    font-family: @font-opensans-medium;
+    z-index: @layer-top;
+    font-size: 16px;
+    letter-spacing: .2px;
+  }
+
+  .application_wrapper {
+    top: 50px;
+
+    .application_content {
+      header.application_header {
+        position: relative !important;
+        opacity: 1;
+
+        .cs_logo {
+          .display(absolute);
+          .topLeft(35px, 20px);
+          height: 27px;
+        }
+
+        .login_contacts {
+          .display(absolute);
+          .topRight(30px, 20px);
+        }
+      }
+
+      .application_routeHandler{
+        height: 490px;
+
+        @media only screen and (min-width: 1280px) and (min-height: @vertical_breakpoint) {
+          margin: 100px 0 0 0;
+          .display(relative);
+          height: 490px;
+        }
+
+        & > div {
+          opacity: 1;
+        }
+      }
+
+      //===========================================================
+      //===========================================================
+
+      // LAUNCHED MARKET FLOW FIXES
+
+      .main_signup_screen, {
+        width: 620px;
+        margin: 0 auto;
+
+        form {
+          width: 430px;
+          margin: 0 auto;
+        }
+      }
+
+      .user_info_screen {
+        .display(relative);
+      }
+
+      .user_info_form {
+        width: 430px;
+        margin: 0 auto;
+
+        @media only screen and  (min-height: @vertical_breakpoint) {
+          margin-top: 100px;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        form {
+          width: 430px;
+          margin: 0 auto;
+        }
+
+        p {
+          text-align: center;;
+        }
+      }
+
+      .label_text {
+        position: relative;
+        top: 20px !important;
+      }
+
+      .input_focused, .input_hasValue {
+        .label_text {
+          position: relative;
+          top: 10px !important;
+        }
+      }
+
+      .validationIcons {
+        position: absolute;
+        .topRight(25px, 5px);
+      }
+
+      .all_markets_link {
+        text-align: center !important;
+        display: block;
+      }
+
+      .reviewing_request_screen, .pioneer_complete_screen {
+
+        .pioneer_complete_content {
+          margin: 100px 0 0 0;
+        }
+
+        .success_icon {
+          .display(relative);
+          .size(57px, 57px);
+          margin: 0 auto;
+        }
+
+        p {
+          width: 500px;
+          margin: 0 auto 30px auto;
+        }
+      }
+
+      // end LAUNCHED MARKET FLOW FIXES
+
+      //===========================================================
+      //===========================================================
+
+      // UNLAUNCHED MARKET FLOW FIXES
+
+      .video_screen {
+
+        .pioneer_video {
+          .display(absolute);
+           background: url("/assets/images/michael_video_preview_bg.jpg") top left no-repeat;
+           background-size: 100% auto;
+        }
+
+        .video_page_background {
+          opacity: 1;
+
+          @media only screen and  (min-height: @vertical_breakpoint) {
+            top: -100px;
+            bottom: -400px;
+          }
+        }
+
+        .video_content_container {
+          padding: 100px 0 0 0;
+
+          .video_content {
+            i.play_video {
+              opacity: 1;
+            }
+
+            h4 {
+              opacity: 1;
+            }
+
+            h1 {
+              opacity: 1;
+            }
+
+            .button {
+              opacity: 1;
+            }
+          }
+        }
+
+        .video_container {
+          display: none;
+          opacity: 0;
+
+          &.video_playing {
+            .vimeo_video {
+              width: 800px;
+              margin: 0 auto;
+              .display(relative);
+              opacity: 1 !important;
+            }
+
+            .skip_video {
+              .display(relative);
+              opacity: 1 !important;
+            }
+          }
+        }
+      }
+
+      .questions_screen {
+        width: 700px;
+        margin: 0 auto;
+        .display(relative);
+        text-align: center;
+
+        .answers {
+          margin: 0 auto;
+        }
+
+        .answer_item {
+          opacity: 1 !important;
+        }
+      }
+
+      .upload_comps_splitter_screen {
+        width: 700px;
+        margin: 0 auto;
+        .display(relative);
+
+        .upload_comps_content {
+          margin: 0;
+
+          .upload_comps_options {
+            height: 305px;
+
+            .upload_option {
+              float: left;
+
+              &.yes_option {
+                float: right;
+              }
+            }
+          }
+        }
+      }
+
+      footer.application_footer {
+        opacity: 1;
+
+        ul.compstak_description {
+          padding-top: 30px;
+
+          li {
+            float: left;
+            width: 33%;
+          }
+        }
+      }
+    }
+  }
+}

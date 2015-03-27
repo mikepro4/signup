@@ -1,0 +1,229 @@
+.video_screen {
+  .display(absolute);
+  .topLeft(0, 0);
+  .bottomRight(0, 0);
+
+  .pioneer_video {
+    .display(absolute);
+    .topLeft(-50px, 0);
+    .bottomRight(-50px, 0);
+    z-index: @layer2;
+    .size(auto, 110%);
+    margin: 0 auto;
+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+      background: url("/assets/images/michael_video_preview_bg.jpg") top left no-repeat;
+      background-size: 100% auto;
+    }
+  }
+
+  .video_page_background {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    .animation(fadeIn .2s ease-in-out forwards);
+    background : -moz-linear-gradient(50% 0% -90deg,rgba(44, 48, 56, 1) 0%,rgba(71, 76, 89, 1) 100%);
+    background : -webkit-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    background : -webkit-gradient(linear,50% 0% ,50% 100% ,color-stop(0,rgba(44, 48, 56, 1) ),color-stop(1,rgba(71, 76, 89, 1) ));
+    background : -o-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    background : -ms-linear-gradient(-90deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#2C3038', endColorstr='#474C59' ,GradientType=0)";
+    background : linear-gradient(180deg, rgba(44, 48, 56, 1) 0%, rgba(71, 76, 89, 1) 100%);
+    opacity: 0;
+    z-index: @layer1;
+    overflow: hidden;
+  }
+ 
+  .video_cover {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    background: @dark-blue;
+    opacity: .9;
+    z-index: @layer3;
+  }
+
+  .video_content_container {
+    .display(absolute);
+    .topLeft(0, 0);
+    .bottomRight(0, 0);
+    .flex-display();
+    .flex-direction(column);
+    .justify-content(center);
+    .align-items(center);
+    z-index: @layer3;
+    color: #fff;
+
+    @media @mobile {
+      overflow-y: scroll;
+    }
+
+    .video_content {
+      .display(relative);
+      .transition(all 0.3s ease-out);
+      text-align: center;
+
+      &.video_playing {
+        display: none;
+        opacity: 0;
+      }
+
+      i.play_video {
+        .display(relative);
+        .size(66px, 66px);
+        .animation(fadeIn .4s .1s linear forwards);
+        .transition(all 0.2s ease-out);
+        .user-select(none);
+        margin: 0 auto;
+        opacity: 0;
+        cursor: pointer;
+
+        svg {
+          .size(66px, 66px);
+
+          circle {
+            stroke: @light-blue;
+            fill: rgba(0,0,0,0);
+            .transition(all 0.2s ease-out);
+          }
+        }
+
+        &:hover {
+          .scale(1.2);
+
+          svg {
+            circle {
+              fill: @light-blue;
+            }
+          }
+        }
+
+        &:active {
+          .scale(.7);
+        }
+
+        @media @mobile {
+          margin: 32px auto 0 auto;
+
+          i.play_video {
+            .scale(.9);
+          }
+        }
+      }
+
+      h4 {
+        .display(relative);
+        .animation(fadeIn .4s .2s linear forwards);
+        margin: 34px 0 0 0;
+        color: #fff;
+        font-size: 13px;
+        letter-spacing: 1.8px;
+        opacity: 0;
+
+        span {
+          opacity: .4;
+        }
+
+        @media @mobile { 
+          font-size: 10px;
+          line-height: 16px;
+          max-width: 200px;
+          margin: 20px auto 15px auto;
+          font-family: @font-gotham-book;
+        }
+      }
+
+      h1 {
+        .display(relative);
+        .animation(fadeIn .4s .3s linear forwards);
+        margin: 10px 0 35px 0;
+        color: #fff;
+        line-height: 64px;
+        font-size: 56px;
+        opacity: 0;
+
+        @media @mobile { 
+          font-size: 18px;
+          line-height: 22px;
+          font-family: @font-gotham-medium;
+          letter-spacing: .4px;
+          margin-bottom: 25px;
+        }
+      }
+
+      .button {
+        .animation(fadeIn .4s .4s linear forwards);
+        opacity: 0;
+        width: 250px;
+        margin: 0 auto;
+      }      
+    }
+
+    .video_container {
+      display: none;
+      opacity: 0;
+
+
+      .vimeo_video {
+        .size(840px, 470px);
+        opacity: 0;
+
+        @media @mobile { 
+          .display(relative);
+          .topLeft(30px, 0);
+          .size(auto, auto);
+        }    
+      }
+
+      &.video_playing {
+        display: block;
+        opacity: 1;
+        z-index: @layer-top;
+
+        .vimeo_video {
+          .display(relative);
+          .animation(fadeIn 1s linear forwards);
+        }
+
+        .skip_video {
+          .animation(fadeIn 1s 3s linear forwards);
+        }
+      }
+
+      .skip_video {
+        .display(relative);
+        margin: 40px 0 0 0;
+        text-align: center;
+        font-family: @font-gotham-light;
+        letter-spacing: .3px;
+        opacity: 0;
+        font-size: 13px;
+        cursor: pointer;
+
+        span {
+          .transition(all 0.3s ease-out);
+          opacity: .4;
+        }
+
+        i {
+          .transition(all 0.3s ease-out);
+          position: relative;
+          display: inline-block;
+          margin: 0 0 0 10px;
+          top: 2px;
+          opacity: .4;
+
+          path {
+            fill: #fff
+          }
+        }
+
+        &:hover {
+          span, i {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

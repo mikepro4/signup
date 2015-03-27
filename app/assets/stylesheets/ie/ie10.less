@@ -1,0 +1,205 @@
+body {
+  .application_wrapper {
+
+    .application_content {
+      header.application_header {
+        position: relative !important;
+
+        .cs_logo {
+          .display(absolute);
+          .topLeft(35px, 20px);
+          height: 27px;
+        }
+
+        .login_contacts {
+          .display(absolute);
+          .topRight(30px, 20px);
+        }
+      }
+
+      .application_routeHandler{
+        height: 490px;
+      }
+
+      //===========================================================
+      //===========================================================
+
+      // LAUNCHED MARKET FLOW FIXES
+
+      .main_signup_screen {
+        .display(relative);
+        width: 620px;
+        margin: 0 auto;
+      
+        form {
+          width: 430px;
+          margin: 0 auto;
+        }
+      }
+
+      .user_info_screen {
+        .display(relative);
+      }
+
+      .user_info_form {
+        .display(relative);
+        width: 430px;
+        margin: 0 auto;
+        top: 0 !important;
+        bottom: 0 !important;
+
+        h1 {
+          text-align: center;
+          position: relative;
+          width: 560px;
+          left: -65px;
+        }
+
+        form {
+          width: 430px;
+          margin: 0 auto;
+        }
+
+        p {
+          text-align: center;;
+        }
+      }
+
+      .label_text {
+        position: relative;
+        top: 20px !important;
+      }
+
+      .input_focused, .input_hasValue {
+        .label_text {
+          position: relative;
+          top: 10px !important;
+        }
+      }
+
+      .validationIcons {
+        position: absolute;
+        .topRight(25px, 5px);
+      }
+
+      .all_markets_link {
+        text-align: center !important;
+        display: block;
+      }
+
+      .reviewing_request_screen, .pioneer_complete_screen {
+
+        .pioneer_complete_content {
+          margin: 100px 0 0 0;
+        }
+
+        .success_icon {
+          .display(relative);
+          .size(57px, 57px);
+          margin: 0 auto;
+        }
+
+        p {
+          width: 500px;
+          margin: 0 auto 30px auto;
+        }
+      }
+
+      // end LAUNCHED MARKET FLOW FIXES
+
+      //===========================================================
+      //===========================================================
+
+      // UNLAUNCHED MARKET FLOW FIXES
+
+      .video_screen {
+
+        .video_content_container {
+          padding: 150px 0 0 0;
+        }
+
+        .video_container {
+          display: none;
+
+          &.video_playing {
+            .video_page_background {
+              display: none
+            }
+            .vimeo_video {
+              width: 800px;
+              margin: 0 auto;
+              .display(relative);
+            }
+
+            .skip_video {
+              .display(relative);
+            }
+          }
+        }
+      }
+
+      .questions_screen {
+        width: 700px;
+        margin: 0 auto;
+        .display(relative);
+        text-align: center;
+
+        .answers {
+          margin: 0 auto;
+        }
+      }
+
+      .upload_comps_splitter_screen {
+        width: 700px;
+        margin: 0 auto;
+        .display(relative);
+
+        .upload_comps_content {
+          margin: 0;
+
+          .upload_comps_options {
+            height: 305px;
+
+            .upload_option {
+              float: left;
+
+              &.no_option {
+                position: relative;
+                left: -5px;
+              }
+
+              &.yes_option {
+                position: relative;
+                right: -5px;
+                float: right;
+              }
+            }
+          }
+        }
+      }
+
+      footer.application_footer {
+        ul.compstak_description {
+          padding-top: 30px;
+
+          li {
+            display: block;
+            float: left;
+            width: 33%;
+
+            h2 {
+              font-size: 20px;
+              font-family: @font-gotham-light;
+              margin: 10px 0 10px 0;
+            }
+
+            p {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,117 @@
+.questions_screen {
+  .display(absolute);
+  .topLeft(0, 0);
+  .bottomRight(0, 0);  
+  .animation(fadeIn .4s linear forwards);
+  min-height: 520px;
+  color: @textColor;
+  opacity: 0;
+  z-index: @layer2;
+
+  @media @mobile {
+    position: relative;
+    min-height: 450px;
+  }
+
+  .questions_content {
+    .topLeft(0, 0);
+    .bottomRight(50px, 0); 
+    .flex-display();
+    .flex-direction(column);
+    .justify-content(center);
+    .align-items(center);
+    position: absolute;
+    min-height: 400px;
+
+    aside.question_counter {
+      font-family: @font-gotham-light;
+      letter-spacing: 1px;
+      opacity: .5;
+
+      @media @mobile {
+        font-size: 11px;
+      }
+    }
+
+    h1.question {
+      .display(relative);
+      margin: 5px 0 20px 0;
+      font-size: 36px;
+      letter-spacing: 1px;
+
+      @media @mobile {
+        font-size: 18px;
+        text-align: center;
+        max-width: 280px;
+        letter-spacing: .3px;
+        line-height: 24px;
+        font-family: @font-gotham-light;
+      }
+    }
+
+    .answers {
+      .display(relative);
+      width: 340px; 
+
+      @media @mobile { 
+        width: 280px;
+      }
+
+      article {
+        .display(relative);
+        text-align: center;
+        margin: 0 0 20px 0;
+        width: 100%;
+        opacity: 0;
+
+        @media @mobile { 
+          margin: 0 0 15px 0;
+        }
+
+        .generate-animations(10);
+
+        .button {
+          .display(relative);
+          .box-sizing(border-box);
+          .size(100%, 60px);
+          line-height: 60px;
+          background: #fff;
+          color: @dark-blue;
+          font-size: 16px;
+          text-transform: none;
+          letter-spacing: .3px;
+
+          @media @mobile { 
+            height: 50px;
+            line-height: 50px;
+            font-size: 14px;
+          }
+
+          span {
+            opacity: .6;
+          }
+
+          &:hover {
+            background: @light-blue;
+            color: #fff;
+
+            span {
+              opacity: 1;
+            }
+          }
+
+          &:active{
+            background: lighten(@light-blue, 15%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.generate-animations(@n, @i: 1) when (@i =< @n) {
+  &:nth-child(@{i}) {
+    .animation(fadeIn .25s @i*.12s linear forwards);
+  }
+  .generate-animations(@n, (@i + 1));
+}

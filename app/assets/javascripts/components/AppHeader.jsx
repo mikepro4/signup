@@ -4,7 +4,10 @@ define([
 
   // components
   'jsx!components/Icon',
-  'jsx!components/Button'
+  'jsx!components/Button',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -15,33 +18,49 @@ define([
   Icon, Button
 
 ) { 
-  
+
   var AppHeader = React.createClass({
 
     mixins: [ Router.State, Router.Navigation ],
 
-    handleLogoClick: function () {
-      this.transitionTo('signup');
-    },
-
-    render: function () {
-      var headerClassName = 'application_header mode-' + this.props.mode;
-
+    render: function() {
       return (
-        <header className={headerClassName}>
+        <header className={classNames({
+          'application_header': true,
+          'header_dark': this.props.headerDark,
+          'header_white': !this.props.headerDark
+        })}>
 
-          <aside className="cs_logo" onClick={this.handleLogoClick}> 
+          <a href="http://compstak.com/" target="_blank" className="cs_logo" 
+            title="CompStak – Free lease comp exchange for CRE brokers, appraisers and researchers"> 
             <Icon type="cs_logo" /> 
-          </aside>
-          
-          <Button 
-            href="https://exchange.compstak.com/login"
-            className="button button_white have_account_button"
-            text="normal"
-            target="_blank">
-            Have an account?
-          </Button>
+          </a>
 
+          <aside className="login_contacts">
+
+            <ul>
+              <li className={classNames({
+                'hidden': !this.props.contacts
+              })}>
+                <p className="contact_info">
+                  Need help? <span className="info_divider"></span> Call us at <a href="tel:1-646-926-6707">1-646-926-6707</a>
+                </p>
+              </li> 
+
+              <li className={classNames({
+                'hidden': !this.props.loginButton
+              })}>
+                <Button 
+                  href="https://exchange.compstak.com/login"
+                  className="button button_white have_account_button"
+                  text="normal"
+                  target="_blank">
+                  Have an account?
+                </Button>
+              </li>
+            </ul>
+
+          </aside>
         </header>
       );
     }

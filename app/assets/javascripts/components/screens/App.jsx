@@ -6,14 +6,19 @@ define([
   // components
   'jsx!components/AppHeader',
   'jsx!components/AppFooter',
+  'jsx!./ie_bumper',
   './Stats',
 
   // stores
   'stores/InviteStore',
+  'stores/InviteSyncStore',
   'stores/MarketStore',
 
   // flux
-  'actions/AppActions'
+  'actions/AppActions',
+
+  // utils
+  'classNames'
 
 ], function (
 
@@ -21,10 +26,10 @@ define([
   React, Router, _, $,
 
   // components
-  AppHeader, AppFooter, Stats,
+  AppHeader, AppFooter, IeBumper, Stats,
 
   // stores
-  InviteStore, MarketStore,
+  InviteStore, InviteSyncStore, MarketStore,
 
   // flux
   Actions
@@ -36,27 +41,79 @@ define([
   var Redirect = Router.Redirect;
   var RouteHandler = Router.RouteHandler;
 
-  var cx = React.addons.classSet;
-
   var App = React.createClass({
 
     mixins: [ Router.State, Router.Navigation ],
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         footerVisible: true,
-        headerMode: 'light',
-        invite: null
+        headerDark: true,
+        loginButton: true,
+        contacts: false,
+        allMarkets: null,
+        invite: null,
+        pioneerData: null,
+        loading: true
       }
     },
 
-    componentDidMount: function () {
-      this.clearInvite();
-      InviteStore.addChangeListener(this.updateInviteValues);
+    componentWillMount: function() {
+      Actions.loadMarkets();
+      this.toggleUiElements();
     },
 
-    componentWillUnmount: function () {
+    componentDidMount: function() {
+      MarketStore.addChangeListener(this.updateMarkets);
+      InviteStore.addChangeListener(this.updateInviteValues);    
+    },
+
+    componentWillUnmount: function() {
+      MarketStore.removeChangeListener(this.updateMarkets);
       InviteStore.removeChangeListener(this.updateInviteValues);
+    },
+
+    componentWillReceiveProps: function() {
+      this.toggleUiElements();
+    },
+
+    toggleUiElements: function () {
+       if(this.state.invite) {
+        var marketLaunched = MarketStore.getMarketStateById(this.state.invite.marketId);
+      } else {
+        var marketLaunched = false;
+      }
+
+      if(this.isActive("signup") || this.isActive("signup_market") || this.isActive("signup_email_market")) {
+        this.clearData();
+        this.setState({
+          footerVisible: true,
+          headerDark: true,
+          loginButton: true,
+          contacts: false
+        });
+      } else if(this.isActive("video")) {
+        this.setState({
+          headerDark: false,
+          footerVisible: false,
+          loginButton: false,
+          contacts: true
+        });
+      } else if(this.isActive("pioneer_complete_upload")) {
+        this.setState({
+          headerDark: true,
+          footerVisible: false,
+          loginButton: false,
+          contacts: true
+        });
+      } else { 
+        this.setState({
+          headerDark: true,
+          footerVisible: marketLaunched ? true : false,
+          loginButton: false,
+          contacts: true
+        });
+      }
     },
 
     updateInviteValues: function(cb) {
@@ -67,78 +124,162 @@ define([
       }.bind(this));
     },
 
+    updateMarkets: function() {
+      this.setState({
+        allMarkets: MarketStore.getMarkets(),
+        loading: false
+      });
+    }, 
+
     updateInvite: function(value) {
+      this.setState({ loading: true });
       Actions.updateInvite(value);
       this.updateInviteValues(this.nextScreen);
     },
 
-    clearInvite: function() {
-      this.setState({ invite: null });
+    clearData: function() {
+      this.setState({ 
+        invite: null, 
+        pioneerData: null  
+      });
       InviteStore.clearInvite();
     },
 
-    nextScreen: function () {
-      var Invite = this.state.invite;
-      console.log(Invite);
-      
-      if(_.isEmpty(Invite.email) || _.isEmpty(Invite.firstName) || _.isEmpty(Invite.lastName)) {
+    updatePioneerData: function(data) {
+      var pioneerData = this.state.pioneerData;
+      this.setState({ 
+        pioneerData: _.extend({}, pioneerData, data) 
+      }, function () {
+        this.syncInviteData();
+      }.bind(this));
+    },
 
-        InviteStore.loadInvite(Invite.email, Invite.marketId)
+    syncInviteData: function() {
+      if(this.state.invite) {
+        var knownMarket = !this.state.invite.madeNoMarket;
+        var salesFroceSyncData = _.extend({}, 
+        {
+          inviteId: this.state.invite.id,
+          email: this.state.invite.email,
+          market: knownMarket ? MarketStore.getMarketName(this.state.invite.marketId) : this.state.invite.customMarket,
+          firstName: this.state.invite.firstName,
+          lastName: this.state.invite.lastName,
+          company: this.state.invite.userInfo
+        }, 
+          this.state.pioneerData
+        );
+
+        InviteSyncStore.syncInvite(salesFroceSyncData)
+          .error(function () {
+            this.errorHandler();
+          }.bind(this));
+      }    
+    },
+
+    nextScreen: function() {
+      var user = MarketStore.getMarketStateById(this.state.invite.marketId) ? true : false;
+
+      if(_.isEmpty(this.state.invite.firstName)) {
+
+        InviteStore.loadInvite()
           .done(function () {
-            this.transitionTo('user_info');
+            this.routeUserOnInviteLoad(user);
+            this.setState({ loading: false });
           }.bind(this))
           .error(function (xhr) {
             this.errorHandler();
           }.bind(this));
-        
+
       } else {
-        var inviteObject = localStorage.getItem('inviteObject')
 
         InviteStore.postInvite()
           .done(function() {
-            this.transitionTo('user_reviewing_request');
-          }.bind(this)).error(function (xhr) {
+            this.routeUserOnInviteUpdate(user);
+            this.setState({ loading: false });
+          }.bind(this))
+          .error(function (xhr) {
             this.errorHandler();
           }.bind(this));
-
-      } 
+      }
     },
 
-    errorHandler: function () {
-      alert('Sorry there was an error');
+    routeUserOnInviteLoad: function(user) {
+      var knownMarket = !this.state.invite.madeNoMarket;
+
+      if(knownMarket) {
+        if(user) {
+          this.transitionTo('user_info');
+        } else {
+          this.transitionTo('video');
+        }
+      } else {
+          this.transitionTo('no_market_info');
+      }
+    },
+
+    routeUserOnInviteUpdate: function(user) {
+      var knownMarket = !this.state.invite.madeNoMarket;
+
+      if(knownMarket) {
+        if(user) {
+          this.transitionTo('user_reviewing_request');
+        } else {
+          if(this.state.pioneerData.agreedToUpload) {
+            this.transitionTo('pioneer_complete_upload');
+          } else {
+            this.transitionTo('no_pioneer_complete');
+          }
+        }
+      } else {
+          this.transitionTo('no_market_complete');
+      }
+    },
+
+    errorHandler: function() {
+      alert("Sorry there was an error. You'll have to start over.");
       this.transitionTo('signup');
+      this.clearData();
+      this.setState({ loading: false });
     },
 
-    render: function () {
-      var appContentClasses = cx({
-        'application_content':   true,
-        'footer_visible':        this.state.footerVisible,
-        'footer_invisible':      !this.state.footerVisible
-      });
-        
+    render: function() {
       return (
          <div className="application_wrapper">
 
           <Stats isActive={false} />
 
-          <section className={appContentClasses}>
+          <div className={classNames({
+            'application_content': true,
+            'footer_visible': this.state.footerVisible,
+            'footer_invisible': !this.state.footerVisible
+          })}>
 
-           <AppHeader mode={this.state.headerMode} />
+            <AppHeader 
+              headerDark={this.state.headerDark} 
+              loginButton={this.state.loginButton}
+              contacts={this.state.contacts}
+            />
 
             <div className="application_routeHandler">
               <RouteHandler 
                 {...this.props} 
-                nextScreen={this.nextScreen}
-                getInvite={this.getInvite}
-                updateInvite={this.updateInvite}
-                clearInvite={this.clearInvite}
+                footerVisible={this.state.footerVisible}
+                loading={this.state.loading}
+                allMarkets={this.state.allMarkets}
                 inviteValues={this.state.invite}
+                nextScreen={this.nextScreen}
+                updateInvite={this.updateInvite}
+                updatePioneerData={this.updatePioneerData}
+                syncData={this.syncInviteData}
               />
             </div>
             
             <AppFooter visible={this.state.footerVisible} />   
 
-          </section>
+          </div>
+
+          <IeBumper />
+
 
         </div>
       );

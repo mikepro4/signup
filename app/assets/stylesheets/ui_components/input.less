@@ -46,10 +46,11 @@
 
   &.input_focused, &.input_hasValue {
     label.input_label {
-      height: 46px;
+      height: 31px;
+      .align-items(flex-end);
 
       @media @mobile {
-        height: 40px
+        height: 30px
       }
 
       .label_text {
@@ -84,10 +85,16 @@
     font-size: 16px;
     height: 70px;
 
+    &::-ms-clear {
+      display: none;
+    }
+
     @media @mobile {
       font-size: 14px;
       padding: 15px 15px 0 15px;
       height: @input-height-mobile;
+      font-family: @font-gotham-book;
+      letter-spacing: .2px;
     }
 
     &:-webkit-autofill {

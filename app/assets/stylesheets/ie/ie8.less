@@ -1,0 +1,41 @@
+body {
+  overflow: scroll;
+
+  &:before {
+    content: "Your browser (IE8) is outdated and insecure! Please call CompStak at 1-646-926-6707, we're ready to help you.";
+    .display(fixed);
+    width: 100%;
+    background: @red;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0 17px 0;
+    font-family: @font-opensans-medium;
+    z-index: @layer-top;
+    font-size: 16px;
+    letter-spacing: .2px;
+  }
+}
+
+.ie_message {
+  display: block;
+}
+
+.application_header {
+  display: none !important;
+}
+
+.application_content {
+  display: none !important;
+}
+
+.application_routeHandler{
+  display: none !important;
+}
+
+.application_footer {
+  display: none !important;
+
+  ul {
+    display: none !important;
+  }
+}

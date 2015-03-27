@@ -1,0 +1,9 @@
+@throbberSize: 70px;
+
+// loader for all screens.
+.throbber.throbber_large {
+  &:after {
+    .size(@throbberSize, @throbberSize);
+    margin: -(@throbberSize/2) 0 0 -(@throbberSize/2);
+  }
+}

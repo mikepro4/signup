@@ -1,4 +1,4 @@
-.reviewing_request_screen {
+.reviewing_request_screen, .pioneer_complete_screen {
   .display(absolute);
   .topLeft(0, 0);
   .bottomRight(0, 0);  
@@ -12,16 +12,20 @@
     min-height: 450px;
   }
 
-  .reviewing_request_content {
+  .reviewing_request_content, .pioneer_complete_content {
     .display(absolute);
     .topLeft(0, 0);
-    .bottomRight(@footer-height, 0); 
+    .bottomRight(0, 0); 
     .flex-display();
     .flex-direction(column);
     .justify-content(center);
     .align-items(center);
     text-align: center;
     min-height: 400px;
+
+    &.footer_visible {
+      .bottomRight(@footer-height, 0);
+    }
 
     .success_icon {
       svg {
@@ -74,10 +78,6 @@
         font-size: 26px;
         margin: 5px 0 5px 0;
         cursor: pointer;
-
-        &:hover {
-          text-decoration: underline;
-        }
       }
       .help_phone {
         font-size: 20px

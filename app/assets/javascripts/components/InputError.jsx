@@ -1,7 +1,10 @@
 define([
 
   // libraries
-  'react', 'underscore', 'jquery'
+  'react', 'underscore', 'jquery',
+
+  // utils
+  'classNames'
   
 ], function (
 
@@ -10,18 +13,16 @@ define([
 
 ) { 
 
-  var cx = React.addons.classSet;
-
   var InputError = React.createClass({
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         message: 'Input is invalid'
       };
     },
 
-    render: function(){ 
-      var errorClass = cx({
+    render: function() { 
+      var errorClass = classNames({
         'error_container':   true,
         'visible':           this.props.visible,
         'invisible':         !this.props.visible

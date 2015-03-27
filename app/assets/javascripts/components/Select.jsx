@@ -3,13 +3,15 @@ define([
   'react', 'underscore',
 
     // components
-  'jsx!components/InputError'
+  'jsx!components/InputError',
+  'jsx!components/Icon'
 
 ], function (
 
     React, _,
 
-    InputError
+    InputError,
+    Icon
 
 ) { 
 
@@ -184,7 +186,9 @@ define([
       matchPos: React.PropTypes.string,          // (any|start) match the start or entire string when filtering
       matchProp: React.PropTypes.string,         // (any|label|value) which option property to filter on
       errorMessage: React.PropTypes.string,
-      errorVisible: React.PropTypes.bool
+      errorVisible: React.PropTypes.bool,
+      noMarketOption: React.PropTypes.bool,
+      handleNoMarketClick: React.PropTypes.func
     },
 
     getDefaultProps: function() {
@@ -206,7 +210,9 @@ define([
         onChange: undefined,
         className: undefined,
         matchPos: 'any',
-        matchProp: 'any'
+        matchProp: 'any',
+        noMarketOption: false,
+        handleNoMarketClick: undefined
       };
     },
 
@@ -226,7 +232,8 @@ define([
         isOpen: false,
         isLoading: false,
         errorVisible: false,
-        errorMessage: this.props.errorMessage
+        errorMessage: this.props.errorMessage,
+        noMarketOption: this.props.noMarketOption
       };
     },
 
@@ -668,7 +675,20 @@ define([
 
     },
 
-    isValid: function () {
+    noMarketOption: function() {
+      if(this.state.noMarketOption) {
+        return (
+          <div className="noMarketOption" onMouseDown={this.handleMouseDown}>
+            <div className="noMarketTrigger" onClick={this.props.handleNoMarketClick}>
+              <Icon type="pin"></Icon>
+              <span>Don't see your market?</span>
+            </div>
+          </div>
+        )
+      }
+    },
+
+    isValid: function() {
       if(_.isEmpty(this.state.value)) {
         this.setState({
           valid: false,
@@ -709,7 +729,9 @@ define([
 
       var loading = this.state.isLoading ? <span className="Select-loading" aria-hidden="true" /> : null;
       var clear = this.props.clearable && this.state.value ? <span className="Select-clear" title={this.props.multi ? this.props.clearAllText : this.props.clearValueText} aria-label={this.props.multi ? this.props.clearAllText : this.props.clearValueText} onMouseDown={this.clearValue} onClick={this.clearValue} dangerouslySetInnerHTML={{ __html: '&times;' }} /> : null;
-      var menu = this.state.isOpen ? <div ref="menu" onMouseDown={this.handleMouseDown} className="Select-menu">{this.buildMenu()} </div> : null;
+      var menu = this.state.isOpen 
+        ? <div ref="menu" onMouseDown={this.handleMouseDown} className="Select-menu">{this.buildMenu()} {this.noMarketOption()}</div> 
+        : null;
 
       var commonProps = {
         ref: 'input',

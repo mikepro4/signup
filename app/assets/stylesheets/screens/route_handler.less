@@ -1,0 +1,13 @@
+&.footer_visible {
+  .application_routeHandler {
+    @media only screen and (min-height: 0) and (max-height: @vertical_breakpoint) and (min-width: 870px) {
+      .display(relative);
+      height: 500px;
+    }
+
+    @media @mobile {
+      .display(relative);
+      min-height: 430px
+    }
+  }
+}

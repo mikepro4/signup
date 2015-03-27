@@ -10,7 +10,7 @@ header.application_header {
   padding: 0 35px;
   position: relative;
   right: 0; 
-  z-index: @layer3;
+  z-index: @layer-top;
   opacity: 0;
 
   @media @mobile {
@@ -20,6 +20,37 @@ header.application_header {
 
   @media only screen and (min-height: @vertical_breakpoint) {
     position: absolute;
+  }
+
+  .contact_info {
+    font-size: 12px;
+    letter-spacing: .3px;
+    .transition(all 0.2s ease-out);
+    text-align: right;
+    color: @dark-blue;
+
+    a {
+      color: @dark-blue;
+    }
+
+    @media @mobile {
+      font-size: 10px;
+      position: relative;
+      top: 3px;
+      letter-spacing: .1px;
+    }
+
+    .info_divider {
+      &:after {
+        content: '\2013';
+
+        @media @mobile {
+          .display(relative);
+          content: '';
+          clear: both;
+        }
+      } 
+    }  
   }
 
   .cs_logo {
@@ -71,6 +102,24 @@ header.application_header {
     @media @mobile {
       width: 100px;
       font-size: 11px;
+    }
+  }
+
+  &.header_white {
+    color: #fff;
+
+    a {
+      color: #fff;
+    }
+
+    .cs_logo {
+      path {
+        fill: #fff;
+      }
+    }
+
+    .contact_info { 
+      color: #fff; 
     }
   }
 }

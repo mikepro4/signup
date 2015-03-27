@@ -8,6 +8,9 @@ define([
   // components
   'jsx!components/Icon',
 
+  // utils
+  'classNames'
+
 ], function (
 
   // libraries
@@ -20,26 +23,29 @@ define([
   Icon
 
 ) { 
-
-  var cx = React.addons.classSet;
   
   var MarketInfo = React.createClass({
 
     mixins: [ Router.State ],
 
-    getInitialState: function(){
+    getInitialState: function() {
       return {
         visibility: false
       }
     },
 
-    getMarketDisplayName: function () {
-      var matchedMarked = MarketStore.getMarketByName(this.props.market);
-      return !_.isUndefined(matchedMarked) ? matchedMarked.value : 'Join CompStak'
+    getMarketDisplayName: function() {
+      if (!this.props.noMarket){
+        var matchedMarked = MarketStore.getMarketByName(this.props.market);
+        return !_.isUndefined(matchedMarked) ? matchedMarked.value : 'Join CompStak'
+      } else {
+        return 'Where are you?'
+      }
+      
     },
 
-    render: function () {
-      var labelClass = cx({
+    render: function() {
+      var labelClass = classNames({
         'launching_soon_label':  true,
         'hidden':                !this.props.visibility
       });
