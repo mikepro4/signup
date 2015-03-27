@@ -169,7 +169,7 @@ define([
             })}>
 
               <iframe 
-                src="http://player.vimeo.com/video/120016796?api=1" 
+                src="https://player.vimeo.com/video/120016796?api=1"
                 className="vimeo_video"
                 frameBorder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
               </iframe>
